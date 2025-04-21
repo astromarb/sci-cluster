@@ -11,6 +11,7 @@ else
         export PATH="/home/ec2-user/miniconda3/bin:$PATH"
     fi
 fi
-
+unset __conda_setup
 # <<< conda initialize <<<
 
+source ~/sci-cluster/scripts/conda-init.sh
