@@ -1,0 +1,5 @@
+/.ssh/
+/.local/
+/.config/
+/.conda/
+/.cache/
