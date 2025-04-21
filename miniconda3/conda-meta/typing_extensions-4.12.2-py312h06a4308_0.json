@@ -1,0 +1,44 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/typing_extensions-4.12.2-py312h06a4308_0",
+  "files": [
+    "lib/python3.12/site-packages/__pycache__/typing_extensions.cpython-312.pyc",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/LICENSE",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/METADATA",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/RECORD",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/WHEEL",
+    "lib/python3.12/site-packages/typing_extensions-4.12.2.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/typing_extensions.py"
+  ],
+  "fn": "typing_extensions-4.12.2-py312h06a4308_0.conda",
+  "license": "PSF-2.0",
+  "license_family": "PSF",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/typing_extensions-4.12.2-py312h06a4308_0",
+    "type": 1
+  },
+  "md5": "0b559bb3855c875d6737a9a6c1773abd",
+  "name": "typing_extensions",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/typing_extensions-4.12.2-py312h06a4308_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::typing_extensions==4.12.2=py312h06a4308_0[md5=0b559bb3855c875d6737a9a6c1773abd]",
+  "sha256": "56b6d3f1199f1f857fbde3c7128c5913805d79a1ade857bd104cb46853f9b97c",
+  "size": 80703,
+  "subdir": "linux-64",
+  "timestamp": 1734714909000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/typing_extensions-4.12.2-py312h06a4308_0.conda",
+  "version": "4.12.2"
+}

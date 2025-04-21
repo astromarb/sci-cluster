@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "referencing >=0.28.0"
+  ],
+  "fn": "jsonschema-specifications-2023.7.1-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "4a3e8dd4b08a13007db2038e6d0ee144",
+  "name": "jsonschema-specifications",
+  "platform": "linux",
+  "sha256": "14b74c007faeb28e3c2fc898942ee17db32b253e6a9b20f4033d05e277683bfa",
+  "size": 15639,
+  "subdir": "linux-64",
+  "timestamp": 1701731703000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jsonschema-specifications-2023.7.1-py312h06a4308_0.conda",
+  "version": "2023.7.1"
+}

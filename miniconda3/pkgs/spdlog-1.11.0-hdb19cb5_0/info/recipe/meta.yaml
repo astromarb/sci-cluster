@@ -1,0 +1,98 @@
+# This file created by conda-build 3.22.0
+# ------------------------------------------------
+
+package:
+  name: spdlog
+  version: 1.11.0
+source:
+  sha256: ca5cae8d6cac15dae0ec63b21d6ad3530070650f68076f3a4a862ca293a858bb
+  url: https://github.com/gabime/spdlog/archive/v1.11.0.tar.gz
+build:
+  number: 0
+  run_exports:
+    - spdlog >=1.11.0,<2.0a0
+  string: hdb19cb5_0
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - _sysroot_linux-64_curr_repodata_hack 3 haa98f57_10
+    - binutils_impl_linux-64 2.38 h2a08ee3_1
+    - binutils_linux-64 2.38.0 hc2dff05_0
+    - bzip2 1.0.8 h7b6447c_0
+    - c-ares 1.18.1 h7f8727e_0
+    - ca-certificates 2023.01.10 h06a4308_0
+    - cmake 3.22.1 h1fce559_0
+    - expat 2.4.9 h6a678d5_0
+    - gcc_impl_linux-64 11.2.0 h1234567_1
+    - gcc_linux-64 11.2.0 h5c386dc_0
+    - gxx_impl_linux-64 11.2.0 h1234567_1
+    - gxx_linux-64 11.2.0 hc2dff05_0
+    - kernel-headers_linux-64 3.10.0 h57e8cba_10
+    - krb5 1.19.4 h568e23c_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libcurl 7.87.0 h91b91d3_0
+    - libedit 3.1.20221030 h5eee18b_0
+    - libev 4.33 h7f8727e_1
+    - libffi 3.4.2 h6a678d5_6
+    - libgcc-devel_linux-64 11.2.0 h1234567_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libnghttp2 1.46.0 hce63b2e_0
+    - libssh2 1.10.0 h8f2d780_0
+    - libstdcxx-devel_linux-64 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - libuv 1.40.0 h7b6447c_0
+    - lz4-c 1.9.4 h6a678d5_0
+    - ncurses 6.4 h6a678d5_0
+    - ninja 1.10.2 h06a4308_5
+    - ninja-base 1.10.2 hd09550d_5
+    - openssl 1.1.1t h7f8727e_0
+    - python 3.11.0 h7a1cb2a_2
+    - readline 8.2 h5eee18b_0
+    - rhash 1.4.1 h3c74f83_1
+    - sqlite 3.40.1 h5082296_0
+    - sysroot_linux-64 2.17 h57e8cba_10
+    - tk 8.6.12 h1ccaba5_0
+    - tzdata 2022g h04d1e81_0
+    - xz 5.2.10 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_0
+    - zstd 1.5.2 ha4553b6_0
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - fmt 9.1.0 hdb19cb5_0
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+  run:
+    - fmt >=9.1.0,<10.0a0
+    - libgcc-ng >=11.2.0
+    - libstdcxx-ng >=11.2.0
+test:
+  commands:
+    - test -e $PREFIX/include/spdlog/spdlog.h
+about:
+  description: 'spdlog is a header only library for Super fast C++ logging
+
+    to be used with a C++11 compiler.
+
+    '
+  dev_url: https://github.com/gabime/spdlog
+  doc_url: https://github.com/gabime/spdlog/wiki/1.-QuickStart
+  home: https://github.com/gabime/spdlog
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Super fast C++ logging library.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: ac198c88-7c23-4c1e-a35d-45486f20c6c1
+  recipe-maintainers:
+    - bluescarni
+    - druvus
+    - rongou
+  remote_url: git@github.com:AnacondaRecipes/spdlog-feedstock.git
+  sha: ce0071cb793cfd6c85f53a912eadb9a51d786988

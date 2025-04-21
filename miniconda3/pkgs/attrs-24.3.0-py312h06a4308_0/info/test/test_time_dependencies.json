@@ -1,0 +1,1 @@
+["hypothesis", "pytest >=4.3.0", "cloudpickle", "pip", "psutil", "mypy >=1.1.1", "pytest-xdist"]

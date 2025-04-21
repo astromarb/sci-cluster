@@ -1,0 +1,55 @@
+{% set name = "pydantic" %}
+{% set version = "2.10.3" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: cb5ac360ce894ceacd69c403187900a02c4b20b693a9dd1d643e1effab9eadf9
+
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<38]
+
+requirements:
+  host:
+    - python
+    - pip
+    - hatchling
+    - hatch-fancy-pypi-readme >=22.5.0
+  run:
+    - python
+    - typing-extensions >=4.12.2
+    - annotated-types >=0.6.0
+    - pydantic-core ==2.27.1
+  run_constrained:
+    - email-validator >=2.0.0
+
+test:
+  imports:
+    - pydantic
+  requires:
+    - pip
+  commands:
+    - pip check
+
+about:
+  home: https://github.com/pydantic/pydantic
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Data validation and settings management using python type hinting
+  description: |
+    Data validation and settings management using python type hinting.
+    See documentation doc_url for more details.
+  doc_url: https://docs.pydantic.dev/latest/
+  dev_url: https://github.com/pydantic/pydantic
+
+extra:
+  recipe-maintainers:
+    - samuelcolvin
+    - dgasmith

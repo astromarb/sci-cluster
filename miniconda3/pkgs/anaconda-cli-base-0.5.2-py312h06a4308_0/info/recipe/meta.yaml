@@ -1,0 +1,97 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Fri Mar  7 17:43:56 2025
+# ------------------------------------------------
+
+package:
+  name: anaconda-cli-base
+  version: 0.5.2
+source:
+  sha256: 96ba616ae7091ef2cb5bd473dc164c68e2328ba98b70ce5afbfe7ad3123c8081
+  url: https://pypi.io/packages/source/a/anaconda-cli-base/anaconda_cli_base-0.5.2.tar.gz
+build:
+  entry_points:
+    - anaconda = anaconda_cli_base.cli:app
+  number: '0'
+  script: /croot/anaconda-cli-base_1741369443553/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold/bin/python
+    -m pip install . -vv --no-deps --no-build-isolation
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2025.2.25 h06a4308_0
+    - expat 2.6.4 h6a678d5_0
+    - hatch-vcs 0.3.0 py312h06a4308_1
+    - hatchling 1.27.0 py312h06a4308_0
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.16 h5eee18b_0
+    - packaging 24.2 py312h06a4308_0
+    - pathspec 0.10.3 py312h06a4308_0
+    - pip 25.0 py312h06a4308_0
+    - pluggy 1.5.0 py312h06a4308_0
+    - python 3.12.9 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 75.8.0 py312h06a4308_0
+    - setuptools-scm 8.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - trove-classifiers 2024.10.14 py312h06a4308_0
+    - tzdata 2025a h04d1e81_0
+    - wheel 0.45.1 py312h06a4308_0
+    - xz 5.6.4 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - click
+    - pydantic-settings >=2.3
+    - python >=3.12,<3.13.0a0
+    - readchar
+    - rich
+    - tomli
+    - typer
+  run_constrained:
+    - anaconda-client >=1.13.0
+    - anaconda-cloud-cli >=0.3.0
+test:
+  commands:
+    - pip check
+    - anaconda -h
+    - anaconda -V
+    - python -c "from anaconda_cli_base import __version__; assert __version__ ==
+      \"0.5.2\""
+    - python -c "from importlib.metadata import version; assert(version('anaconda-cli-base')=='0.5.2')"
+    - pytest -v tests
+  imports:
+    - anaconda_cli_base
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - types-requests
+  source_files:
+    - tests
+about:
+  description: A base CLI entrypoint supporting Anaconda CLI plugins
+  dev_url: https://pypi.org/project/anaconda-cli-base/
+  doc_url: https://pypi.org/project/anaconda-cli-base/
+  home: https://anaconda.cloud
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: A base CLI entrypoint supporting Anaconda CLI plugins
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: cb6008d0-296d-4856-a313-1002c9e1664a
+  recipe-maintainers:
+    - albertdefusco
+    - mattkram
+  remote_url: git@github.com:AnacondaRecipes/anaconda-cli-base-feedstock.git
+  sha: 945811f50b8db47f54b1ddc3687d07d1981207ef

@@ -1,0 +1,94 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Wed Jun 12 21:17:32 2024
+# ------------------------------------------------
+
+package:
+  name: traitlets
+  version: 5.14.3
+source:
+  sha256: 9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7
+  url: https://pypi.io/packages/source/t/traitlets/traitlets-5.14.3.tar.gz
+build:
+  number: '0'
+  script: /croot/traitlets_1718227057033/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/bin/python
+    -m pip install . --no-deps --no-build-isolation
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.3.11 h06a4308_0
+    - editables 0.3 py312h06a4308_0
+    - expat 2.6.2 h6a678d5_0
+    - hatchling 1.21.1 py312h06a4308_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.13 h7f8727e_2
+    - packaging 23.2 py312h06a4308_0
+    - pathspec 0.10.3 py312h06a4308_0
+    - pip 24.0 py312h06a4308_0
+    - pluggy 1.0.0 py312h06a4308_1
+    - python 3.12.3 h996f2a0_1
+    - readline 8.2 h5eee18b_0
+    - setuptools 69.5.1 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - trove-classifiers 2023.10.18 py312h06a4308_0
+    - tzdata 2024a h04d1e81_0
+    - wheel 0.43.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - pip check
+    - pytest tests
+  imports:
+    - traitlets
+    - traitlets.config
+  requires:
+    - pip
+    - pytest
+  source_files:
+    - tests
+about:
+  description: 'Traitlets is a framework that lets Python classes have attributes
+    with
+
+    type checking, dynamically calculated default values, and "on change"
+
+    callbacks.
+
+    '
+  dev_url: https://github.com/ipython/traitlets
+  doc_url: https://traitlets.readthedocs.org/en/stable/
+  home: https://traitlets.readthedocs.io/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Configuration system for Python applications
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 0fba00c8-d368-421b-b200-0d8707f379f4
+  recipe-maintainers:
+    - Carreau
+    - SylvainCorlay
+    - blink1073
+    - jakirkham
+    - minrk
+    - ocefpaf
+    - pelson
+    - rmorshea
+    - takluyver
+    - zsailer
+  remote_url: git@github.com:AnacondaRecipes/traitlets-feedstock.git
+  sha: 9954b42633946adb6e74e9e60f5b0d02c5d78be6

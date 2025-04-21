@@ -1,0 +1,22 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "fn": "traitlets-5.14.3-py312h06a4308_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "e597b4bbf8d30abd7ae5ac5d4a436176",
+  "name": "traitlets",
+  "platform": "linux",
+  "sha256": "261b950bc64b1347c081f6c13ba36e19423d648950f5872323a5ff5baa4e1482",
+  "size": 224723,
+  "subdir": "linux-64",
+  "timestamp": 1718227082000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/traitlets-5.14.3-py312h06a4308_0.conda",
+  "version": "5.14.3"
+}

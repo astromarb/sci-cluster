@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "traitlets >=5.3",
+    "platformdirs >=2.5"
+  ],
+  "fn": "jupyter_core-5.7.2-py312h06a4308_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "f74ba359b10915d569269b982b942455",
+  "name": "jupyter_core",
+  "platform": "linux",
+  "sha256": "6d9c3d3fe6da1a4e98fc505fc195360b34f0cdf805cfad7b6aeb3044ef3829c6",
+  "size": 95094,
+  "subdir": "linux-64",
+  "timestamp": 1718818412000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jupyter_core-5.7.2-py312h06a4308_0.conda",
+  "version": "5.7.2"
+}

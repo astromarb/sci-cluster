@@ -1,0 +1,74 @@
+{% set name = "jupyter_core" %}
+{% set version = "5.7.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: aa5f8d32bbf6b431ac830496da7392035d6f61b4f54872f15c4bd2a9c3f536d9
+
+build:
+  number: 0
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  entry_points:
+    - jupyter = jupyter_core.command:main
+    - jupyter-migrate = jupyter_core.migrate:main
+    - jupyter-troubleshoot = jupyter_core.troubleshoot:main
+
+requirements:
+  host:
+    - pip
+    - python
+    - hatchling >=1.4
+  run:
+    - python
+    - pywin32 >=300  # [win]
+    - traitlets >=5.3
+    - platformdirs >=2.5
+
+{% set skip = ["test_not_on_path", "test_path_priority"] %}
+# linux shebang lines have a length limit longer than the placeholder test prefix
+{% set skip = skip + ["test_argv0"] %}  # [linux]
+{% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
+test:
+  source_files:
+    - tests
+    - pyproject.toml
+  requires:
+    - pytest <8
+    - ipykernel
+    - pytest-timeout
+    - pip
+  commands:
+    - pip check
+    - jupyter -h
+    - jupyter-migrate -h
+    - jupyter-troubleshoot --help
+    - pytest -vv {{ skip }}
+  imports:
+    - jupyter_core
+    - jupyter_core.utils
+
+about:
+  home: https://jupyter.org
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Core common functionality of Jupyter projects.
+  description: |
+    Jupyter core package. A base package on which Jupyter projects rely.
+    This package contains base application classes and configuration inherited by other projects.
+  dev_url: https://github.com/jupyter/jupyter_core
+  doc_url: https://jupyter-core.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - pelson
+    - minrk
+    - ocefpaf
+    - bollwyvl
+    - Carreau

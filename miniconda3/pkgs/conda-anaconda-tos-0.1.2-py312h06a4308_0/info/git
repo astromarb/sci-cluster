@@ -1,0 +1,17 @@
+==> /croot/conda-anaconda-tos_1739298990519/_build_env/bin/git log -n1 <==
+commit b5570acfb16389d57636017b541f85f0be9c66c4
+Author: Ken Odegard <kodegard@anaconda.com>
+Date:   Tue Feb 11 11:50:11 2025 -0600
+
+    Suppress TOS JSON when invoking `conda <non-tos> --json` commands (#169)
+==> /croot/conda-anaconda-tos_1739298990519/_build_env/bin/git describe --tags --dirty <==
+0.1.2
+==> /croot/conda-anaconda-tos_1739298990519/_build_env/bin/git status <==
+HEAD detached at 0.1.2
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	build_env_setup.sh
+	conda_build.sh
+	metadata_conda_debug.yaml
+
+nothing added to commit but untracked files present (use "git add" to track)

@@ -1,0 +1,13 @@
+prefix=/home/ec2-user/miniconda3
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libarchive
+Description: library that can create and read several streaming archive formats
+Version: 3.7.7
+Cflags: -I${includedir}
+Cflags.private: -DLIBARCHIVE_STATIC
+Libs: -L${libdir} -larchive
+Libs.private:  -lz -lbz2 -llzma -llz4 -lzstd -lcrypto -lxml2 -lssl -L/home/ec2-user/miniconda3/lib -lxml2 -lz -llzma -licui18n -licuuc -licudata -lpthread -ldl -lm
+Requires.private: 

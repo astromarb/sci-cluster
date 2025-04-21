@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "jupyter_core >=4.12,!=5.0.*",
+    "traitlets >=5.1",
+    "jsonschema >=2.6",
+    "python-fastjsonschema >=2.15"
+  ],
+  "fn": "nbformat-5.10.4-py312h06a4308_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "81e80731bf530c45c7013d76e9ed45e3",
+  "name": "nbformat",
+  "platform": "linux",
+  "sha256": "0dde1385e72f300b9ec7d6e8a21d914f1bce02a8373c8eedbf956adf0dcbcca5",
+  "size": 160662,
+  "subdir": "linux-64",
+  "timestamp": 1728049537000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/nbformat-5.10.4-py312h06a4308_0.conda",
+  "version": "5.10.4"
+}

@@ -1,0 +1,169 @@
+{
+  "paths": [
+    {
+      "_path": "bin/dotenv",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/work/perseverance-python-buildout/croot/python-dotenv_1698846722824/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+      "sha256": "fc6b11640008a49f9a8754dd583f9c8e7c00e301aaa3b559aa4e1684bf29b0c5",
+      "size_in_bytes": 461
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "6dd00669a04039cfc7caaab2f143958de7490e050da8c4cb966a9c3ab302742f",
+      "size_in_bytes": 1298
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__main__.py",
+      "path_type": "hardlink",
+      "sha256": "3744612c6ee71c8aad9491f0c1ea48a3ecdb24f371f6c7b0082446639dbc87fe",
+      "size_in_bytes": 129
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/__init__.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "64050daeeaae8d8d2efb87fa8a4e198ab8602827f462992a700e4d857fde39de",
+      "size_in_bytes": 1650
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/__main__.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "f7ce872569978d43585fec727021e742c5e639aed3700d287b8a39dd65e07e04",
+      "size_in_bytes": 317
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/cli.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "640a2fbc4c37292b85ab96f17f4132f8ac91301f5f7e3ec3d368c8cdea29182b",
+      "size_in_bytes": 8669
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/ipython.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "1cd63fa3cfe756087bbbb6546b28bc85167469a075c601d93993039d60d13e9c",
+      "size_in_bytes": 1926
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/main.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "ce1d4294ef5b9df34083137533134844eb2d2b1bcec18c3aac3ba84ee119e00d",
+      "size_in_bytes": 16561
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/parser.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "0bb8aa78b1f040344c1e7a5926b34d72b237b7c0849903971022e5700d308e8e",
+      "size_in_bytes": 9691
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/variables.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "cddb37c15c81bae78d5ac000f922ee7b29b87b868a332a9111c116ec23bb9aea",
+      "size_in_bytes": 5073
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/__pycache__/version.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "8e08a652f8b2c8586e18c492958dfb506c1a6a5477cf88fe2ecff74acdbac66a",
+      "size_in_bytes": 170
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/cli.py",
+      "path_type": "hardlink",
+      "sha256": "007acc80ca3f4eb0d8cb2620eece14fa6d871a933b84398e02d77ff647446528",
+      "size_in_bytes": 5383
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/ipython.py",
+      "path_type": "hardlink",
+      "sha256": "6af23a69ecff4719c1a6d62072122ab85d934a0288f863a1637a698aedd5b961",
+      "size_in_bytes": 1303
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/main.py",
+      "path_type": "hardlink",
+      "sha256": "438364ba12ff8bb0b0935940bae149e3e12ad0cc7ac04dab96d63ac094f6c2ea",
+      "size_in_bytes": 11926
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/parser.py",
+      "path_type": "hardlink",
+      "sha256": "1cc074555cbf7de8ccb8667f15d8a0ce59ff74113d9ec000699ee8970a00652c",
+      "size_in_bytes": 5298
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/py.typed",
+      "path_type": "hardlink",
+      "sha256": "f0f8f2675695a10a5156fb7bd66bafbaae6a13e8d315990af862c792175e6e67",
+      "size_in_bytes": 26
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/variables.py",
+      "path_type": "hardlink",
+      "sha256": "1edbd830e3b2ca8806199bfe6241b378c38ab68befaaa1b387f90807dc6e02da",
+      "size_in_bytes": 2404
+    },
+    {
+      "_path": "lib/python3.12/site-packages/dotenv/version.py",
+      "path_type": "hardlink",
+      "sha256": "fab78d897af6e67514ede9bbfc8289ce2982235d16e2703ca2ec4088eaf815a4",
+      "size_in_bytes": 23
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "d27209ab3d162782a8f8e3872b9b353c49e092c9aa467a64522883407d8d1030",
+      "size_in_bytes": 4600
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "aa945bfa9e441d61b5e3817a18ae72a7ca605f025e375fe6b827aa8211265b65",
+      "size_in_bytes": 20681
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "bcc51fe78ffed9686ae1104e1c51677cbf14dae17a9f970ce718595ef0211062",
+      "size_in_bytes": 1927
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "c903798389a0e00c9b4639208bef72cb889010589b1909a5cfbf0f8a4e4eafe0",
+      "size_in_bytes": 92
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "a8b4f66a47cb80a40e0741be3e91ae680899465662ebb004f911795f70bc9101",
+      "size_in_bytes": 107
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "c91975ac26ecc1bd6741343f8194650b0e507da6f3b541a77c658b8655c535d2",
+      "size_in_bytes": 47
+    },
+    {
+      "_path": "lib/python3.12/site-packages/python_dotenv-0.21.0.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "7b2a941f848724dafa6a139897122e9d3af85e29c4f19e5a8d62ddacadebd03f",
+      "size_in_bytes": 7
+    }
+  ],
+  "paths_version": 1
+}

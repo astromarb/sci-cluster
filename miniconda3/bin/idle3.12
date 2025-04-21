@@ -1,0 +1,5 @@
+#!/home/ec2-user/miniconda3/bin/python3.12
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()

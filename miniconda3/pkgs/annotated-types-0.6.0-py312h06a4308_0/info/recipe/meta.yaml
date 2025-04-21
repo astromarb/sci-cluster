@@ -1,0 +1,90 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Mon Mar  4 09:01:41 2024
+# ------------------------------------------------
+
+package:
+  name: annotated-types
+  version: 0.6.0
+source:
+  sha256: 563339e807e53ffd9c267e99fc6d9ea23eb8443c08f112651963e24e22f84a5d
+  url: https://pypi.io/packages/source/a/annotated_types/annotated_types-0.6.0.tar.gz
+build:
+  number: '0'
+  script: /croot/annotated-types_1709542908624/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_5
+    - ca-certificates 2023.12.12 h06a4308_0
+    - editables 0.3 py312h06a4308_0
+    - expat 2.5.0 h6a678d5_0
+    - hatchling 1.21.1 py312h06a4308_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_0
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.13 h7f8727e_0
+    - packaging 23.1 py312h06a4308_0
+    - pathspec 0.10.3 py312h06a4308_0
+    - pip 23.3.1 py312h06a4308_0
+    - pluggy 1.0.0 py312h06a4308_1
+    - python 3.12.2 h996f2a0_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 68.2.2 py312h06a4308_0
+    - sqlite 3.41.2 h5eee18b_0
+    - tk 8.6.12 h1ccaba5_0
+    - trove-classifiers 2023.10.18 py312h06a4308_0
+    - tzdata 2024a h04d1e81_0
+    - wheel 0.41.2 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_0
+    - zlib 1.2.13 h5eee18b_0
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - pip check
+    - pytest -v tests
+  imports:
+    - annotated_types
+  requires:
+    - pip
+    - pytest
+  source_files:
+    - tests
+about:
+  description: 'This package provides metadata objects which can be used to represent
+    common constraints such as upper and lower
+
+    bounds on scalar values and collection sizes, a Predicate marker for runtime checks,
+    and descriptions of how we
+
+    intend these metadata to be interpreted. In some cases, we also note alternative
+    representations which do not
+
+    require this package.
+
+    '
+  dev_url: https://github.com/annotated-types/annotated-types
+  doc_url: https://github.com/annotated-types/annotated-types
+  home: https://github.com/annotated-types/annotated-types
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Reusable constraint types to use with typing.Annotated
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 8ef1e5d3-6384-441e-801d-c12ac5dbd719
+  recipe-maintainers:
+    - Zac-HD
+    - mattwthompson
+    - samuelcolvin
+  remote_url: git@github.com:AnacondaRecipes/annotated-types-feedstock.git
+  sha: 1cd1d7c79fcaee88c1cd10e446127ce035e8cd88

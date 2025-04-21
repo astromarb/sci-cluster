@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "typing_extensions 4.12.2 py312h06a4308_0"
+  ],
+  "license": "PSF-2.0",
+  "license_family": "PSF",
+  "name": "typing-extensions",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1734714915158,
+  "version": "4.12.2"
+}

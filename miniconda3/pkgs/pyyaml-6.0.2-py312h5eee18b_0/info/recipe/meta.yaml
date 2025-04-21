@@ -1,0 +1,96 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Fri Oct 11 14:45:47 2024
+# ------------------------------------------------
+
+package:
+  name: pyyaml
+  version: 6.0.2
+source:
+  patches:
+    - 0001-Ensure-we-do-not-end-up-wih-CRLF-line-endings-on-tes.patch
+  sha256: d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e
+  url: https://pypi.io/packages/source/p/pyyaml/pyyaml-6.0.2.tar.gz
+build:
+  number: '0'
+  string: py312h5eee18b_0
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - _sysroot_linux-64_curr_repodata_hack 3 haa98f57_10
+    - binutils_impl_linux-64 2.40 h5293946_0
+    - binutils_linux-64 2.40.0 hc2dff05_1
+    - gcc_impl_linux-64 11.2.0 h1234567_1
+    - gcc_linux-64 11.2.0 h5c386dc_1
+    - kernel-headers_linux-64 3.10.0 h57e8cba_10
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libgcc-devel_linux-64 11.2.0 h1234567_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - patch 2.7.6 h7b6447c_1001
+    - sysroot_linux-64 2.17 h57e8cba_10
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.9.24 h06a4308_0
+    - cython 3.0.11 py312h5eee18b_0
+    - expat 2.6.3 h6a678d5_0
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - pip 24.2 py312h06a4308_0
+    - python 3.12.7 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 75.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - wheel 0.44.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - yaml 0.2.5 h7b6447c_0
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - libgcc-ng >=11.2.0
+    - python >=3.12,<3.13.0a0
+    - yaml >=0.2.5,<0.3.0a0
+test:
+  commands:
+    - pip check
+  imports:
+    - yaml
+  requires:
+    - pip
+about:
+  description: 'YAML is a data serialization format designed for human readability
+    and interaction with
+
+    scripting languages.
+
+    '
+  dev_url: https://github.com/yaml/pyyaml
+  doc_url: https://pyyaml.org/wiki/PyYAMLDocumentation
+  home: https://pyyaml.org/wiki/PyYAML
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: YAML parser and emitter for Python
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 22d0c90d-6d0f-4b16-8fbd-f4927a9b5049
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - ocefpaf
+    - pelson
+  remote_url: git@github.com:AnacondaRecipes/pyyaml-feedstock.git
+  sha: e7adcb2067cba8362266c9b0781ffbfb12231887

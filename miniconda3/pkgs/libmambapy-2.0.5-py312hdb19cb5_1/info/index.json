@@ -1,0 +1,20 @@
+{
+  "arch": "x86_64",
+  "build": "py312hdb19cb5_1",
+  "build_number": 1,
+  "depends": [
+    "fmt >=9.1.0,<10.0a0",
+    "libgcc-ng >=11.2.0",
+    "libmamba 2.0.5 haf1ee3a_1",
+    "libstdcxx-ng >=11.2.0",
+    "pybind11-abi 5",
+    "python >=3.12,<3.13.0a0"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "libmambapy",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1734469921330,
+  "version": "2.0.5"
+}

@@ -1,0 +1,52 @@
+{% set version = "2023.7.1" %}
+
+package:
+  name: jsonschema-specifications
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/j/jsonschema-specifications/jsonschema_specifications-{{ version }}.tar.gz
+  sha256: c91a50404e88a1f6ba40636778e2ee08f6e24c5613fe4c53ac24578a5a7f72bb
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<38]
+
+requirements:
+  host:
+    - hatch-vcs
+    - hatchling
+    - pip
+    - python
+  run:
+    - importlib_resources >=1.4.0 # [py<39]
+    - python
+    - referencing >=0.28.0
+
+test:
+  imports:
+    - jsonschema_specifications
+  commands:
+    - pip check
+    - pytest -vv --pyargs jsonschema_specifications --cov-branch --cov=jsonschema_specifications --cov-report=term-missing:skip-covered --no-cov-on-fail --cov-fail-under=88
+  requires:
+    - pip
+    - pytest
+    - pytest-cov
+
+about:
+  summary: The JSON Schema meta-schemas and vocabularies, exposed as a Registry
+  home: https://github.com/python-jsonschema/jsonschema-specifications
+  license: MIT
+  license_file: COPYING
+  license_family: MIT
+  description: |
+    JSON support files from the JSON Schema Specifications (metaschemas, vocabularies, etc.), 
+    packaged for runtime access from Python as a referencing-based Schema Registry.
+  doc_url: https://jsonschema-specifications.readthedocs.io
+  dev_url: https://github.com/python-jsonschema/jsonschema-specifications
+
+extra:
+  recipe-maintainers:
+    - bollwyvl

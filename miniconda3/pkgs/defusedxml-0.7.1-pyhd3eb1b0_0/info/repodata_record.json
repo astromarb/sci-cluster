@@ -1,0 +1,22 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "fn": "defusedxml-0.7.1-pyhd3eb1b0_0.conda",
+  "license": "PSF 2.0",
+  "license_family": "PSF",
+  "md5": "d912068b0729930972adcaac338882c0",
+  "name": "defusedxml",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "d5ccad2e614ba3f953c202a42270fe0cfdaf6c5071311a3accf28446c49a6c5b",
+  "size": 23826,
+  "subdir": "noarch",
+  "timestamp": 1615228158000,
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/defusedxml-0.7.1-pyhd3eb1b0_0.conda",
+  "version": "0.7.1"
+}

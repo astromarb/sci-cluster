@@ -1,0 +1,67 @@
+{% set name = "nbformat" %}
+{% set version = "5.10.4" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nbformat-{{ version }}.tar.gz
+  sha256: 322168b14f937a5d11362988ecac2a4952d3d8e3a2cbeb2319584631226d5b3a
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  entry_points:
+    - jupyter-trust = nbformat.sign:TrustNotebookApp.launch_instance
+
+requirements:
+  host:
+    - python
+    - pip
+    - hatchling
+    - hatch-nodejs-version
+  run:
+    - python
+    - jsonschema >=2.6
+    - jupyter_core >=4.12,!=5.0.*
+    - python-fastjsonschema >=2.15
+    - traitlets >=5.1
+
+test:
+  source_files:
+    - tests
+  imports:
+    - nbformat
+  requires:
+    - pip
+    - pytest
+    - testpath
+  commands:
+    - pip check
+    - jupyter trust --version
+    - jupyter-trust --help
+    # pep440 is required for passing tests/test_api.py
+    - pip install pep440
+    - pytest -vv
+
+about:
+  home: https://jupyter.org
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: The Jupyter Notebook format
+  description: |
+    This package contains the base implementation of the Jupyter Notebook format,
+    and Python APIs for working with notebooks.
+  doc_url: https://nbformat.readthedocs.io
+  dev_url: https://github.com/jupyter/nbformat
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - minrk
+    - pelson
+    - takluyver
+    - ocefpaf
+    - mpacer

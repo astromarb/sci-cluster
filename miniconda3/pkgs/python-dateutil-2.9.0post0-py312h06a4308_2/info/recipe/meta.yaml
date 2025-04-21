@@ -1,0 +1,78 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Thu May 23 20:22:13 2024
+# ------------------------------------------------
+
+package:
+  name: python-dateutil
+  version: 2.9.0post0
+source:
+  sha256: 37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3
+  url: https://pypi.io/packages/source/p/python-dateutil/python-dateutil-2.9.0.post0.tar.gz
+build:
+  number: '2'
+  script: /croot/python-dateutil_1716495738603/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: py312h06a4308_2
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.3.11 h06a4308_0
+    - expat 2.6.2 h6a678d5_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.13 h7f8727e_2
+    - packaging 23.2 py312h06a4308_0
+    - pip 24.0 py312h06a4308_0
+    - python 3.12.3 h996f2a0_1
+    - readline 8.2 h5eee18b_0
+    - setuptools 69.5.1 py312h06a4308_0
+    - setuptools-scm 7.1.0 py312h06a4308_1
+    - setuptools_scm 7.1.0 hd3eb1b0_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - typing-extensions 4.11.0 py312h06a4308_0
+    - typing_extensions 4.11.0 py312h06a4308_0
+    - tzdata 2024a h04d1e81_0
+    - wheel 0.43.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - python >=3.12,<3.13.0a0
+    - six >=1.5
+test:
+  commands:
+    - pip check
+  requires:
+    - importlib_metadata
+    - pip
+about:
+  description: 'The dateutil module provides powerful extensions to the standard datetime
+
+    module, available in Python.
+
+    '
+  dev_url: https://github.com/dateutil/dateutil/
+  doc_url: https://dateutil.readthedocs.io/
+  home: https://dateutil.readthedocs.io/
+  license: BSD-3-Clause and Apache-2.0
+  license_family: BSD
+  license_file: LICENSE
+  summary: Extensions to the standard Python datetime module
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 6795cd1f-68d4-42ec-9b72-dbf793318390
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
+    - pganssle
+  remote_url: git@github.com:AnacondaRecipes/python-dateutil-feedstock.git
+  sha: 9ddb2fe291305605c8c16f3d9d62e0ebc0625f05

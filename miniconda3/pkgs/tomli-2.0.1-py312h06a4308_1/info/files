@@ -1,0 +1,16 @@
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/INSTALLER
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/LICENSE
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/METADATA
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/RECORD
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/REQUESTED
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/WHEEL
+lib/python3.12/site-packages/tomli-2.0.1.dist-info/direct_url.json
+lib/python3.12/site-packages/tomli/__init__.py
+lib/python3.12/site-packages/tomli/__pycache__/__init__.cpython-312.pyc
+lib/python3.12/site-packages/tomli/__pycache__/_parser.cpython-312.pyc
+lib/python3.12/site-packages/tomli/__pycache__/_re.cpython-312.pyc
+lib/python3.12/site-packages/tomli/__pycache__/_types.cpython-312.pyc
+lib/python3.12/site-packages/tomli/_parser.py
+lib/python3.12/site-packages/tomli/_re.py
+lib/python3.12/site-packages/tomli/_types.py
+lib/python3.12/site-packages/tomli/py.typed

@@ -1,0 +1,22 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "fn": "annotated-types-0.6.0-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "03aa1a636640f8f94febe4779e5d37a7",
+  "name": "annotated-types",
+  "platform": "linux",
+  "sha256": "e1376d6a2999a840f1cd149321d7ddf2e6d75a253a5b6d575a6ff683d16da1c5",
+  "size": 25750,
+  "subdir": "linux-64",
+  "timestamp": 1709542972000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/annotated-types-0.6.0-py312h06a4308_0.conda",
+  "version": "0.6.0"
+}

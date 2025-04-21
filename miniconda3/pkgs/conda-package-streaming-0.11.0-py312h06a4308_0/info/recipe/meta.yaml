@@ -1,0 +1,75 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Mon Nov 11 23:02:52 2024
+# ------------------------------------------------
+
+package:
+  name: conda-package-streaming
+  version: 0.11.0
+source:
+  sha256: 407ec0bd3f65fccc3ac8e02f7ba3bb31c95ceca10ebdcfe66120bf56db28e59b
+  url: https://github.com/conda/conda-package-streaming/archive/refs/tags/v0.11.0.tar.gz
+build:
+  number: '0'
+  script: /croot/conda-package-streaming_1731366181659/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pla/bin/python
+    -m pip install --no-deps --no-build-isolation . -vv
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.9.24 h06a4308_0
+    - expat 2.6.3 h6a678d5_0
+    - flit-core 3.9.0 py312hee27c6d_1
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - pip 24.2 py312h06a4308_0
+    - python 3.12.7 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 75.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - wheel 0.44.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - python >=3.12,<3.13.0a0
+    - requests
+    - zstandard >=0.15
+test:
+  commands:
+    - pip check
+  imports:
+    - conda_package_streaming
+    - conda_package_streaming.url
+  requires:
+    - pip
+about:
+  description: 'An efficient library to read from new and old format .conda and .tar.bz2
+    conda packages.
+
+    '
+  dev_url: https://github.com/conda/conda-package-streaming
+  doc_url: https://conda.github.io/conda-package-streaming/
+  home: https://github.com/conda/conda-package-streaming
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: An efficient library to read from new and old format .conda and .tar.bz2
+    conda packages.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 3f1cead7-16f3-44a9-8af1-d83438e4fee2
+  recipe-maintainers:
+    - dholth
+  remote_url: git@github.com:AnacondaRecipes/conda-package-streaming-feedstock.git
+  sha: 6edea2f3054b4ff8b64facfe2365eb953d898b30

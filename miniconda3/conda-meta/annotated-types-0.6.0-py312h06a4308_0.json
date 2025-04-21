@@ -1,0 +1,47 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/annotated-types-0.6.0-py312h06a4308_0",
+  "files": [
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/METADATA",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/RECORD",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/WHEEL",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/annotated_types-0.6.0.dist-info/licenses/LICENSE",
+    "lib/python3.12/site-packages/annotated_types/__init__.py",
+    "lib/python3.12/site-packages/annotated_types/__pycache__/__init__.cpython-312.pyc",
+    "lib/python3.12/site-packages/annotated_types/__pycache__/test_cases.cpython-312.pyc",
+    "lib/python3.12/site-packages/annotated_types/py.typed",
+    "lib/python3.12/site-packages/annotated_types/test_cases.py"
+  ],
+  "fn": "annotated-types-0.6.0-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/annotated-types-0.6.0-py312h06a4308_0",
+    "type": 1
+  },
+  "md5": "03aa1a636640f8f94febe4779e5d37a7",
+  "name": "annotated-types",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/annotated-types-0.6.0-py312h06a4308_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::annotated-types==0.6.0=py312h06a4308_0[md5=03aa1a636640f8f94febe4779e5d37a7]",
+  "sha256": "e1376d6a2999a840f1cd149321d7ddf2e6d75a253a5b6d575a6ff683d16da1c5",
+  "size": 25750,
+  "subdir": "linux-64",
+  "timestamp": 1709542972000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/annotated-types-0.6.0-py312h06a4308_0.conda",
+  "version": "0.6.0"
+}

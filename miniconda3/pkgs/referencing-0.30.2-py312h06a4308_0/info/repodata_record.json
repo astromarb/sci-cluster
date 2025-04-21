@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "attrs >=22.2.0",
+    "rpds-py >=0.7.0"
+  ],
+  "fn": "referencing-0.30.2-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "3113fb44293d20eaae1e67a4876751c9",
+  "name": "referencing",
+  "platform": "linux",
+  "sha256": "60f65756e7257dda3da92da187fa09fe7be2ad30ea22eef79813186afbfa91f5",
+  "size": 74616,
+  "subdir": "linux-64",
+  "timestamp": 1701731661000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/referencing-0.30.2-py312h06a4308_0.conda",
+  "version": "0.30.2"
+}

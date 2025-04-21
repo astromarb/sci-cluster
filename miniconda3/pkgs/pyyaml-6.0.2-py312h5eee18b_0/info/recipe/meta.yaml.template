@@ -1,0 +1,61 @@
+{% set name = "PyYAML" %}
+{% set version = "6.0.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e
+  patches:
+    - 0001-Ensure-we-do-not-end-up-wih-CRLF-line-endings-on-tes.patch
+
+build:
+  number: 0
+  skip: True  # [py<38]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - m2-patch  # [win]
+    - patch  # [not win]
+  host:
+    - python
+    - cython       # [py<=312]
+    - cython >3.0  # [py>=313]
+    - setuptools
+    - pip
+    - wheel
+    - yaml 0.2.5
+  run:
+    - python
+    - yaml
+
+test:
+  imports:
+    - yaml
+  requires:
+    - pip
+  commands:
+    - pip check
+
+about:
+  home: https://pyyaml.org/wiki/PyYAML
+  license_file: LICENSE
+  license: MIT
+  license_family: MIT
+  summary: YAML parser and emitter for Python
+  description: |
+    YAML is a data serialization format designed for human readability and interaction with
+    scripting languages.
+  doc_url: https://pyyaml.org/wiki/PyYAMLDocumentation
+  dev_url: https://github.com/yaml/pyyaml
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - pelson
+    - ocefpaf

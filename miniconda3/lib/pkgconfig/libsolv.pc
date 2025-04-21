@@ -1,0 +1,8 @@
+libdir=/home/ec2-user/miniconda3/lib
+includedir=/home/ec2-user/miniconda3/include
+
+Name: libsolv
+Description: Library for solving packages
+Version: 0.7.30
+Libs: -L${libdir} -lsolv
+Cflags: -I${includedir}

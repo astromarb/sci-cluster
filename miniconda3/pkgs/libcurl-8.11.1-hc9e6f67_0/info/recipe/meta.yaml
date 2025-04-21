@@ -1,0 +1,93 @@
+# This file created by conda-build 24.1.2
+# ------------------------------------------------
+
+package:
+  name: libcurl
+  version: 8.11.1
+source:
+  sha256: e9773ad1dfa21aedbfe8e1ef24c9478fa780b1b3d4f763c98dd04629b5e43485
+  url: https://curl.se/download/curl-8.11.1.tar.bz2
+build:
+  number: 0
+  run_exports:
+    - libcurl >=8.11.1,<9.0a0
+  string: hc9e6f67_0
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - _sysroot_linux-64_curr_repodata_hack 3 haa98f57_10
+    - binutils_impl_linux-64 2.40 h5293946_0
+    - binutils_linux-64 2.40.0 hc2dff05_1
+    - gcc_impl_linux-64 11.2.0 h1234567_1
+    - gcc_linux-64 11.2.0 h5c386dc_1
+    - kernel-headers_linux-64 3.10.0 h57e8cba_10
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libgcc-devel_linux-64 11.2.0 h1234567_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - sysroot_linux-64 2.17 h57e8cba_10
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - c-ares 1.19.1 h5eee18b_0
+    - ca-certificates 2024.11.26 h06a4308_0
+    - krb5 1.20.1 h143b758_1
+    - libedit 3.1.20230828 h5eee18b_0
+    - libev 4.33 h7f8727e_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libnghttp2 1.57.0 h2d74bed_0
+    - libssh2 1.11.1 h251f7ec_0
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - lz4-c 1.9.4 h6a678d5_1
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+    - zstd 1.5.2 ha4553b6_0
+  run:
+    - krb5 >=1.20.1,<1.21.0a0
+    - libgcc-ng >=11.2.0
+    - libnghttp2 >=1.57.0
+    - libnghttp2 >=1.57.0,<2.0a0
+    - libssh2 >=1.10.0
+    - libssh2 >=1.11.1,<2.0a0
+    - openssl >=3.0.15,<4.0a0
+    - zlib >=1.2.13,<1.3.0a0
+    - zstd >=1.5.2,<1.6.0a0
+test:
+  commands:
+    - curl-config --features
+    - curl-config --protocols
+    - test -f ${PREFIX}/lib/libcurl${SHLIB_EXT}
+    - test ! -f ${PREFIX}/lib/libcurl.a
+    - CURL_SSL_BACKENDS=$(curl-config --ssl-backends)
+    - if ! echo $CURL_SSL_BACKENDS | grep -q "OpenSSL"; then exit 1; fi
+about:
+  description: 'Curl is an open source command line tool and library for transferring
+    data
+
+    with URL syntax. It is used in command lines or scripts to transfer data.
+
+    '
+  dev_url: https://github.com/curl/curl
+  doc_url: https://curl.se/docs/
+  home: https://curl.se/
+  license: curl
+  license_family: MIT
+  license_url: https://curl.se/docs/copyright.html
+  summary: tool and library for transferring data with URL syntax
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 474788d6-9c34-4cc5-ba5c-b33710fcc94a
+  recipe-maintainers:
+    - jakirkham
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - xylar
+  remote_url: git@github.com:AnacondaRecipes/curl-feedstock.git
+  sha: 222172b88ec914c9001e3843b3f19058c422eb64

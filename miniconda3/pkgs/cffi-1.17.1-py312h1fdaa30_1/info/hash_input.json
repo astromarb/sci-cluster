@@ -1,0 +1,7 @@
+{
+  "c_compiler_version": "11.2.0",
+  "target_platform": "linux-64",
+  "c_compiler": "gcc",
+  "libffi": "3.4",
+  "channel_targets": "defaults"
+}

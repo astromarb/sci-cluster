@@ -1,0 +1,65 @@
+{
+  "paths": [
+    {
+      "_path": "lib/python3.12/site-packages/__pycache__/six.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "71233e8f01458c43195946a0d2768f61882519c130936823601594f9a75a4837",
+      "size_in_bytes": 41304
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "4375ba20e2b9c6c4e7cad2940a628fd90e95cc3d50ee92aae755715d8ba1fbd0",
+      "size_in_bytes": 1066
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "bf015b64d712d88de81381657cb3e5bb8164d44af9e7700482aa1adb6052a310",
+      "size_in_bytes": 1815
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "acf65bb4ffecbf29c1db2fe47aa713afc8ed6dfeb87d3a4f5a46f00cffdd81c2",
+      "size_in_bytes": 738
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "f479b6381fa3d5070252af4982e86dedac8620864145374e5c3d6a83d70280f3",
+      "size_in_bytes": 109
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "c188fb81f6452f8fd29d1c0ca59e25987c1eb48ce825940ae09f51ec11ecea82",
+      "size_in_bytes": 63
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six-1.17.0.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "fe2547fe2604b445e70fc9d819062960552f9145bdb043b51986e478a4806a2b",
+      "size_in_bytes": 4
+    },
+    {
+      "_path": "lib/python3.12/site-packages/six.py",
+      "path_type": "hardlink",
+      "sha256": "c51c91f703d3d4b3696c923cb5fec213e05e75d9215393befac7f2fa6a3904df",
+      "size_in_bytes": 34703
+    }
+  ],
+  "paths_version": 1
+}

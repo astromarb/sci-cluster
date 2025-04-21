@@ -1,0 +1,33 @@
+From cbce9a79bb3742aac74a096a43a20a92a4e35d64 Mon Sep 17 00:00:00 2001
+From: Charles Bousseau <cbousseau@anaconda.com>
+Date: Fri, 6 Dec 2024 17:36:23 -0500
+Subject: [PATCH] Use tie instead of structured binding declaration
+
+On osx-arm64, with compiler clang14, we were getting:
+libmamba/src/download/mirror_impl.cpp:183:38: error: 'split_path' in capture list does not name a variable
+            req_gen.push_back([this, split_path](const Request& dl_request, const Content*)
+
+Changing the assignemt of split_path and split_tag to pre c++17 style circumvent this error.
+---
+ libmamba/src/download/mirror_impl.cpp | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/libmamba/src/download/mirror_impl.cpp b/libmamba/src/download/mirror_impl.cpp
+index 39fcb827..eba830f1 100644
+--- a/libmamba/src/download/mirror_impl.cpp
++++ b/libmamba/src/download/mirror_impl.cpp
+@@ -160,7 +160,10 @@ namespace mamba::download
+         // NB: This method can be executed by many threads in parallel. Therefore,
+         // data should not be captured in lambda used for building the request, as
+         // inserting a new ArtifactData object may relocate preexisting ones.
+-        auto [split_path, split_tag] = utils::split_path_tag(url_path);
++        //auto [split_path, split_tag] = utils::split_path_tag(url_path);
++        std::string split_path;
++        std::string split_tag;
++        std::tie(split_path, split_tag) = utils::split_path_tag(url_path);
+ 
+         // TODO we are getting here a new token for every artifact/path
+         // => we should handle this differently to use the same token
+-- 
+2.39.3 (Apple Git-146)
+

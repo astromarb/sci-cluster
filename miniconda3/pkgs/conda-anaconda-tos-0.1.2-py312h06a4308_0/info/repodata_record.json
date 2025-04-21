@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/",
+  "constrains": [],
+  "depends": [
+    "conda >=24.11",
+    "pydantic",
+    "python >=3.12,<3.13.0a0",
+    "rich"
+  ],
+  "fn": "conda-anaconda-tos-0.1.2-py312h06a4308_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "18b787d0e95d7469076c17018dfdf06b",
+  "name": "conda-anaconda-tos",
+  "platform": "linux",
+  "sha256": "0a87bbdcc810420bde7ca580a67e031155bd7ce9304a246e881df5ae072c00e2",
+  "size": 43350,
+  "subdir": "linux-64",
+  "timestamp": 1739299021000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/conda-anaconda-tos-0.1.2-py312h06a4308_0.conda",
+  "version": "0.1.2"
+}

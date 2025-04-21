@@ -1,0 +1,48 @@
+{
+  "arch": "x86_64",
+  "build": "py312h6a678d5_9",
+  "build_number": 9,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=11.2.0",
+    "libstdcxx-ng >=11.2.0",
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/brotli-python-1.0.9-py312h6a678d5_9",
+  "files": [
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/LICENSE",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/METADATA",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/RECORD",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/WHEEL",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/Brotli-1.0.9.dist-info/top_level.txt",
+    "lib/python3.12/site-packages/__pycache__/brotli.cpython-312.pyc",
+    "lib/python3.12/site-packages/__pycache__/brotli.cpython-313.pyc",
+    "lib/python3.12/site-packages/_brotli.cpython-312-x86_64-linux-gnu.so",
+    "lib/python3.12/site-packages/brotli.py"
+  ],
+  "fn": "brotli-python-1.0.9-py312h6a678d5_9.conda",
+  "license": "MIT",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/brotli-python-1.0.9-py312h6a678d5_9",
+    "type": 1
+  },
+  "md5": "691e2e7e55034d39c94554532d33f223",
+  "name": "brotli-python",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/brotli-python-1.0.9-py312h6a678d5_9.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::brotli-python==1.0.9=py312h6a678d5_9[md5=691e2e7e55034d39c94554532d33f223]",
+  "sha256": "3d1dc4a2e9a3813fc4197415c1ce80b2d54aa998871f6b318662c7ef4cf9e181",
+  "size": 364420,
+  "subdir": "linux-64",
+  "timestamp": 1736182625000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/brotli-python-1.0.9-py312h6a678d5_9.conda",
+  "version": "1.0.9"
+}

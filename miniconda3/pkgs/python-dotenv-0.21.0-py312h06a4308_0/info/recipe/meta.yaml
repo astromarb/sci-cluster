@@ -1,0 +1,71 @@
+# This file created by conda-build 3.27.0
+# meta.yaml template originally from:
+# /work/perseverance-python-buildout/aggregate/python-dotenv-feedstock/recipe, last modified Wed Nov  1 02:15:13 2023
+# ------------------------------------------------
+
+package:
+  name: python-dotenv
+  version: 0.21.0
+source:
+  fn: python-dotenv-0.21.0.tar.gz
+  sha256: b77d08274639e3d34145dfa6c7008e66df0f04b7be7a75fd0d5292c191d79045
+  url: https://pypi.io/packages/source/p/python-dotenv/python-dotenv-0.21.0.tar.gz
+build:
+  entry_points:
+    - dotenv = dotenv:cli.cli
+  number: '0'
+  script: /work/perseverance-python-buildout/croot/python-dotenv_1698846722824/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold/bin/python
+    -m pip install . --no-deps -vv
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h7b6447c_0
+    - ca-certificates 2023.08.22 h06a4308_0
+    - expat 2.5.0 h6a678d5_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_0
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.11 h7f8727e_2
+    - pip 23.3 py312h06a4308_0
+    - python 3.12.0 h996f2a0_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 68.0.0 py312h06a4308_0
+    - sqlite 3.41.2 h5eee18b_0
+    - tk 8.6.12 h1ccaba5_0
+    - tzdata 2023c h04d1e81_0
+    - wheel 0.41.2 py312h06a4308_0
+    - xz 5.4.2 h5eee18b_0
+    - zlib 1.2.13 h5eee18b_0
+  run:
+    - click >=5.0
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - pip check
+  imports:
+    - dotenv
+  requires:
+    - pip
+about:
+  description: Python-dotenv reads key-value pairs from a .env file and can set them
+    as environment variables. It helps in the development of applications following
+    the 12-factor principles.
+  dev_url: https://github.com/theskumar/python-dotenv/
+  doc_url: https://github.com/theskumar/python-dotenv/tree/v0.21.0/docs
+  home: https://saurabh-kumar.com/python-dotenv/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Get and set values in your .env file in local and production servers like
+    Heroku does.
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - proinsias

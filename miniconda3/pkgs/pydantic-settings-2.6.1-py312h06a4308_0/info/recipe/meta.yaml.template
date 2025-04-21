@@ -1,0 +1,54 @@
+{% set name = "pydantic-settings" %}
+{% set version = "2.6.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pydantic_settings-{{ version }}.tar.gz
+  sha256: e0f92546d8a9923cb8941689abf85d6601a8c19a23e97a34b2964a2e3f813ca0
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - hatchling
+    - pip
+  run:
+    - python
+    - pydantic >=2.7.0
+    - python-dotenv >=0.21.0
+  run_constrained:
+    - azure-identity >=1.16.0
+    - azure-keyvault-secrets >=4.8.0
+    - tomli >=2.0.1
+    - pyyaml >=6.0.1
+
+test:
+  imports:
+    - pydantic_settings
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Settings management using Pydantic
+  description: |
+    Pydantic Settings provides optional Pydantic features for loading a settings or config class from environment
+    variables or secrets files.
+  home: https://github.com/pydantic/pydantic-settings
+  dev_url: https://github.com/pydantic/pydantic-settings
+  doc_url: https://docs.pydantic.dev/latest/usage/pydantic_settings
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
+    - fhoehle

@@ -1,0 +1,56 @@
+{% set name = "six" %}
+{% set version = "1.17.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python
+    - pip
+    - wheel
+    - setuptools
+  run:
+    - python
+
+test:
+  source_files:
+    - test_six.py
+  imports:
+    - six
+  commands:
+    - pip check
+    - pytest -v test_six.py
+  requires:
+    - pip
+    - pytest
+
+about:
+  home: https://six.readthedocs.io/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Python 2 and 3 compatibility utilities
+  description: |
+    Six provides simple utilities for wrapping over differences between
+    Python 2 and Python 3. It is intended to support codebases that work on
+    both Python 2 and 3 without modification. six consists of only one Python
+    file, so it is painless to copy into a project.
+  doc_url: https://six.readthedocs.io/
+  dev_url: https://github.com/benjaminp/six
+  doc_src_url: https://github.com/benjaminp/six/tree/master/documentation
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - ocefpaf

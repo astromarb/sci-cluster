@@ -1,0 +1,29 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_1",
+  "build_number": 1,
+  "depends": [
+    "anaconda-anon-usage >=0.4.0",
+    "anaconda-cli-base >=0.4.0",
+    "conda-package-handling >=1.7.3",
+    "defusedxml >=0.7.1",
+    "nbformat >=4.4.0",
+    "platformdirs >=3.10.0,<5.0",
+    "python >=3.12,<3.13.0a0",
+    "python-dateutil >=2.6.1",
+    "pytz >=2021.3",
+    "pyyaml >=3.12",
+    "requests >=2.20.0",
+    "requests-toolbelt >=0.9.1",
+    "setuptools >=58.0.4",
+    "tqdm >=4.56.0",
+    "urllib3 >=1.26.4"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "anaconda-client",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1743199757605,
+  "version": "1.13.0"
+}

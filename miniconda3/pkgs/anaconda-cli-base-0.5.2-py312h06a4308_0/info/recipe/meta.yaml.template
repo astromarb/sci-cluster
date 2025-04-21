@@ -1,0 +1,71 @@
+{% set name = "anaconda-cli-base" %}
+{% set version = "0.5.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
+  sha256: 96ba616ae7091ef2cb5bd473dc164c68e2328ba98b70ce5afbfe7ad3123c8081
+
+build:
+  number: 0
+  skip: true # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - anaconda = anaconda_cli_base.cli:app
+
+requirements:
+  host:
+    - python
+    - hatchling
+    - hatch-vcs >=0.3
+    - setuptools-scm >=7.1
+    - pip
+  run:
+    - python
+    - click
+    - pydantic-settings >=2.3
+    - readchar
+    - rich
+    - typer
+    - tomli
+  run_constrained:
+      # Ensure that a version of anaconda-cli-base cannot be installed if an incompatible
+      # older version of anaconda-client is installed.
+      - anaconda-client >=1.13.0
+      - anaconda-cloud-cli >=0.3.0
+
+test:
+  imports:
+    - anaconda_cli_base
+  source_files:
+    - tests
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - types-requests
+  commands:
+    - pip check
+    - anaconda -h
+    - anaconda -V
+    - python -c "from anaconda_cli_base import __version__; assert __version__ == \"{{ version }}\""
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
+
+about:
+  summary: A base CLI entrypoint supporting Anaconda CLI plugins
+  description: A base CLI entrypoint supporting Anaconda CLI plugins
+  home: https://anaconda.cloud
+  license: BSD-3-Clause
+  license_file: LICENSE
+  license_family: BSD
+  dev_url: https://pypi.org/project/anaconda-cli-base/
+  doc_url: https://pypi.org/project/anaconda-cli-base/
+
+extra:
+  recipe-maintainers:
+    - albertdefusco
+    - mattkram

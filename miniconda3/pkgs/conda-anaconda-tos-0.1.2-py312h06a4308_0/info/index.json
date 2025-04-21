@@ -1,0 +1,18 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "depends": [
+    "conda >=24.11",
+    "pydantic",
+    "python >=3.12,<3.13.0a0",
+    "rich"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "conda-anaconda-tos",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1739299021503,
+  "version": "0.1.2"
+}

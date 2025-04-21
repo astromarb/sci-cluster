@@ -1,0 +1,87 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Tue Dec 17 21:48:27 2024
+# ------------------------------------------------
+
+package:
+  name: packaging
+  version: '24.2'
+source:
+  sha256: c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f
+  url: https://pypi.io/packages/source/p/packaging/packaging-24.2.tar.gz
+build:
+  number: '0'
+  script: /croot/packaging_1734472117206/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.11.26 h06a4308_0
+    - expat 2.6.4 h6a678d5_0
+    - flit-core 3.9.0 py312hee27c6d_1
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - pip 24.2 py312h06a4308_0
+    - python 3.12.8 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 75.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - wheel 0.44.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - pip check
+    - pytest -v tests
+  imports:
+    - packaging
+  requires:
+    - pip
+    - pretend
+    - pytest >=6.2.0
+  source_files:
+    - tests
+about:
+  description: 'Reusable core utilities for various Python Packaging interoperability
+    specifications.
+
+    This library provides utilities that implement the interoperability specifications
+
+    which have clearly one correct behaviour (eg: PEP 440) or benefit greatly from
+    having
+
+    a single shared implementation (eg: PEP 425).
+
+    '
+  dev_url: https://github.com/pypa/packaging
+  doc_url: https://packaging.pypa.io
+  home: https://github.com/pypa/packaging
+  license: Apache-2.0 or BSD-2-Clause
+  license_family: Apache
+  license_file: LICENSE
+  summary: Core utilities for Python packages
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: f2807eeb-4f4d-4a2a-9f97-ce2edf63d839
+  recipe-maintainers:
+    - jakirkham
+    - mingwandroid
+    - nicoddemus
+  remote_url: git@github.com:AnacondaRecipes/packaging-feedstock.git
+  sha: f16c556e1fa973741f31bf4c92e0e44e66f6ff9e
+  skip-lints:
+    - missing_wheel

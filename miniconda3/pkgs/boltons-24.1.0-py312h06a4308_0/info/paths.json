@@ -1,0 +1,413 @@
+{
+  "paths": [
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+      "size_in_bytes": 1497
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "9de9b4f0093100323d60cd37337f15317a08a21ce3c1b9e0c620a6763a7adc75",
+      "size_in_bytes": 1451
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "42e0146f475c629510725198563919473b9b49884590d144cd8ca12c844e0432",
+      "size_in_bytes": 4495
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "195f5a3138703ffe28342b6f102d9e737a9462eb6059e033925ae8ff49b85894",
+      "size_in_bytes": 91
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "abb38a0a74b3d7e445dbaf21f9b8872218026cc24db176b7c4bce5a763c8b454",
+      "size_in_bytes": 67
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons-24.1.0.dist-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "82eee4a2c23e7cbec2045f7e2be0d0c02cb8b8793651c2fafde4c0aefa29cc41",
+      "size_in_bytes": 8
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/__init__.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "728f21fde0d61e857d0610464122d5d28bfab3d56ea4533c0760ab1b57e9f430",
+      "size_in_bytes": 145
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/cacheutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "26f09b6f3d2adcdd973fee2d26b979eb43a429bbfb54623d787fe21c0b53f883",
+      "size_in_bytes": 40008
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/debugutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "30593a06758dbbce48256a63a998be9169365c74ba99b7ae428bb92215306883",
+      "size_in_bytes": 10706
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/deprutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "7a0fc8de01698184e43d350035848e0587e366a82a3a296a33f0baeb88d0cdc7",
+      "size_in_bytes": 1844
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/dictutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "c8ec8f1441f10e5e4b8f9dcb98f153e46e4f4e3caabeb341bfdd8a7d498dd552",
+      "size_in_bytes": 51760
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/easterutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "29b9afeb29bb84e3700c4afe9ae7f528b196c39b99bad53df98d59bbc13c3df2",
+      "size_in_bytes": 542
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/ecoutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "5dbe9aabf0fabc10bafbf4080ba4ca7f81ac4dd70b27a0b2ec0378626b84d733",
+      "size_in_bytes": 14001
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/excutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "39ec45e4ffd2ee5c1302dc7d9768b9f21dd582940b1eee8a1ec142780b733f63",
+      "size_in_bytes": 11308
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/fileutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "3da51d913adc7d972710916e28c4c9e4d0008ada040210c6fdbe8ce3d2bb190b",
+      "size_in_bytes": 28762
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/formatutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "c6d2856e9e15b6a5bf40bce2d53fcc0a2d6cfe22177d36a7d272190e1ee22a3f",
+      "size_in_bytes": 14623
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/funcutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "409826b4562516161ae7eac001139d0e458ca0efa1aff2f6885fba7bf00ff0a5",
+      "size_in_bytes": 42038
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/gcutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "224ae39011577c8a6e9cd7d09c7e91b17766b61a010bd48252781a8539842869",
+      "size_in_bytes": 5414
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/ioutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "17b4a732d8a776095b7d12f223a9fe15b1e190b24270c29e6dc6d923f38ee073",
+      "size_in_bytes": 26825
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/iterutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "18e46be4c818f11e8a0ff67fc2c4b813f39927a26823e9f7dd5956bbe807cc9e",
+      "size_in_bytes": 63729
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/jsonutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "84474e92a7813cf634ed2bff0ff89ab5e923272bffaa87f064c9f819397d095b",
+      "size_in_bytes": 9802
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/listutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "08bb5f7d70b775e08061bf311d2783d833c9599461bca852f958b971322b4c60",
+      "size_in_bytes": 14938
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/mathutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "4fe29236fa4ff802cdf7cf1f52090e374e197acbef3354c04abc4403773507d2",
+      "size_in_bytes": 10172
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/mboxutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "d98482cad8d278230acc68ec36a6876995231188ae8f4f7beb8a0b067a1bcc91",
+      "size_in_bytes": 4981
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/namedutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "0f92eeb71748ad4c0ed5e0ed9132e75b58be1ff4a625e3708bcbce1f5553a01c",
+      "size_in_bytes": 14554
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/pathutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "7ca7586c37cc2e76147125a6ef8440debd9a2c980ec2cb196b4ed3affaa766c8",
+      "size_in_bytes": 5403
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/queueutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "29f2021df8826c85638789ced7507973092182bd44aca8a39662ecc4caed7d5d",
+      "size_in_bytes": 8517
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/setutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "dbd11564fd3a85a6a00032eca3f894370bc2d4aedbf06948b6f8146aa8f08ff3",
+      "size_in_bytes": 40353
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/socketutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "031a2f4976fef964c2e1176c1c4e77847c96921fc8de828d34c053f24b5cba72",
+      "size_in_bytes": 34319
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/statsutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "bb263738b974e2e00b6dace1b1ed129186b66c472a28772faf1d5ef40c6e6556",
+      "size_in_bytes": 34781
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/strutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "4d20097034bb2f6f9c3fab6ea127d747d48eb2f7e65b73722479f1d1955380a5",
+      "size_in_bytes": 45387
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/tableutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "5608c8b414bf5b15a9e78a1ccaf370b58f82ae76de212aa9f6a7bfa20bcd784e",
+      "size_in_bytes": 25513
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/tbutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "a9a4732fe53a34423f8dd95d28522fdfc6bfa0f963368ec0bb91f886306b225b",
+      "size_in_bytes": 36386
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/timeutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "bcfc88e80305b882b5a87e5170bf07b9e30ef2b2ba2fa1330d941068d080b1bb",
+      "size_in_bytes": 22368
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/typeutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "132d64a46accd358088adfc74a50525461f4f139108d251d2d0502d288ba5249",
+      "size_in_bytes": 6265
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/__pycache__/urlutils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "eedbf410c9b5658e553e4826a0298f4d7dd122d712bf6c37d20d0202835f1f4d",
+      "size_in_bytes": 69341
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/cacheutils.py",
+      "path_type": "hardlink",
+      "sha256": "cb22998f46013d91c96b28e141bfc75de274f793e384b3db9a9db59b0c820ea5",
+      "size_in_bytes": 30399
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/debugutils.py",
+      "path_type": "hardlink",
+      "sha256": "e701ab82126836aa661f7e9272a9a8b339814ae602977b47213f0aebacfda283",
+      "size_in_bytes": 10320
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/deprutils.py",
+      "path_type": "hardlink",
+      "sha256": "d8f2c0fdce9d8276466127f093771e1a0a8844bcd1bd92e6880f30d2782e0151",
+      "size_in_bytes": 2478
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/dictutils.py",
+      "path_type": "hardlink",
+      "sha256": "ab54e00ae375b64cdaa8bfa8da3dfaa3790aeb40ce0717188be97b199c32feb1",
+      "size_in_bytes": 37642
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/easterutils.py",
+      "path_type": "hardlink",
+      "sha256": "1bfc6e9e05606689ab4087b00585c183ff4fcc4eb4a423f9be153a0be6818d40",
+      "size_in_bytes": 1798
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/ecoutils.py",
+      "path_type": "hardlink",
+      "sha256": "fe8afbb804436495538d7e3009179212dde645adb2475d1f528e02db33aa8aad",
+      "size_in_bytes": 14161
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/excutils.py",
+      "path_type": "hardlink",
+      "sha256": "6a2eddd26f46dbdceeda125bd20379d52ffc98a941fe867e3434d17b93119957",
+      "size_in_bytes": 8972
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/fileutils.py",
+      "path_type": "hardlink",
+      "sha256": "9016cc7fa1727ea8a51d2690173a76985cd4355461f784002c73371c785b2760",
+      "size_in_bytes": 24200
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/formatutils.py",
+      "path_type": "hardlink",
+      "sha256": "15c7963d5c97b11ec7a419e9e4aec7c20ca765bcf701306510c9c57c7eaeb1a4",
+      "size_in_bytes": 12728
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/funcutils.py",
+      "path_type": "hardlink",
+      "sha256": "54d826132a9796be4aadf0c30e3e62a58d61e4c5a7a5f6993a2b959d0bbb03a0",
+      "size_in_bytes": 36840
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/gcutils.py",
+      "path_type": "hardlink",
+      "sha256": "e82a32093560c14bb8298532681a3338d2ec6f48d20ccf2f1a4496dd67a17f97",
+      "size_in_bytes": 6229
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/ioutils.py",
+      "path_type": "hardlink",
+      "sha256": "36727e503a7483d1f91efc7cd837e502dc4b560e1bff5f7f9e66cda09421b6bc",
+      "size_in_bytes": 17991
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/iterutils.py",
+      "path_type": "hardlink",
+      "sha256": "229f0f767aa3ca9fbc0b057dd7191170815bffb43599d3a293a246bd5a75afb6",
+      "size_in_bytes": 57562
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/jsonutils.py",
+      "path_type": "hardlink",
+      "sha256": "f71876a97e818d3988b3296cf2a11788d0513cf251f269f8eb7fd42aab591094",
+      "size_in_bytes": 9864
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/listutils.py",
+      "path_type": "hardlink",
+      "sha256": "aa680163cb34129c08d89e236b55e7d5be61cc321a48567d9d080b7ff633d110",
+      "size_in_bytes": 12088
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/mathutils.py",
+      "path_type": "hardlink",
+      "sha256": "298f80d272dd69510a3c6ed50e6ad76f28ac5e9f92aec0aab81322f7c88369a4",
+      "size_in_bytes": 7941
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/mboxutils.py",
+      "path_type": "hardlink",
+      "sha256": "426b5211f7b3ce6ee9d1c80d794b56d9544435865b48a016d1955cd0a1e0320d",
+      "size_in_bytes": 5938
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/namedutils.py",
+      "path_type": "hardlink",
+      "sha256": "13f1273386f5695c474099cf22fcc00dcfcccda3719e1ff30df8a138c3dcdf96",
+      "size_in_bytes": 14957
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/pathutils.py",
+      "path_type": "hardlink",
+      "sha256": "667a4bb46ed79f66af83b07fac419f3f91576c2e7ed404e11f28cd68b4645fbd",
+      "size_in_bytes": 6497
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/queueutils.py",
+      "path_type": "hardlink",
+      "sha256": "a60f04f5f27803429c7a79f3f51f9b286cba3bd997f122161f252c66ca0499bb",
+      "size_in_bytes": 7650
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/setutils.py",
+      "path_type": "hardlink",
+      "sha256": "6dc3c91b2c3bc30d319d62803a5ba1ac326022fce7b24e3402d455c897f3c478",
+      "size_in_bytes": 33482
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/socketutils.py",
+      "path_type": "hardlink",
+      "sha256": "b2d5da2d58dd3d05c14153a83f36da928fe6285a4a44850c2eab9877c1959adc",
+      "size_in_bytes": 29900
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/statsutils.py",
+      "path_type": "hardlink",
+      "sha256": "cfd6dd5fe727c4b168beeeeaf1ff9736e73dd195037fc8d1ad03c106d1579745",
+      "size_in_bytes": 29923
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/strutils.py",
+      "path_type": "hardlink",
+      "sha256": "6d29480e26c6efaa5e89832718df2758dd5cf454e95e3b5796c958dfb6e10481",
+      "size_in_bytes": 43175
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/tableutils.py",
+      "path_type": "hardlink",
+      "sha256": "00444911931f640d009710cfbda813f30b6839b82d3d6a28860a1bf5a472267e",
+      "size_in_bytes": 21922
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/tbutils.py",
+      "path_type": "hardlink",
+      "sha256": "4314ef581fa5eb47294d31dc534c72ccf9863af491a69324f88de6b703d64652",
+      "size_in_bytes": 30474
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/timeutils.py",
+      "path_type": "hardlink",
+      "sha256": "7aeb4b601b99929ef36e196c5b37006a428f5258556b4277547fb69dbef40fa9",
+      "size_in_bytes": 20156
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/typeutils.py",
+      "path_type": "hardlink",
+      "sha256": "4da2b26d71386ee9010dfb52104e461ecba486ba5544a8cf50d9e26cd34e9c09",
+      "size_in_bytes": 5814
+    },
+    {
+      "_path": "lib/python3.12/site-packages/boltons/urlutils.py",
+      "path_type": "hardlink",
+      "sha256": "8c0b344c4ca3fd9af94b6eb1e0d9836e4a4f6f1e4468bccf0ece747bbad5498e",
+      "size_in_bytes": 57489
+    }
+  ],
+  "paths_version": 1
+}

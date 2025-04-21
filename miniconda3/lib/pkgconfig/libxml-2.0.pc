@@ -1,0 +1,13 @@
+prefix=/home/ec2-user/miniconda3
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+modules=1
+
+Name: libXML
+Version: 2.13.5
+Description: libXML library version2.
+Requires.private:  icu-i18n
+Libs: -L${libdir} -lxml2 
+Libs.private:  -L/home/ec2-user/miniconda3/lib -lz -L/home/ec2-user/miniconda3/lib -llzma  -L/home/ec2-user/miniconda3/lib  -lm   
+Cflags: -I${includedir}/libxml2 -I/home/ec2-user/miniconda3/include 

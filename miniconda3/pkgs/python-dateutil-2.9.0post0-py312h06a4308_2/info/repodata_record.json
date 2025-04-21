@@ -1,0 +1,23 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "six >=1.5"
+  ],
+  "fn": "python-dateutil-2.9.0post0-py312h06a4308_2.conda",
+  "license": "BSD-3-Clause and Apache-2.0",
+  "license_family": "BSD",
+  "md5": "06c8706a892aaaae74325c0b46c86d01",
+  "name": "python-dateutil",
+  "platform": "linux",
+  "sha256": "7dcdba7369ce62f60853efd295fd1e4cbd6adb8b0b8501d6e64f511409a667c8",
+  "size": 325184,
+  "subdir": "linux-64",
+  "timestamp": 1716495854000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/python-dateutil-2.9.0post0-py312h06a4308_2.conda",
+  "version": "2.9.0post0"
+}

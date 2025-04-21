@@ -1,0 +1,459 @@
+==> /croot/anaconda-client_1743199569980/_build_env/bin/git log -n1 <==
+commit 0899200dbbfdd97dfa0c5de12de8dec8a698dcf1
+Author: Matt Kramer <mkramer@anaconda.com>
+Date:   Thu Oct 31 20:53:18 2024 -0500
+
+    Release `anaconda-client` version 1.13.0 (#728)
+    
+    * Replace six import with direct import
+    
+    * Replace six imports with direct imports
+    
+    * Remove dead code
+    
+    * Remove dead code: MultiPartIO
+    
+    * Remove dead code: encode_multipart_formdata_stream
+    
+    * Make import more explicit
+    
+    * Remove unused function
+    
+    * Update comment to reflect ownership of requests
+    
+    * Remove unused type aliases
+    
+    * Move down the __all__ definition
+    
+    * Remove dependency on `six` library
+    
+    * Ignore type error in optional import
+    
+    * Specify miniconda-version
+    
+    * xfail tests related to anaconda-project
+    
+    * Use single-quotes for consistency
+    
+    * Revert "xfail tests related to anaconda-project"
+    
+    This reverts commit 3dc5194b
+    
+    * Revert "Remove unused type aliases"
+    
+    This reverts commit 5de1eac6771917a68245c62b95741ce27363463d.
+    
+    * Revert "Remove unused function"
+    
+    This reverts commit cafdc4c2245d72e0632da25d6dabbc27d001d229.
+    
+    * Revert "Remove dead code: encode_multipart_formdata_stream"
+    
+    This reverts commit 5cf23ab1
+    
+    * Revert "Remove dead code: MultiPartIO"
+    
+    This reverts commit a1ee64aed28d7244113aab270c6100a1db335bb1.
+    
+    * Revert "Remove dead code"
+    
+    This reverts commit 4219232fbf048ff06158851273832c17b73d4123.
+    
+    * Add back removed function from __all__
+    
+    * Replace six types with Python3 types from the six module
+    
+    * Update the CHANGELOG.md
+    
+    * Fix `make init` for local development
+    
+    * Remove anaconda entrypoint
+    
+    * Add a plugin to anaconda-cli-base
+    
+    * Register main CLI as anaconda_cli.main plugin
+    
+    * Don't mount login or logout at the top level if using the typer app
+    
+    These are implemented inside anaconda-cloud-cli, which will delegate back to anaconda_client
+    
+    * Remove "anaconda_cli.main" plugin
+    
+    * Add descriptive docstring
+    
+    * Move and rename some helper functions
+    
+    * Tidy
+    
+    * Add a docstring
+    
+    * Refactor subcommand mounting into helper function
+    
+    * In-line call to _get_help_text
+    
+    * Rename constant
+    
+    * Make deprecated text red and bold
+    
+    * Fix type annotation
+    
+    * Bump version and add anaconda-cli-base as dependency
+    
+    * Remove entrypoint from recipe
+    
+    * Use local path instead of git_url
+    
+    * test cli plugin
+    
+    * temporarily add anaconda-cloud/label/dev
+    
+    * and in ci
+    
+    * pylint
+    
+    * mypy
+    
+    * Remove RichHandler from root logger because of formatting conflict
+    
+    * Satisfy the linter
+    
+    * Ignore type hinting for optional import
+    
+    * Revert change to version number
+    
+    Save this for the release
+    
+    * Use anaconda-cloud channel instead of the dev label
+    
+    * xfail tests related to anaconda-project
+    
+    (cherry picked from commit 3dc5194bed9efbb7e019279a14bddd68b7dc4196)
+    
+    * Exclude anaconda-project from extras
+    
+    * Bump dependency on anaconda-cli-base
+    
+    * Make quotes consistent
+    
+    * Add anaconda-project back to extras just to be completely safe
+    
+    * Fix line ending
+    
+    * Update setup.py
+    
+    * Remove duplicate import
+    
+    It looks like a merge issue caused a duplication of code in `binstar_client.utils.config`.
+    
+    * Updated links in upload help text (#714)
+    
+    * Updated links in upload help text
+    
+    I noticed that when running `anaconda upload --help` it would print out a bit of reStructuredText instead of plain output. Turns out it was hardcoded in the docstring of the `upload` command module.
+    
+    Also fixed the URLs of the links.
+    
+    * Fix linter by ignoring error in docstring line being too long
+    
+    ---------
+    
+    Co-authored-by: mattkram <mkramer@anaconda.com>
+    
+    * Raise error on deprecated `notebook` subcommand (#722)
+    
+    * Replace parser for notebook command to print an error message and exit
+    
+    * Remove dead code from notebooks.py
+    
+    * Cleanup
+    
+    * Remove NOTES.md
+    
+    * Update documentation to remove references to notebooks in download.py
+    
+    We do this because the download command actually works for packages,
+    so if we want to remove that we need to do it more gradually/gracefully.
+    
+    * Remove unreachable code
+    
+    We can never download notebooks with an embedded environment.
+    
+    * Update actions/upload-artifact to v4
+    
+    * Ignore local dev conda environment
+    
+    * Ignore more coverage files (which can have a suffix)
+    
+    * Remove upload notebook from the help text
+    
+    * Print error message when attempting to upload a notebook
+    
+    * Remove broken test due to removal of notebook upload functionality
+    
+    * Remove unused import
+    
+    * Use conda package streaming (#724)
+    
+    * inspect info/ dir without temporary files
+    
+    * open archive in 'rb' mode
+    
+    * remove unnecessary fileobj parameter
+    
+    * replace data_dir test utility
+    
+    * remove spurious import
+    
+    * format with blue
+    
+    * reduce diff
+    
+    * use frozenset as default parameter
+    
+    * handle tested icon filename case
+    
+    * define icon_b64
+    
+    * lint 2
+    
+    * test without lint
+    
+    * annotations
+    
+    * lint
+    
+    * mypy lints
+    
+    * silly style
+    
+    * check Image type without assert
+    
+    * remove type: ignore from ImportError
+    
+    * Remove duplicate import and clean up formatting slightly
+    
+    * Restore test dependency on lint
+    
+    * Rempve duplicate line
+    
+    The duplicate application of pop was causing issues in that the first
+    invocation removed the item looked for the second time
+    
+    ---------
+    
+    Co-authored-by: mattkram <mkramer@anaconda.com>
+    
+    * chore: Remove logging hack (#725)
+    
+    * feat: Add optional `typer` subcommands (#723)
+    
+    * Bump version number
+    * Update the CHANGELOG.md
+    * Fix bug: Manually handle sys.argv to allow proper handling of all CLI options and args
+    * Use pytest-mock to spy calls to binstar_main and ensure arguments are processed correctly
+    * Add test to ensure top-level CLI options are passed through to binstar_main.
+    * Fix whitespace linting errors
+    * Satisfy pycodestyle, pylint, and mypy
+    * Exclude conda environment and coverage report
+    * Implement way to optionally define a new subcommand using typer
+    * Pass the common args via ctx.obj
+    * Remove commented context_settings from main callback
+    * This allows token to be passed either before or after "org" subcommand
+    * Depend on upcoming changes to anaconda-cli-base
+    * Remove debug statement
+    * Start work on upload subcommand
+    * Start mapping arguments for upload subcommand, enhance tests
+    * Copy in defaults for Namespace and tests
+    * Refactor the test to be parametrized
+    * Add more tests around label and no-progress args
+    * Extend testing for multiple label options
+    * Add test and handling for deprecated --channel option
+    * Add -u/--user option
+    * Add parametrization to test with and without org prefix
+    * Add keep_basename option
+    * Add package option
+    * Add support for package version option
+    * Add support for package summary option
+    * Add support for package_type option
+    * Add support for description option
+    * Add support for thumbnail
+    * Add support for private
+    * Add support for register/auto_register
+    * Fix interactive flag
+    * Add fail option
+    * Add force option
+    * Add handling of mutually-exclusive options
+    * Fix the exclusivity callback to handle False values
+    * Add skip-existing option
+    * Add force-metadata-update option
+    * Add build-id option
+    * Add note about --json-help option
+    * Add testing around top-level options too
+    * Show help if no args provided
+    * Clean up help text
+    * Files are required
+    * Don't exit on first failed test
+    * Move test up
+    * Start adding copy command
+    * Add to_owner option
+    * Add from-label and to-label options
+    * Add replace and update options
+    * Parse spec instead of using raw string
+    * Add new subcommand for move
+    * Support token and site options in copy
+    * Start creating channel and label subcommands
+    * Add test for organization option
+    * Add handling of --copy option
+    * Add handling of --list option
+    * Add handling of --show option
+    * Add handling of --lock and --unlock options
+    * Add handling of --remove option
+    * Start adding exclusivity to the actions
+    * Finish adding exclusivity to the actions
+    * Add handling of required exclusive option group
+    * Parametrize command name
+    * Renamed from ctx.obj to ctx.obj.params
+    * Start adding update subcommand
+    * Add tests for --token and --site
+    * Add package_type option
+    * Add --release option
+    * Add search subcommand
+    * Select --platform from a list of choices
+    * Add boilerplate for new groups subcommand definition
+    * Add handling of action argument
+    * Add group spec argument
+    * Add --perms option
+    * Clean up imports
+    * Add new show subcommand
+    * Start implementing remove subcommand
+    * Add --force option
+    * Start adding auth subcommand
+    * Add default handling of token name, and tests
+    * Add --organization option
+    * Add flag-like options
+    * Add --remove option
+    * Add handling of required and mutually exclusive action options
+    * Add handling of token strength options
+    * Add --url option
+    * Add --max-age option
+    * Add --scopes option
+    * Add the --out option
+    * Add basic boilerplate for config subcommand
+    * Improve handling of type option
+    * Add --set option
+    * Add --get option
+    * Add --remove option
+    * Add flag options --show, --files, --show-sources
+    * Add --user and --system options
+    * Add boilerplate for package command
+    * Add required spec argument
+    * Add default values
+    * Add actions flags
+    * Add required exclusive option callback
+    * Fix test
+    * Add options for --summary, --license, --license-url
+    * Add options for --private and --personal
+    * Move all mount_subcommand functions to bottom of modules
+    * Alphabetize import
+    * Add a new test and fixture that runs each CLI entrypoint combination the same and checks the arg parsing
+    * Move sys.argv monkeypatch to fixture
+    * Extend fixture to cover with and without "org" prefix
+    * Refactor mocking into an encapsulating class
+    * Move fixture to top and refactor package command test
+    * Add fixture IDs and use assertion methods for better comparison output
+    * Use new fixture and fix a bug!
+    * Refactor copy and move commands
+    * Migrate update command and get parity
+    * Migrate search command and get parity
+    * Migrate channel/label command and get parity
+    * Migrate groups command and get parity
+    * Migrate show command and get parity
+    * Migrate remove command and get parity
+    * Migrate auth command and get parity with TODO
+    * Migrate config command and get parity with TODO
+    * Fix whitespace and line-too-long issues
+    * Ignore bandit alerts for test TOKEN values
+    * Update imports to use typing_extensions
+    * Fix type hints
+    * Resolve type errors in config.py
+    * Fix types in channel.py
+    * Fix tests by moving class definition above usage as type
+    * Fix types in authorizations.py
+    * Format code
+    * Fix pylint errors
+    * Remove intermediate callback function (we get args from parent)
+    * Remove unused imports
+    * Fix comment syntax
+    * Bump dependency to anaconda-cli-base>=0.4.0
+    * Try to set _TYPER_FORCE_DISABLE_TERMINAL
+    * Fix python 3.8 type to use typing.List
+    
+    * Bump version number
+    
+    * Update the CHANGELOG.md
+    
+    * Re-order list and add PR 724
+    
+    * Add CHANGELOG entry for #724
+    
+    * Generate noarch package when developing locally
+    
+    * Revert "feat: Add optional `typer` subcommands (#723)"
+    
+    This reverts commit d73416785e8238de93bf76b431c130c6f425c3ed.
+    
+    * Update CHANGELOG for reverted commit
+    
+    * Update conda.recipe/meta.yaml
+    
+    * Add minimum version for conda-package-streaming
+    
+    * Add note to parameter help description for --keep-basename (#727)
+    
+    * Add test to cover parse_specs (#729)
+    
+    * Add test for parse_specs to attempt to reproduce
+    
+    * chore: lint
+    
+    * Rename file and add a comment
+    
+    * Change username
+    
+    * Add failing test
+    
+    * Enable both -h and --help options
+    
+    * Remove trailing whitespace
+    
+    * Use a callback to prevent recursively adding typer to every subcommand
+    
+    * Show non-deprecated subcommands on main help screen, deprecate channel
+    
+    * Remove unneeded assertions
+    
+    We've removed these prefixes from the help text
+    
+    * Clean up and update CHANGELOG
+    
+    * Update the help text to be more generic
+    
+    * Update minimum version of anaconda-cli-base
+    
+    ---------
+    
+    Co-authored-by: Albert DeFusco <adefusco@anaconda.com>
+    Co-authored-by: Michael C. Grant <mgrant@anaconda.com>
+    Co-authored-by: Jannis Leidel <jannis@leidel.info>
+    Co-authored-by: Daniel Holth <dholth@anaconda.com>
+==> /croot/anaconda-client_1743199569980/_build_env/bin/git describe --tags --dirty <==
+1.13.0
+==> /croot/anaconda-client_1743199569980/_build_env/bin/git status <==
+HEAD detached at 1.13.0
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	build_env_setup.sh
+	conda_build.sh
+	metadata_conda_debug.yaml
+
+nothing added to commit but untracked files present (use "git add" to track)

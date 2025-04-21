@@ -1,0 +1,10 @@
+libdir=/croot/yaml-cpp-split_1714510678659/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pl/lib
+includedir=/croot/yaml-cpp-split_1714510678659/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pl/include
+
+Name: gtest_main
+Description: GoogleTest (with main() function)
+Version: 1.11.0
+URL: https://github.com/google/googletest
+Requires: gtest = 1.11.0
+Libs: -L${libdir} -lgtest_main -lpthread
+Cflags: -I${includedir} -DGTEST_HAS_PTHREAD=1

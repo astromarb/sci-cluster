@@ -1,0 +1,79 @@
+# This file created by conda-build 3.27.0
+# meta.yaml template originally from:
+# /work/perseverance-python-buildout/aggregate/markdown-it-py-feedstock/recipe, last modified Wed Nov  1 02:14:51 2023
+# ------------------------------------------------
+
+package:
+  name: markdown-it-py
+  version: 2.2.0
+source:
+  sha256: 7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1
+  url: https://pypi.io/packages/source/m/markdown-it-py/markdown-it-py-2.2.0.tar.gz
+build:
+  entry_points:
+    - markdown-it = markdown_it.cli.parse:main
+  number: '1'
+  script: /work/perseverance-python-buildout/croot/markdown-it-py_1698846045803/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehol/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: py312h06a4308_1
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h7b6447c_0
+    - ca-certificates 2023.08.22 h06a4308_0
+    - expat 2.5.0 h6a678d5_0
+    - flit-core 3.9.0 py312h685e810_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_0
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.11 h7f8727e_2
+    - pip 23.3 py312h06a4308_0
+    - python 3.12.0 h996f2a0_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 68.0.0 py312h06a4308_0
+    - sqlite 3.41.2 h5eee18b_0
+    - tk 8.6.12 h1ccaba5_0
+    - tzdata 2023c h04d1e81_0
+    - wheel 0.41.2 py312h06a4308_0
+    - xz 5.4.2 h5eee18b_0
+    - zlib 1.2.13 h5eee18b_0
+  run:
+    - mdurl >=0.1,<1
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - markdown-it --help
+    - pip check
+  imports:
+    - markdown_it
+    - markdown_it.cli
+    - markdown_it.common
+    - markdown_it.helpers
+    - markdown_it.presets
+    - markdown_it.rules_block
+    - markdown_it.rules_core
+    - markdown_it.rules_inline
+  requires:
+    - pip
+about:
+  description: 'Python port of markdown-it. Markdown parsing, done right!
+
+    '
+  dev_url: https://github.com/ExecutableBookProject/markdown-it-py
+  doc_url: https://github.com/ExecutableBookProject/markdown-it-py/blob/master/README.md
+  home: https://github.com/ExecutableBookProject/markdown-it-py
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Python port of markdown-it. Markdown parsing, done right!
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - choldgraf
+    - dopplershift

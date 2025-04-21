@@ -1,0 +1,65 @@
+{% set name = "attrs" %}
+{% set version = "24.3.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8f5c07333d543103541ba7be0e2ce16eeee8130cb0b3f9238ab904ce1e85baff
+
+build:
+  number: 0
+  script: python -m pip install . --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - pip
+    - python
+    - hatchling
+    - hatch-vcs
+    - hatch-fancy-pypi-readme >=23.2.0
+  run:
+    - python
+
+test:
+  imports:
+    - attr
+  source_files:
+    - tests
+  requires:
+    - hypothesis
+    - cloudpickle
+    - pytest-xdist
+    - psutil
+    - mypy >=1.1.1
+    - pip
+    - pytest >=4.3.0
+  commands:
+    - pip check
+    - pytest --fixtures tests -vv
+
+about:
+  home: https://www.attrs.org/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: attrs is the Python package that will bring back the joy of writing classes by relieving you from the drudgery of implementing object protocols (aka dunder methods).
+
+  description: |
+    attrs is the Python package that will bring back the joy of writing
+    classes by relieving you from the drudgery of implementing object
+    protocols (aka dunder methods). Its main goal is to help you to write
+    concise and correct software without slowing down your code. For that, it
+    gives you a class decorator and a way to declaratively define the
+    attributes on that class:
+  doc_url: https://www.attrs.org/
+  dev_url: https://github.com/python-attrs/attrs
+
+extra:
+  recipe-maintainers:
+    - CJ-Wright
+    - licode
+    - nicoddemus
+    - jochym

@@ -1,0 +1,95 @@
+{
+  "paths": [
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "7ac0b74deee638d17897541f1720ee97791d561f8a37ae634de6766b9254dde5",
+      "size_in_bytes": 3787
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "685b78fd16fde5971f9750b84e21acdd04295d9a3221491d65ac1d1f7b3bd0ac",
+      "size_in_bytes": 1367
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "aad0b0a12256807936d52d4a6f88a1773236ae527564a688bab4e3fe780e8724",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "a4713a435b9f74227ad8436e10e72a686ea1641fc2bc3ae8e8023cec92dcc87f",
+      "size_in_bytes": 84
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/entry_points.txt",
+      "path_type": "hardlink",
+      "sha256": "31162e8ee8e56095821750cf2fcf1d6f40a077dc0bb900134429e9a6b190c1fc",
+      "size_in_bytes": 66
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "9e504431070dd8a4cc8c021042d1bea065a71cae71ba7841e1d26ce7d2596b5a",
+      "size_in_bytes": 1544
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "d09702cb8b481fa9b3f9137be0a7062fe3a711139cd10ecace05ab379834fb28",
+      "size_in_bytes": 983
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/__init__.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "1eb9c9c6c59099c491918f1faaf745296e049f95b6bfab747d7952c42a5d2a36",
+      "size_in_bytes": 878
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/_version.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "6eedee58e38e9779ab228b5fd6998cd620adf14d5ec6ec1cad19f908b62b50c7",
+      "size_in_bytes": 564
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/hooks.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "8f03f128448d057982d4ef70b037932c24b63b9f7c997e55b561fc687f5d248b",
+      "size_in_bytes": 10483
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/_version.py",
+      "path_type": "hardlink",
+      "sha256": "48508376b600ebb0f525efa31e05558782cea2990fbee57a34cb6a489ed37e18",
+      "size_in_bytes": 411
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/hooks.py",
+      "path_type": "hardlink",
+      "sha256": "ab829d339b6219d2a3152958099531677f69eded0d2f762f75e2cf710b7db231",
+      "size_in_bytes": 7702
+    },
+    {
+      "_path": "lib/python3.12/site-packages/conda_anaconda_telemetry/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    }
+  ],
+  "paths_version": 1
+}

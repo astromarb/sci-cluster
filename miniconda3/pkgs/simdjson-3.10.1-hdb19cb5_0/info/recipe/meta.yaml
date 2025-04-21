@@ -1,0 +1,113 @@
+# This file created by conda-build 24.1.2
+# ------------------------------------------------
+
+package:
+  name: simdjson
+  version: 3.10.1
+source:
+  sha256: 1e8f881cb2c0f626c56cd3665832f1e97b9d4ffc648ad9e1067c134862bba060
+  url: https://github.com/simdjson/simdjson/archive/v3.10.1.tar.gz
+build:
+  number: 0
+  run_exports:
+    - simdjson >=3.10.1,<3.11.0a0
+  string: hdb19cb5_0
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - _sysroot_linux-64_curr_repodata_hack 3 haa98f57_10
+    - binutils_impl_linux-64 2.40 h5293946_0
+    - binutils_linux-64 2.40.0 hc2dff05_1
+    - bzip2 1.0.8 h5eee18b_6
+    - c-ares 1.19.1 h5eee18b_0
+    - ca-certificates 2024.11.26 h06a4308_0
+    - cmake 3.26.4 h96355d8_0
+    - expat 2.6.4 h6a678d5_0
+    - gcc_impl_linux-64 11.2.0 h1234567_1
+    - gcc_linux-64 11.2.0 h5c386dc_1
+    - gxx_impl_linux-64 11.2.0 h1234567_1
+    - gxx_linux-64 11.2.0 hc2dff05_1
+    - kernel-headers_linux-64 3.10.0 h57e8cba_10
+    - krb5 1.20.1 h143b758_1
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libcurl 8.9.1 h251f7ec_0
+    - libedit 3.1.20230828 h5eee18b_0
+    - libev 4.33 h7f8727e_1
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-devel_linux-64 11.2.0 h1234567_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libmpdec 4.0.0 h5eee18b_0
+    - libnghttp2 1.57.0 h2d74bed_0
+    - libssh2 1.11.1 h251f7ec_0
+    - libstdcxx-devel_linux-64 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - libuv 1.48.0 h5eee18b_0
+    - lz4-c 1.9.4 h6a678d5_1
+    - ncurses 6.4 h6a678d5_0
+    - ninja 1.12.1 h06a4308_0
+    - ninja-base 1.12.1 hdb19cb5_0
+    - openssl 3.0.15 h5eee18b_0
+    - python 3.13.1 hf623796_100_cp313
+    - python_abi 3.13 0_cp313
+    - readline 8.2 h5eee18b_0
+    - rhash 1.4.3 hdbd6064_0
+    - sqlite 3.45.3 h5eee18b_0
+    - sysroot_linux-64 2.17 h57e8cba_10
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+    - zstd 1.5.6 hc292b87_0
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+  run:
+    - libgcc-ng >=11.2.0
+    - libstdcxx-ng >=11.2.0
+test:
+  commands:
+    - test -f "${PREFIX}/include/simdjson.h"
+    - test -f "${PREFIX}/lib/libsimdjson${SHLIB_EXT}"
+    - test -f "${PREFIX}/lib/cmake/simdjson/simdjson-config.cmake"
+    - cmake -G Ninja -S test/ -B build/ -D TEST_TARGET=simdjson ${CMAKE_ARGS}
+    - cmake --build build/
+    - cmake --build build --target test
+  files:
+    - test/*
+  requires:
+    - cmake
+    - gxx_linux-64 11.2.0.*
+    - ninja
+about:
+  description: 'JSON is everywhere on the Internet.
+
+    Servers spend a *lot* of time parsing it. We need a fresh approach.
+
+    The simdjson library uses commonly available SIMD instructions and
+
+    microparallel algorithms to parse JSON 2.5x faster than anything else out there.
+
+    '
+  dev_url: https://github.com/simdjson/simdjson/
+  doc_url: https://simdjson.github.io/simdjson/
+  home: https://simdjson.org/
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE
+  summary: Parsing gigabytes of JSON per second
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: de9cfe07-25f7-4dea-a60c-854813a78df3
+  recipe-maintainers:
+    - AntoinePrv
+    - JohanMabille
+    - elbaro
+  remote_url: git@github.com:AnacondaRecipes/simdjson-feedstock.git
+  sha: 751e747ff65ed7f4c599e297a43a84ae810be04c

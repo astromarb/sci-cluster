@@ -1,0 +1,20 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "depends": [
+    "click >=7.1.1,<9.0.0",
+    "colorama >=0.4.3,<0.5.0",
+    "python >=3.12,<3.13.0a0",
+    "rich >=10.11.0,<14.0.0",
+    "shellingham >=1.3.0,<2.0.0",
+    "typing-extensions >=3.7.4.3"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "typer",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1698863750192,
+  "version": "0.9.0"
+}

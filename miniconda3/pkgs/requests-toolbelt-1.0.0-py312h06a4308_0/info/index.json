@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "requests >=2.0.1,<3.0.0"
+  ],
+  "license": "Apache-2.0",
+  "license_family": "Apache",
+  "name": "requests-toolbelt",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1698846889877,
+  "version": "1.0.0"
+}

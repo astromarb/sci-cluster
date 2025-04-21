@@ -1,0 +1,51 @@
+{% set name = "python-dotenv" %}
+{% set version = "0.21.0" %}
+{% set sha256 = "b77d08274639e3d34145dfa6c7008e66df0f04b7be7a75fd0d5292c191d79045" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: True  # [py<37]
+  entry_points:
+    - dotenv = dotenv:cli.cli
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+    - wheel
+  run:
+    - python
+    - click >=5.0
+
+test:
+  imports:
+    - dotenv
+  requires:
+    - pip
+  commands:
+    - pip check
+
+about:
+  home: https://saurabh-kumar.com/python-dotenv/
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Get and set values in your .env file in local and production servers like Heroku does.
+  description: Python-dotenv reads key-value pairs from a .env file and can set them as environment variables. It helps in the development of applications following the 12-factor principles.
+  dev_url: https://github.com/theskumar/python-dotenv/
+  doc_url: https://github.com/theskumar/python-dotenv/tree/v{{ version }}/docs
+
+extra:
+  recipe-maintainers:
+    - proinsias

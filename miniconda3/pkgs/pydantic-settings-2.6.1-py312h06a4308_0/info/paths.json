@@ -1,0 +1,113 @@
+{
+  "paths": [
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/INSTALLER",
+      "path_type": "hardlink",
+      "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+      "size_in_bytes": 5
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/METADATA",
+      "path_type": "hardlink",
+      "sha256": "fb70ea2f8dab3ccf53e6d2aec2dbd8fe70d809085f0b7a9aab2114b68741d161",
+      "size_in_bytes": 3526
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/RECORD",
+      "path_type": "hardlink",
+      "sha256": "1cb8c964121d095bb66837247c3674da7aabf83493a819f5da659adb8b5d6e4f",
+      "size_in_bytes": 1435
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/REQUESTED",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/WHEEL",
+      "path_type": "hardlink",
+      "sha256": "d7215d7625cc9af60aed0613aad44db57eba589d0ccfc3d8122114a0e514c516",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/direct_url.json",
+      "path_type": "hardlink",
+      "sha256": "c5f74ed0695eb0f207bacd3915cdc39de7369bcb00bbe9cc824288d8913e5b43",
+      "size_in_bytes": 77
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings-2.6.1.dist-info/licenses/LICENSE",
+      "path_type": "hardlink",
+      "sha256": "eb355a753e020346d33d83bf9769135b89fc610568ac531a01c295bcee7fd998",
+      "size_in_bytes": 1103
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "a67fdb4e70918c0ec473939497c3ca83fbeb9884abe9ab2802fb03dc173c75b7",
+      "size_in_bytes": 1216
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__pycache__/__init__.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "d7f965966fa72f3306eacaa94b65295f498758a3431c3a917148fad55b66ed05",
+      "size_in_bytes": 1069
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__pycache__/main.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "72f8b5b88cbdeb6a737b687fc5aa67aeb235f2118ff84492458c8afe851fc4e6",
+      "size_in_bytes": 21136
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__pycache__/sources.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "d858f38f5893d836ed3c3541f5455850d7a239cfb679bf8365cf7a65b7834f2c",
+      "size_in_bytes": 105173
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__pycache__/utils.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "36d392664a5498aaa50e24ba12d5463fe0bc65f01d8ed367bb8014beaba2b04e",
+      "size_in_bytes": 1114
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/__pycache__/version.cpython-312.pyc",
+      "path_type": "hardlink",
+      "sha256": "cfd3e6c90cf97c35f0901d88de16ed7edd98df85f20ee04491f7e27800da444e",
+      "size_in_bytes": 176
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/main.py",
+      "path_type": "hardlink",
+      "sha256": "b48dc1e5e0f12278e13ff00a8d622d8c468acddbb43be7ad6c86fb70e8be6ea0",
+      "size_in_bytes": 25279
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/py.typed",
+      "path_type": "hardlink",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_in_bytes": 0
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/sources.py",
+      "path_type": "hardlink",
+      "sha256": "ad4b8b3de9572b87babcfcded3ce8329279a28d25d79e673dcbc0c40af189e84",
+      "size_in_bytes": 94219
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/utils.py",
+      "path_type": "hardlink",
+      "sha256": "4c3ba131a30271201c0eb572861bc3a1f1d25cb9cf695e2d6601234d9c60eaa5",
+      "size_in_bytes": 572
+    },
+    {
+      "_path": "lib/python3.12/site-packages/pydantic_settings/version.py",
+      "path_type": "hardlink",
+      "sha256": "0ff6b1f18261340861a28cdea7ea28df49b39287166b3fc117bcb711a8f194ca",
+      "size_in_bytes": 18
+    }
+  ],
+  "paths_version": 1
+}

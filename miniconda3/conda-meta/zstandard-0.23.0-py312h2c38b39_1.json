@@ -1,0 +1,55 @@
+{
+  "arch": "x86_64",
+  "build": "py312h2c38b39_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "cffi >=1.11",
+    "libgcc-ng >=11.2.0",
+    "python >=3.12,<3.13.0a0",
+    "zstd >=1.5.6,<1.5.7.0a0",
+    "zstd >=1.5.6,<1.6.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/zstandard-0.23.0-py312h2c38b39_1",
+  "files": [
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/LICENSE",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/METADATA",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/RECORD",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/WHEEL",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/zstandard-0.23.0.dist-info/top_level.txt",
+    "lib/python3.12/site-packages/zstandard/__init__.py",
+    "lib/python3.12/site-packages/zstandard/__init__.pyi",
+    "lib/python3.12/site-packages/zstandard/__pycache__/__init__.cpython-312.pyc",
+    "lib/python3.12/site-packages/zstandard/__pycache__/backend_cffi.cpython-312.pyc",
+    "lib/python3.12/site-packages/zstandard/_cffi.cpython-312-x86_64-linux-gnu.so",
+    "lib/python3.12/site-packages/zstandard/backend_c.cpython-312-x86_64-linux-gnu.so",
+    "lib/python3.12/site-packages/zstandard/backend_cffi.py",
+    "lib/python3.12/site-packages/zstandard/py.typed"
+  ],
+  "fn": "zstandard-0.23.0-py312h2c38b39_1.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/zstandard-0.23.0-py312h2c38b39_1",
+    "type": 1
+  },
+  "md5": "2cbafae57b8b4ec11666119d44ad4d71",
+  "name": "zstandard",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/zstandard-0.23.0-py312h2c38b39_1.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::zstandard==0.23.0=py312h2c38b39_1[md5=2cbafae57b8b4ec11666119d44ad4d71]",
+  "sha256": "dc74db993c26d3571a63dc532cdf9e06fa66298282d010e725751f719c6b888d",
+  "size": 451195,
+  "subdir": "linux-64",
+  "timestamp": 1731356641000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/zstandard-0.23.0-py312h2c38b39_1.conda",
+  "version": "0.23.0"
+}

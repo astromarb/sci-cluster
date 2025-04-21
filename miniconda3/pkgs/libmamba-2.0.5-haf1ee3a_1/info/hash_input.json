@@ -1,0 +1,9 @@
+{
+  "cxx_compiler_version": "11.2.0",
+  "bzip2": "1.0",
+  "target_platform": "linux-64",
+  "openssl": "3.0",
+  "channel_targets": "defaults",
+  "zstd": "1.5.2",
+  "cxx_compiler": "gxx"
+}

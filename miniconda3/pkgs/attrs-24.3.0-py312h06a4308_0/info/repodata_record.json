@@ -1,0 +1,22 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "fn": "attrs-24.3.0-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "56fc23fdfeeb8d4d72f8b2d9885e2add",
+  "name": "attrs",
+  "platform": "linux",
+  "sha256": "0d96699a3f81455025234955673a1c3f5278a9b926b7840391c4a67bc1aaba32",
+  "size": 175723,
+  "subdir": "linux-64",
+  "timestamp": 1734533186000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/attrs-24.3.0-py312h06a4308_0.conda",
+  "version": "24.3.0"
+}

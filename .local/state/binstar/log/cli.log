@@ -1,0 +1,19 @@
+2025-04-21 06:50:16,828 INFO     binstar         Using Anaconda API: https://api.anaconda.org
+2025-04-21 06:50:16,828 DEBUG    binstar         Using conda..read_binstar_tokens
+2025-04-21 06:51:15,144 ERROR    binstar.login   Invalid Username password combination, please try again
+2025-04-21 06:52:52,117 ERROR    binstar.login   Invalid Username password combination, please try again
+2025-04-21 06:52:57,091 INFO     binstar         Using Anaconda API: https://api.anaconda.org
+2025-04-21 06:52:57,091 DEBUG    binstar         Using conda..read_binstar_tokens
+2025-04-21 06:53:03,424 ERROR    binstar.login   Invalid Username password combination, please try again
+2025-04-21 06:53:08,925 ERROR    binstar.login   Invalid Username password combination, please try again
+2025-04-21 06:53:41,582 ERROR    binstar         [Errno 2] No such file or directory: '/home/ec2-user/.continuum/anaconda-client/config.yaml'
+Traceback (most recent call last):
+  File "/home/ec2-user/miniconda3/lib/python3.12/site-packages/binstar_client/utils/config.py", line 257, in load_config
+    with open(config_file) as file:  # pylint: disable=unspecified-encoding
+         ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ec2-user/.continuum/anaconda-client/config.yaml'
+2025-04-21 06:56:52,482 INFO     binstar         Using Anaconda API: https://api.anaconda.org
+2025-04-21 06:56:52,487 DEBUG    binstar         Using conda..read_binstar_tokens
+2025-04-21 06:56:59,953 ERROR    binstar.login   Invalid Username password combination, please try again
+2025-04-21 06:57:07,309 DEBUG    binstar         Using conda..set_binstar_token
+2025-04-21 06:57:07,309 INFO     binstar.login   login successful

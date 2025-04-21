@@ -1,0 +1,80 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Mon Nov 18 14:15:57 2024
+# ------------------------------------------------
+
+package:
+  name: python-fastjsonschema
+  version: 2.20.0
+source:
+  sha256: 3d48fc5300ee96f5d116f10fe6f28d938e6008f59a6a025c2649475b87f76a23
+  url: https://pypi.io/packages/source/f/fastjsonschema/fastjsonschema-2.20.0.tar.gz
+build:
+  number: '0'
+  script: /croot/python-fastjsonschema_1731939362158/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place/bin/python
+    -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir
+    -vv
+  string: py312h06a4308_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.9.24 h06a4308_0
+    - expat 2.6.3 h6a678d5_0
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - pip 24.2 py312h06a4308_0
+    - python 3.12.7 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 75.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - wheel 0.44.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - cd tests && pytest -vv -m "not benchmark"
+    - pip check
+  imports:
+    - fastjsonschema
+  requires:
+    - pip
+    - pytest
+  source_files:
+    - tests
+about:
+  description: 'fastjsonschema implements validation of JSON documents by JSON schema.
+    The
+
+    library implements JSON schema drafts 04, 06 and 07. The main purpose is to
+
+    have a really fast implementation.
+
+    '
+  dev_url: https://github.com/horejsek/python-fastjsonschema
+  doc_source_url: https://github.com/horejsek/python-fastjsonschema/tree/master/docs
+  doc_url: https://horejsek.github.io/python-fastjsonschema
+  home: https://github.com/horejsek/python-fastjsonschema
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Fastest Python implementation of JSON schema
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: a53f3386-0966-40d0-b0a5-21c00b183ac6
+  recipe-maintainers:
+    - bollwyvl
+  remote_url: git@github.com:AnacondaRecipes/python-fastjsonschema-feedstock.git
+  sha: ae6d6f7819e2143c601252b5f04af57fe82208ea

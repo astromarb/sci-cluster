@@ -1,0 +1,51 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "conda >=24.11",
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/conda-anaconda-telemetry-0.1.2-py312h06a4308_0",
+  "files": [
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/METADATA",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/RECORD",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/WHEEL",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/entry_points.txt",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry-0.1.2.dist-info/licenses/LICENSE",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/__init__.py",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/__init__.cpython-312.pyc",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/_version.cpython-312.pyc",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/__pycache__/hooks.cpython-312.pyc",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/_version.py",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/hooks.py",
+    "lib/python3.12/site-packages/conda_anaconda_telemetry/py.typed"
+  ],
+  "fn": "conda-anaconda-telemetry-0.1.2-py312h06a4308_0.conda",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/conda-anaconda-telemetry-0.1.2-py312h06a4308_0",
+    "type": 1
+  },
+  "md5": "b640f7443708323e39eee94c77cc25e6",
+  "name": "conda-anaconda-telemetry",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/conda-anaconda-telemetry-0.1.2-py312h06a4308_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::conda-anaconda-telemetry==0.1.2=py312h06a4308_0[md5=b640f7443708323e39eee94c77cc25e6]",
+  "sha256": "a88b51899ada1ced0de3bcf99b6b06bb442b9b242e6a6f786ca3df8f1c2674b2",
+  "size": 14601,
+  "subdir": "linux-64",
+  "timestamp": 1736524661000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/conda-anaconda-telemetry-0.1.2-py312h06a4308_0.conda",
+  "version": "0.1.2"
+}

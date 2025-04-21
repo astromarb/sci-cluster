@@ -1,0 +1,29 @@
+{
+  "paths": [
+    {
+      "_path": "include/tl/expected.hpp",
+      "path_type": "hardlink",
+      "sha256": "5a6a46da2e46ee3360bd8fbd759affefc46b8bfd6295043262ec867acac1fa14",
+      "size_in_bytes": 92778
+    },
+    {
+      "_path": "share/cmake/tl-expected/tl-expected-config-version.cmake",
+      "path_type": "hardlink",
+      "sha256": "8b952c9ac0e5f4fff1f17904d1d19aaa6e798a409a31d07295bc531bd3b65286",
+      "size_in_bytes": 2303
+    },
+    {
+      "_path": "share/cmake/tl-expected/tl-expected-config.cmake",
+      "path_type": "hardlink",
+      "sha256": "e81d5d1be789466fbf2bebff6818ac0879ccf13ef5f4e4566f91f1cfd47e0f08",
+      "size_in_bytes": 949
+    },
+    {
+      "_path": "share/cmake/tl-expected/tl-expected-targets.cmake",
+      "path_type": "hardlink",
+      "sha256": "12df027652c6538628992b5be395af1a7d144199ac103d66e88ca0939d474721",
+      "size_in_bytes": 4054
+    }
+  ],
+  "paths_version": 1
+}

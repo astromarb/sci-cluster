@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "py312h5eee18b_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=11.2.0",
+    "python >=3.12,<3.13.0a0",
+    "yaml >=0.2.5,<0.3.0a0"
+  ],
+  "fn": "pyyaml-6.0.2-py312h5eee18b_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "757daf8bab7a35c165f3dc6c9355ea9b",
+  "name": "pyyaml",
+  "platform": "linux",
+  "sha256": "28118ead75e875cab4ff57e52dcc775212d27f4734d9b4b5e8383f88fc80806d",
+  "size": 221928,
+  "subdir": "linux-64",
+  "timestamp": 1728657988000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pyyaml-6.0.2-py312h5eee18b_0.conda",
+  "version": "6.0.2"
+}

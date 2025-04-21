@@ -1,0 +1,81 @@
+{% set version = "1.11.0" %}
+{% set sha256 = "ca5cae8d6cac15dae0ec63b21d6ad3530070650f68076f3a4a862ca293a858bb" %}
+{% set build_number = "0" %}
+
+package:
+  name: spdlog-split
+  version: {{ version }}
+
+source:
+  url: https://github.com/gabime/spdlog/archive/v{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+  patches:              # [win]
+    - async_test.patch  # [win]  Simple workaround for async issue. It looks like the code works, but the test result is inconsistent.
+
+build:
+  skip: true  # [win and vc<14]
+  number: {{ build_number }}
+
+requirements:   # [win]
+  build:        # [win]
+    - m2-patch  # [win]
+
+
+outputs:
+  # Built in the historic Anaconda way.
+  - name: spdlog
+    script: build_std.sh  # [unix]
+    script: bld_std.bat    # [win]
+    build:
+      run_exports:
+        - {{ pin_subpackage('spdlog', max_pin='x') }}
+      missing_dso_whitelist:  # [s390x]
+        - $RPATH/ld64.so.1    # [s390x] Know s390x `ld64.so` issue.
+    requirements:
+      build:
+        - cmake
+        - {{ compiler('cxx') }}
+        - ninja
+      host:
+        - fmt 9.1.0
+    test:
+      commands:
+        - test -e $PREFIX/include/spdlog/spdlog.h                       # [unix]
+        - if not exist %PREFIX%\Library\include\spdlog\spdlog.h exit 1  # [win]
+  # Built in the historic conda-forge way.
+  - name: spdlog-fmt-embed
+    script: build_fmt_embed.sh  # [unix]
+    script: bld_fmt_embed.bat   # [win]
+    build:
+      run_exports:
+        - {{ pin_subpackage('spdlog-fmt-embed', max_pin='x') }}
+      missing_dso_whitelist:  # [s390x]
+        - $RPATH/ld64.so.1    # [s390x] Know s390x `ld64.so` issue.
+    requirements:
+      build:
+        - cmake
+        - {{ compiler('cxx') }}
+        - ninja
+    test:
+      commands:
+        - test -e $PREFIX/include/spdlog/spdlog.h                       # [unix]
+        - if not exist %PREFIX%\Library\include\spdlog\spdlog.h exit 1  # [win]
+
+about:
+  home: https://github.com/gabime/spdlog
+  dev_url: https://github.com/gabime/spdlog
+  doc_url: https://github.com/gabime/spdlog/wiki/1.-QuickStart
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Super fast C++ logging library.
+
+  description: |
+    spdlog is a header only library for Super fast C++ logging
+    to be used with a C++11 compiler.
+
+extra:
+  recipe-maintainers:
+    - druvus
+    - rongou
+    - bluescarni

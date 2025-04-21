@@ -1,0 +1,113 @@
+{
+  "paths": [
+    {
+      "_path": "bin/curl-config",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/croot/curl_split_recipe_1734542023011/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+      "sha256": "9753253812e35dbe458d51fc53cee720056b3e19e9f217989467e4589c79da5d",
+      "size_in_bytes": 12576
+    },
+    {
+      "_path": "include/curl/curl.h",
+      "path_type": "hardlink",
+      "sha256": "d08414797abd8b914062f17337f7a50b48cb0007bf13f95eec510c8c63c5dd92",
+      "size_in_bytes": 130318
+    },
+    {
+      "_path": "include/curl/curlver.h",
+      "path_type": "hardlink",
+      "sha256": "1e09eeb43be79a2c06899f841ca79670d0ce4dfec25ab58f587c8b24c36a43d1",
+      "size_in_bytes": 3045
+    },
+    {
+      "_path": "include/curl/easy.h",
+      "path_type": "hardlink",
+      "sha256": "3826b9c8dd8d4ab4088a49ddf100ef2848f311ba0f3fa67d0594d26c71843ef5",
+      "size_in_bytes": 4012
+    },
+    {
+      "_path": "include/curl/header.h",
+      "path_type": "hardlink",
+      "sha256": "614be48a86f4e5d304c5aa40ef1c85245e25b97732921c3631840146669d992f",
+      "size_in_bytes": 2910
+    },
+    {
+      "_path": "include/curl/mprintf.h",
+      "path_type": "hardlink",
+      "sha256": "5254b33e5e351298cdc25303381edc15889a41e129d41821bbd186dc2ddcbd40",
+      "size_in_bytes": 3086
+    },
+    {
+      "_path": "include/curl/multi.h",
+      "path_type": "hardlink",
+      "sha256": "83ae673f7655768bf70b141c9cf845b09695aa801d4d1d56362c3928c38e397c",
+      "size_in_bytes": 18235
+    },
+    {
+      "_path": "include/curl/options.h",
+      "path_type": "hardlink",
+      "sha256": "5716018d27e783283825bed2a8a051190487722fdeb64b7aa2d03a997e99b8d1",
+      "size_in_bytes": 2401
+    },
+    {
+      "_path": "include/curl/stdcheaders.h",
+      "path_type": "hardlink",
+      "sha256": "d7588b86814a35ffc3766ff6242e6f6705e04401fc9c208a195caff3503af81c",
+      "size_in_bytes": 1362
+    },
+    {
+      "_path": "include/curl/system.h",
+      "path_type": "hardlink",
+      "sha256": "9eec4a36e131b02b793278fdf1975c50cdfa551d7d5fa8036a65c2254582530f",
+      "size_in_bytes": 18713
+    },
+    {
+      "_path": "include/curl/typecheck-gcc.h",
+      "path_type": "hardlink",
+      "sha256": "69f21b923732fe43ad282368521a92392fd36f2233464ab3a9182be295645f58",
+      "size_in_bytes": 43631
+    },
+    {
+      "_path": "include/curl/urlapi.h",
+      "path_type": "hardlink",
+      "sha256": "4366e8eead1d92742c679b14dd3c65b92087226e1cebecc7803d619eded6a868",
+      "size_in_bytes": 5802
+    },
+    {
+      "_path": "include/curl/websockets.h",
+      "path_type": "hardlink",
+      "sha256": "b58bb1d7eda3fd2372feb4d856c256897d83006dfe7933d69be54bc4a2ba5a3f",
+      "size_in_bytes": 2741
+    },
+    {
+      "_path": "lib/libcurl.so",
+      "path_type": "softlink",
+      "sha256": "36f181e3dd6e3aee34ea79f0dc1601d5acbeb93417c005394b6047c36be5036c",
+      "size_in_bytes": 946672
+    },
+    {
+      "_path": "lib/libcurl.so.4",
+      "path_type": "softlink",
+      "sha256": "36f181e3dd6e3aee34ea79f0dc1601d5acbeb93417c005394b6047c36be5036c",
+      "size_in_bytes": 946672
+    },
+    {
+      "_path": "lib/libcurl.so.4.8.0",
+      "file_mode": "binary",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/croot/curl_split_recipe_1734542023011/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+      "sha256": "36f181e3dd6e3aee34ea79f0dc1601d5acbeb93417c005394b6047c36be5036c",
+      "size_in_bytes": 946672
+    },
+    {
+      "_path": "lib/pkgconfig/libcurl.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/croot/curl_split_recipe_1734542023011/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+      "sha256": "37e843a281e9cde7f82ead26669fa765fe2acd583b5a3b3a4bf903798ba0f7c4",
+      "size_in_bytes": 3633
+    }
+  ],
+  "paths_version": 1
+}

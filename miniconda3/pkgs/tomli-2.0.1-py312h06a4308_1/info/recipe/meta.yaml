@@ -1,0 +1,66 @@
+# This file created by conda-build 3.27.0
+# meta.yaml template originally from:
+# /work/perseverance-python-buildout/aggregate/tomli-feedstock/recipe, last modified Wed Nov  1 02:15:28 2023
+# ------------------------------------------------
+
+package:
+  name: tomli
+  version: 2.0.1
+source:
+  sha256: de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
+  url: https://pypi.io/packages/source/t/tomli/tomli-2.0.1.tar.gz
+build:
+  number: '1'
+  script: /work/perseverance-python-buildout/croot/tomli_1698805555176/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/bin/python
+    -m pip install . --no-deps --no-build-isolation -vv
+  string: py312h06a4308_1
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h7b6447c_0
+    - ca-certificates 2023.08.22 h06a4308_0
+    - expat 2.5.0 h6a678d5_0
+    - flit-core 3.9.0 py312h685e810_0
+    - ld_impl_linux-64 2.38 h1181459_1
+    - libffi 3.4.4 h6a678d5_0
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.11 h7f8727e_2
+    - pip 23.3 py312h06a4308_0
+    - python 3.12.0 h996f2a0_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 68.0.0 py312h06a4308_0
+    - sqlite 3.41.2 h5eee18b_0
+    - tk 8.6.12 h1ccaba5_0
+    - tzdata 2023c h04d1e81_0
+    - wheel 0.41.2 py312h06a4308_0
+    - xz 5.4.2 h5eee18b_0
+    - zlib 1.2.13 h5eee18b_0
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  commands:
+    - pip check
+  files:
+    - example.toml
+  imports:
+    - tomli
+  requires:
+    - pip
+about:
+  dev_url: https://github.com/hukkin/tomli
+  doc_url: https://github.com/hukkin/tomli/blob/master/README.md
+  home: https://github.com/hukkin/tomli
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: A simple TOML parser
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - thewchan

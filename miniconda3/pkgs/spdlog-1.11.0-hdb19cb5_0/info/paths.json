@@ -1,0 +1,571 @@
+{
+  "paths": [
+    {
+      "_path": "include/spdlog/async.h",
+      "path_type": "hardlink",
+      "sha256": "ce8ebebe5d08a053e061e19c12de3c9838bb71382c01d5777449cf811835f6ed",
+      "size_in_bytes": 3587
+    },
+    {
+      "_path": "include/spdlog/async_logger-inl.h",
+      "path_type": "hardlink",
+      "sha256": "79a395c51d7d2872df97f2cb09f9848e9d5f992eeb6b153c42a6d66ca5e3f06a",
+      "size_in_bytes": 2494
+    },
+    {
+      "_path": "include/spdlog/async_logger.h",
+      "path_type": "hardlink",
+      "sha256": "846c9a216eb4cc2171eaaefc1ce4a51ab5af810b5b6bafc6119e773f647d607e",
+      "size_in_bytes": 2276
+    },
+    {
+      "_path": "include/spdlog/cfg/argv.h",
+      "path_type": "hardlink",
+      "sha256": "71836983a61d2ccf1e574535761b9138a9e849e8f6e515798f8196295f93e3b8",
+      "size_in_bytes": 1229
+    },
+    {
+      "_path": "include/spdlog/cfg/env.h",
+      "path_type": "hardlink",
+      "sha256": "d6cc51d0e1da7220cde60d9d13d668162bb7ca0a3ceee8cc964cbaabbd52502c",
+      "size_in_bytes": 988
+    },
+    {
+      "_path": "include/spdlog/cfg/helpers-inl.h",
+      "path_type": "hardlink",
+      "sha256": "d7a002b455cbb78a6f2dcc4adb3e8c12ee82c534d3bb20f0d4b60914a781e6c5",
+      "size_in_bytes": 3174
+    },
+    {
+      "_path": "include/spdlog/cfg/helpers.h",
+      "path_type": "hardlink",
+      "sha256": "efa9c281f8e526b11d7b3d0f88c797cc13b9f0656f66dc6e14e0ec9391b30971",
+      "size_in_bytes": 714
+    },
+    {
+      "_path": "include/spdlog/common-inl.h",
+      "path_type": "hardlink",
+      "sha256": "4364e0a6297275f57f53e2cce8485b8265d5b9169af6858d2684e354a9047a3f",
+      "size_in_bytes": 2064
+    },
+    {
+      "_path": "include/spdlog/common.h",
+      "path_type": "hardlink",
+      "sha256": "7da36771ba4778f73947b716ee72ed632deff007d3a4622ab33a75fe688f9123",
+      "size_in_bytes": 12011
+    },
+    {
+      "_path": "include/spdlog/details/backtracer-inl.h",
+      "path_type": "hardlink",
+      "sha256": "995e7c9f4d51c6452b97436ceed784353d863935b7a77472a203b238638041f1",
+      "size_in_bytes": 1884
+    },
+    {
+      "_path": "include/spdlog/details/backtracer.h",
+      "path_type": "hardlink",
+      "sha256": "2e57a28770e254eb950fd3ae168a2da77fb5701cb9f42dc9ff39ca2325c90351",
+      "size_in_bytes": 1139
+    },
+    {
+      "_path": "include/spdlog/details/circular_q.h",
+      "path_type": "hardlink",
+      "sha256": "2ee52f1fc702d53ba978eea7394df0cfe9d0e1cfdb2da256ce919b14543d3d91",
+      "size_in_bytes": 3512
+    },
+    {
+      "_path": "include/spdlog/details/console_globals.h",
+      "path_type": "hardlink",
+      "sha256": "eced1eda8e8abe003fb70b29be5df42e7b706b60d5292c1f3e842f3c888a5d66",
+      "size_in_bytes": 609
+    },
+    {
+      "_path": "include/spdlog/details/file_helper-inl.h",
+      "path_type": "hardlink",
+      "sha256": "394b490a3f01037514815d6b7466cd9c0f13d4c8d06521fdf1c55334bb38c613",
+      "size_in_bytes": 4582
+    },
+    {
+      "_path": "include/spdlog/details/file_helper.h",
+      "path_type": "hardlink",
+      "sha256": "3db0b23d10028a682b06a9196ee7bd619bb16ad2f1f3808584e08f7e7c3472ad",
+      "size_in_bytes": 1739
+    },
+    {
+      "_path": "include/spdlog/details/fmt_helper.h",
+      "path_type": "hardlink",
+      "sha256": "a0a7aaefb6beb48fd1d00abd8326e78853a7fbb1ef676b755a3f07392127eb3f",
+      "size_in_bytes": 4586
+    },
+    {
+      "_path": "include/spdlog/details/log_msg-inl.h",
+      "path_type": "hardlink",
+      "sha256": "cc56ddea61fbf6d4ba6ef06aa649bd28875e3c7e632afa9f332d04b2ee59e147",
+      "size_in_bytes": 1104
+    },
+    {
+      "_path": "include/spdlog/details/log_msg.h",
+      "path_type": "hardlink",
+      "sha256": "eda416f5e6d69541f0087c0d3dc3a2b19e06bb6378e044d3d106e0ae2289dcc4",
+      "size_in_bytes": 1154
+    },
+    {
+      "_path": "include/spdlog/details/log_msg_buffer-inl.h",
+      "path_type": "hardlink",
+      "sha256": "9814ad90de51a780ac4ed8b37b899cecf68842b967d8b7255036785be0635b9b",
+      "size_in_bytes": 1656
+    },
+    {
+      "_path": "include/spdlog/details/log_msg_buffer.h",
+      "path_type": "hardlink",
+      "sha256": "ee20038a4d8870893276e6dcacf72801511881a6cab65a58febc9f2d79f038f8",
+      "size_in_bytes": 933
+    },
+    {
+      "_path": "include/spdlog/details/mpmc_blocking_q.h",
+      "path_type": "hardlink",
+      "sha256": "cf947727bb383d520319e9fa28656ae730b03888b9d921181e7d242ea4d60983",
+      "size_in_bytes": 3784
+    },
+    {
+      "_path": "include/spdlog/details/null_mutex.h",
+      "path_type": "hardlink",
+      "sha256": "02edd271e232b7a69c0e37aab61246fcb4b31c1d43f1a20b5c2572ba7b730956",
+      "size_in_bytes": 967
+    },
+    {
+      "_path": "include/spdlog/details/os-inl.h",
+      "path_type": "hardlink",
+      "sha256": "bbf700d5c5f4c80536207cc9c2cb0eda2ea3fea1d58bdfe2225a32623b524bb1",
+      "size_in_bytes": 16664
+    },
+    {
+      "_path": "include/spdlog/details/os.h",
+      "path_type": "hardlink",
+      "sha256": "79df0b580a19f48795be9d331e5069c513e6b85cbec7a1b0d64182d011b45c23",
+      "size_in_bytes": 3818
+    },
+    {
+      "_path": "include/spdlog/details/periodic_worker-inl.h",
+      "path_type": "hardlink",
+      "sha256": "6051a2a06de524b0e0319bb06cfe0bdc559627e874d48fc14846a452bfe4f4a2",
+      "size_in_bytes": 622
+    },
+    {
+      "_path": "include/spdlog/details/periodic_worker.h",
+      "path_type": "hardlink",
+      "sha256": "2c46cc105d3b426fffa3fd5e4f14337d695e96f33c824c6cc47c3859e197d9d0",
+      "size_in_bytes": 1766
+    },
+    {
+      "_path": "include/spdlog/details/registry-inl.h",
+      "path_type": "hardlink",
+      "sha256": "2ec4b92e6452224ee7ad045443e97b6ee3d00112c1fa21b7d87c62973057edff",
+      "size_in_bytes": 8411
+    },
+    {
+      "_path": "include/spdlog/details/registry.h",
+      "path_type": "hardlink",
+      "sha256": "a95e596cc3667a50329fd9c0a783837d8f4321bcfc93c3c026cbe86ab82a73db",
+      "size_in_bytes": 3936
+    },
+    {
+      "_path": "include/spdlog/details/synchronous_factory.h",
+      "path_type": "hardlink",
+      "sha256": "ebae494e50a66fc0f49760d8ab1f5c9cb2cdd47b0620d22950782b89b5f97930",
+      "size_in_bytes": 754
+    },
+    {
+      "_path": "include/spdlog/details/tcp_client-windows.h",
+      "path_type": "hardlink",
+      "sha256": "7898a12171c0e1b7be574f87edf9769393ebf4263ba5c7592ddeeb7d26a929ed",
+      "size_in_bytes": 4329
+    },
+    {
+      "_path": "include/spdlog/details/tcp_client.h",
+      "path_type": "hardlink",
+      "sha256": "75a2554e3eb3f516b2014a1347bf9f4ec2cc255d91a757be400a582d9289be8c",
+      "size_in_bytes": 3911
+    },
+    {
+      "_path": "include/spdlog/details/thread_pool-inl.h",
+      "path_type": "hardlink",
+      "sha256": "84b5db92f7e222420d282cd2877f9aecc7f89dd016dc4a65fc091cf9668a3718",
+      "size_in_bytes": 3628
+    },
+    {
+      "_path": "include/spdlog/details/thread_pool.h",
+      "path_type": "hardlink",
+      "sha256": "3257bf66b3bd1145e4c9e9a62b2d246081301384293f5cc349e550807c967e56",
+      "size_in_bytes": 3394
+    },
+    {
+      "_path": "include/spdlog/details/udp_client-windows.h",
+      "path_type": "hardlink",
+      "sha256": "8934f2c0697fa30a419f18823f3f85e3dae1aa69395f69becfc5247939db9509",
+      "size_in_bytes": 3108
+    },
+    {
+      "_path": "include/spdlog/details/udp_client.h",
+      "path_type": "hardlink",
+      "sha256": "bf210b7eff0106d13a19b4f600d1d0658af17d0ca4cef9da468a948d63e4e87a",
+      "size_in_bytes": 2264
+    },
+    {
+      "_path": "include/spdlog/details/windows_include.h",
+      "path_type": "hardlink",
+      "sha256": "367900d91844b67b65fcee1f41d025937d6e577f66fedafaf408ed024b807f13",
+      "size_in_bytes": 187
+    },
+    {
+      "_path": "include/spdlog/fmt/bin_to_hex.h",
+      "path_type": "hardlink",
+      "sha256": "7797ecde5318c2810f14dda3ef2098dcfe5f706ec2def064a275fa068e3ebad9",
+      "size_in_bytes": 7284
+    },
+    {
+      "_path": "include/spdlog/fmt/chrono.h",
+      "path_type": "hardlink",
+      "sha256": "356bc0bdb9adbe7f6e3d1c1657cd9b1f6eff0961daf73307434024756764cea9",
+      "size_in_bytes": 523
+    },
+    {
+      "_path": "include/spdlog/fmt/compile.h",
+      "path_type": "hardlink",
+      "sha256": "9705f3ab618494dcd31ec530b22151a968850ba8616b3f8af24b4227a9f1c1d8",
+      "size_in_bytes": 531
+    },
+    {
+      "_path": "include/spdlog/fmt/fmt.h",
+      "path_type": "hardlink",
+      "sha256": "a64eed6f71470419d08f1ee7b6cbe8b4cd0fa9759daee078c2f4603a45c0428e",
+      "size_in_bytes": 1004
+    },
+    {
+      "_path": "include/spdlog/fmt/ostr.h",
+      "path_type": "hardlink",
+      "sha256": "ebf57add553d132305fd8a34614c36efb3048dbb205227e4d2c2a2009564e15b",
+      "size_in_bytes": 526
+    },
+    {
+      "_path": "include/spdlog/fmt/ranges.h",
+      "path_type": "hardlink",
+      "sha256": "005fdbc70388ed7d50a8851b7852377fcd402a7ccfb8524ac298b4788441241e",
+      "size_in_bytes": 523
+    },
+    {
+      "_path": "include/spdlog/fmt/xchar.h",
+      "path_type": "hardlink",
+      "sha256": "c24f55d55439c277d2990b73f207d117ad96b9d10a776f508b82ca7e7bc2c3dc",
+      "size_in_bytes": 520
+    },
+    {
+      "_path": "include/spdlog/formatter.h",
+      "path_type": "hardlink",
+      "sha256": "48524fd1570012c2199c23a5cbd952d514e80ae76ec7075fee6a78cebb9f928e",
+      "size_in_bytes": 462
+    },
+    {
+      "_path": "include/spdlog/fwd.h",
+      "path_type": "hardlink",
+      "sha256": "2e14e4f2aaa335ccdcbc6f7421f6f69da391a7f845dfcd671641d2c81c347feb",
+      "size_in_bytes": 304
+    },
+    {
+      "_path": "include/spdlog/logger-inl.h",
+      "path_type": "hardlink",
+      "sha256": "35eb3852025b26a2c55cd285a8a5654302eafddbf58880ac7def8196be176f9b",
+      "size_in_bytes": 7036
+    },
+    {
+      "_path": "include/spdlog/logger.h",
+      "path_type": "hardlink",
+      "sha256": "b6961edb6b0d928c9c77ea8de475945cbb73d2c9db1a19eaa6cb262c518613c1",
+      "size_in_bytes": 15636
+    },
+    {
+      "_path": "include/spdlog/pattern_formatter-inl.h",
+      "path_type": "hardlink",
+      "sha256": "91edf77e45a1c2ba2fc46096487fe4980fb8bfe42ba80168bb4215d203583073",
+      "size_in_bytes": 43590
+    },
+    {
+      "_path": "include/spdlog/pattern_formatter.h",
+      "path_type": "hardlink",
+      "sha256": "599522ff91e5e33867a2b5c41235958242a3c74eaa49bf0099605e026324f461",
+      "size_in_bytes": 3603
+    },
+    {
+      "_path": "include/spdlog/sinks/android_sink.h",
+      "path_type": "hardlink",
+      "sha256": "597987d573b731613ee779f6e3b66e37bb7063e4141e5120418e4566e4bfa964",
+      "size_in_bytes": 4562
+    },
+    {
+      "_path": "include/spdlog/sinks/ansicolor_sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "30bb129ec39ab72c4c4a50328f7ab56e58df38b339fe6f5d53329740e59911cf",
+      "size_in_bytes": 4594
+    },
+    {
+      "_path": "include/spdlog/sinks/ansicolor_sink.h",
+      "path_type": "hardlink",
+      "sha256": "db1599443032f920270ce031c9309a8b0ff09db6cfaafc79e669b07832c9ac74",
+      "size_in_bytes": 3954
+    },
+    {
+      "_path": "include/spdlog/sinks/base_sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "d472f7c04f5d3cfe1be58c7957e97da03afa43b2e8b4350ac2eb4d894a1105a6",
+      "size_in_bytes": 1778
+    },
+    {
+      "_path": "include/spdlog/sinks/base_sink.h",
+      "path_type": "hardlink",
+      "sha256": "9eefa1720fef73c88792a853b1e9240e69150268a7b78a13aab315142159bc80",
+      "size_in_bytes": 1565
+    },
+    {
+      "_path": "include/spdlog/sinks/basic_file_sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "cdbeabb97de19f0aedfdf80f948d431cbe2e9e034fba397a72953d2ea74154d6",
+      "size_in_bytes": 1102
+    },
+    {
+      "_path": "include/spdlog/sinks/basic_file_sink.h",
+      "path_type": "hardlink",
+      "sha256": "1aa556a49d87fb217b40e2ca10a87df4cdd2cef716f4e0216a907d2916895b15",
+      "size_in_bytes": 1834
+    },
+    {
+      "_path": "include/spdlog/sinks/daily_file_sink.h",
+      "path_type": "hardlink",
+      "sha256": "2fc5e53f1f20c8756c7e051c1e23e0c0bfaeef5e9ae5efc2aa6e1740389907ce",
+      "size_in_bytes": 10310
+    },
+    {
+      "_path": "include/spdlog/sinks/dist_sink.h",
+      "path_type": "hardlink",
+      "sha256": "f15585170d19ab05ecae05d5cc7a761b5d07394c1edd7de49a47f72750cb33f9",
+      "size_in_bytes": 2438
+    },
+    {
+      "_path": "include/spdlog/sinks/dup_filter_sink.h",
+      "path_type": "hardlink",
+      "sha256": "374542fada1386478c40cf2b0c9958c98bf0ec8d4325e7da8851433291f70ff7",
+      "size_in_bytes": 3014
+    },
+    {
+      "_path": "include/spdlog/sinks/hourly_file_sink.h",
+      "path_type": "hardlink",
+      "sha256": "794d7f67a774e608c340d1f22cc22b26eeb06fab1783e056d6bc32d2f6d9b4c5",
+      "size_in_bytes": 6623
+    },
+    {
+      "_path": "include/spdlog/sinks/mongo_sink.h",
+      "path_type": "hardlink",
+      "sha256": "b65db467656675307c6b78560d279286379f599ae939da2a8a6f900ff77072b3",
+      "size_in_bytes": 3744
+    },
+    {
+      "_path": "include/spdlog/sinks/msvc_sink.h",
+      "path_type": "hardlink",
+      "sha256": "22d19b759ae1aff9b837f4ac4170e488e128415882553ed29a75524b4ff8c3ce",
+      "size_in_bytes": 1545
+    },
+    {
+      "_path": "include/spdlog/sinks/null_sink.h",
+      "path_type": "hardlink",
+      "sha256": "4688c997c8aaff5b626be7b05e98ce70399d6a69997002b81a040f3d848c741e",
+      "size_in_bytes": 1229
+    },
+    {
+      "_path": "include/spdlog/sinks/ostream_sink.h",
+      "path_type": "hardlink",
+      "sha256": "f6da7181d286e9ea066a690b574b68354edf6d3009b7b16239a3afb147eab210",
+      "size_in_bytes": 1250
+    },
+    {
+      "_path": "include/spdlog/sinks/qt_sinks.h",
+      "path_type": "hardlink",
+      "sha256": "ff39935c652e1e51ee9c1ba33959d55dc031629805a5ab03dac9bfd49e1e2b26",
+      "size_in_bytes": 3382
+    },
+    {
+      "_path": "include/spdlog/sinks/ringbuffer_sink.h",
+      "path_type": "hardlink",
+      "sha256": "ab327b3e9dff41f8f798aa0341b907ecdcfd2172b2f9b06df01951d389824c19",
+      "size_in_bytes": 2121
+    },
+    {
+      "_path": "include/spdlog/sinks/rotating_file_sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "9d04424cbc49352b1691a06873c2009b8869d36a0c0dd1718df537adb778593e",
+      "size_in_bytes": 4733
+    },
+    {
+      "_path": "include/spdlog/sinks/rotating_file_sink.h",
+      "path_type": "hardlink",
+      "sha256": "02db42b36b2b4a55504252982f6aedeacceb7242a4de99d548bce4aea45edbc7",
+      "size_in_bytes": 2648
+    },
+    {
+      "_path": "include/spdlog/sinks/sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "8f1eb365f5aa47ada219d562133e66971a7e7ca4221782f85c116c345beb6d25",
+      "size_in_bytes": 725
+    },
+    {
+      "_path": "include/spdlog/sinks/sink.h",
+      "path_type": "hardlink",
+      "sha256": "612eca39db380b957538cd2dc9eec82037aad45b24a0022f8e1773434afc6882",
+      "size_in_bytes": 891
+    },
+    {
+      "_path": "include/spdlog/sinks/stdout_color_sinks-inl.h",
+      "path_type": "hardlink",
+      "sha256": "a5165ed7e8a5df3d9134b28ac806d5ad9f00a05e51e9326aa1c44f61563fbf14",
+      "size_in_bytes": 1214
+    },
+    {
+      "_path": "include/spdlog/sinks/stdout_color_sinks.h",
+      "path_type": "hardlink",
+      "sha256": "afc08e03a7638ffa1758a1e3d4f0d4ad95dc72fc863ea678e0435c6baabf2287",
+      "size_in_bytes": 1626
+    },
+    {
+      "_path": "include/spdlog/sinks/stdout_sinks-inl.h",
+      "path_type": "hardlink",
+      "sha256": "02784c406a47ecb3f569d3858042b127557e443cbbf72172e6563be7b4896f1d",
+      "size_in_bytes": 4364
+    },
+    {
+      "_path": "include/spdlog/sinks/stdout_sinks.h",
+      "path_type": "hardlink",
+      "sha256": "2d43d1bc2d9bc1b8012a5e9aeba03d5514a2dba310fbc5e02afe932193094716",
+      "size_in_bytes": 2419
+    },
+    {
+      "_path": "include/spdlog/sinks/syslog_sink.h",
+      "path_type": "hardlink",
+      "sha256": "2c6cdc86700f6bb351cdf57bfe62c640c4350a33340c884804c31c121ed199a5",
+      "size_in_bytes": 3727
+    },
+    {
+      "_path": "include/spdlog/sinks/systemd_sink.h",
+      "path_type": "hardlink",
+      "sha256": "8b661605189f73886249da3ee0f99e6563a3692879c88684e3434939404f056e",
+      "size_in_bytes": 4146
+    },
+    {
+      "_path": "include/spdlog/sinks/tcp_sink.h",
+      "path_type": "hardlink",
+      "sha256": "8df9dea85b4a3618459c314730ffd2a5df6c2e56981cb141643397f0b1ea68d1",
+      "size_in_bytes": 2147
+    },
+    {
+      "_path": "include/spdlog/sinks/udp_sink.h",
+      "path_type": "hardlink",
+      "sha256": "442a8c59d4ae3e423e8765d1edccc9569ab57b90052772fe02ee518bb18a143d",
+      "size_in_bytes": 1820
+    },
+    {
+      "_path": "include/spdlog/sinks/win_eventlog_sink.h",
+      "path_type": "hardlink",
+      "sha256": "ce10298279cb71f35048784b67aa79a03d32eade33bc86d5f716c95ea7ea26a6",
+      "size_in_bytes": 8870
+    },
+    {
+      "_path": "include/spdlog/sinks/wincolor_sink-inl.h",
+      "path_type": "hardlink",
+      "sha256": "4808b91f2cdeb157cab14ab352f4e559712d20c6c3bb44127599eb04de76ce36",
+      "size_in_bytes": 6357
+    },
+    {
+      "_path": "include/spdlog/sinks/wincolor_sink.h",
+      "path_type": "hardlink",
+      "sha256": "5a7b92a38a16c895cd77687a427143b5ad8575fe7e22f22defca23d050c9a176",
+      "size_in_bytes": 2711
+    },
+    {
+      "_path": "include/spdlog/spdlog-inl.h",
+      "path_type": "hardlink",
+      "sha256": "7f8dcabe2ac0c991500ba0cf24695157f7d3ecd8fd731b62c1cb04b875760b55",
+      "size_in_bytes": 2974
+    },
+    {
+      "_path": "include/spdlog/spdlog.h",
+      "path_type": "hardlink",
+      "sha256": "83f8d09ff581afc0da3292c1ffc65ce16602929224a83ef9f84d048ad6a49dcf",
+      "size_in_bytes": 11279
+    },
+    {
+      "_path": "include/spdlog/stopwatch.h",
+      "path_type": "hardlink",
+      "sha256": "771f344d04b6b181d6e6702c932d9ac58b27d076a1a272e011ba8b9c51d91dd9",
+      "size_in_bytes": 1726
+    },
+    {
+      "_path": "include/spdlog/tweakme.h",
+      "path_type": "hardlink",
+      "sha256": "52c471b7bf42ebc317189d91c46257f50453b074e9a6a870db22d1a28f857b60",
+      "size_in_bytes": 6453
+    },
+    {
+      "_path": "include/spdlog/version.h",
+      "path_type": "hardlink",
+      "sha256": "ef098dbc5274adf1da4685de584fe5c5a3e071d39e4ee27f86ccabe50b495f95",
+      "size_in_bytes": 331
+    },
+    {
+      "_path": "lib/cmake/spdlog/spdlogConfig.cmake",
+      "path_type": "hardlink",
+      "sha256": "e4e94bc20636861e1061576e79c2faa4880ad04cfdf988da0469448ae866fa6b",
+      "size_in_bytes": 1358
+    },
+    {
+      "_path": "lib/cmake/spdlog/spdlogConfigTargets-release.cmake",
+      "path_type": "hardlink",
+      "sha256": "e9cae70bda8a289c44cf3bbd782e71e25d03b7f5cbc5dbf139d6be28e35e23fe",
+      "size_in_bytes": 843
+    },
+    {
+      "_path": "lib/cmake/spdlog/spdlogConfigTargets.cmake",
+      "path_type": "hardlink",
+      "sha256": "9d3ecda508881d7b481215e23876a1a552828c944edb390a3140f044f7cc376f",
+      "size_in_bytes": 3913
+    },
+    {
+      "_path": "lib/cmake/spdlog/spdlogConfigVersion.cmake",
+      "path_type": "hardlink",
+      "sha256": "03a7e12d4618569b7405d6b5f683d79e09e8fbe057b33153fadc79d9343f5a3a",
+      "size_in_bytes": 2881
+    },
+    {
+      "_path": "lib/libspdlog.so",
+      "path_type": "softlink",
+      "sha256": "569acab563149feb3425f007c32da62358cebc2f9d32ac8af8d43111b9d9a3c0",
+      "size_in_bytes": 665432
+    },
+    {
+      "_path": "lib/libspdlog.so.1.11",
+      "path_type": "softlink",
+      "sha256": "569acab563149feb3425f007c32da62358cebc2f9d32ac8af8d43111b9d9a3c0",
+      "size_in_bytes": 665432
+    },
+    {
+      "_path": "lib/libspdlog.so.1.11.0",
+      "path_type": "hardlink",
+      "sha256": "569acab563149feb3425f007c32da62358cebc2f9d32ac8af8d43111b9d9a3c0",
+      "size_in_bytes": 665432
+    },
+    {
+      "_path": "lib/pkgconfig/spdlog.pc",
+      "file_mode": "text",
+      "path_type": "hardlink",
+      "prefix_placeholder": "/croot/spdlog-split_1676361308723/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac",
+      "sha256": "04320cb2bcb6eb8c3f9934c9c0144b46accd0830779fe4b978a695893cb28b6c",
+      "size_in_bytes": 589
+    }
+  ],
+  "paths_version": 1
+}

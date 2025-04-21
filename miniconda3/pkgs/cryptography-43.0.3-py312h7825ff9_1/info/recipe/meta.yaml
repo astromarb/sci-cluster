@@ -1,0 +1,122 @@
+# This file created by conda-build 24.1.2
+# meta.yaml template originally from:
+# /feedstock/recipe, last modified Wed Nov 20 19:07:19 2024
+# ------------------------------------------------
+
+package:
+  name: cryptography
+  version: 43.0.3
+source:
+  sha256: 315b9001266a492a6ff443b61238f956b214dbec9910a081ba5b6646a055a805
+  url: https://pypi.io/packages/source/c/cryptography/cryptography-43.0.3.tar.gz
+build:
+  number: '1'
+  script:
+    - export OPENSSL_DIR=$PREFIX
+    - /croot/cryptography_1732129644106/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac/bin/python
+      -m pip install . -vv --no-deps --no-build-isolation
+  string: py312h7825ff9_1
+requirements:
+  build:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - _sysroot_linux-64_curr_repodata_hack 3 haa98f57_10
+    - binutils_impl_linux-64 2.40 h5293946_0
+    - binutils_linux-64 2.40.0 hc2dff05_1
+    - gcc_impl_linux-64 11.2.0 h1234567_1
+    - gcc_linux-64 11.2.0 h5c386dc_1
+    - gxx_impl_linux-64 11.2.0 h1234567_1
+    - gxx_linux-64 11.2.0 hc2dff05_1
+    - kernel-headers_linux-64 3.10.0 h57e8cba_10
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libgcc-devel_linux-64 11.2.0 h1234567_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-devel_linux-64 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - rust 1.82.0 h6a678d5_0
+    - rust_linux-64 1.82.0 h6a678d5_0
+    - sysroot_linux-64 2.17 h57e8cba_10
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 5.1 1_gnu
+    - bzip2 1.0.8 h5eee18b_6
+    - ca-certificates 2024.9.24 h06a4308_0
+    - cffi 1.17.1 py312h1fdaa30_0
+    - expat 2.6.3 h6a678d5_0
+    - ld_impl_linux-64 2.40 h12ee557_0
+    - libffi 3.4.4 h6a678d5_1
+    - libgcc-ng 11.2.0 h1234567_1
+    - libgomp 11.2.0 h1234567_1
+    - libstdcxx-ng 11.2.0 h1234567_1
+    - libuuid 1.41.5 h5eee18b_0
+    - maturin 1.5.1 py312hb02cf49_0
+    - ncurses 6.4 h6a678d5_0
+    - openssl 3.0.15 h5eee18b_0
+    - pip 24.2 py312h06a4308_0
+    - pycparser 2.21 pyhd3eb1b0_0
+    - python 3.12.7 h5148396_0
+    - readline 8.2 h5eee18b_0
+    - setuptools 72.1.0 py312h06a4308_0
+    - sqlite 3.45.3 h5eee18b_0
+    - tk 8.6.14 h39e8969_0
+    - tzdata 2024b h04d1e81_0
+    - wheel 0.44.0 py312h06a4308_0
+    - xz 5.4.6 h5eee18b_1
+    - zlib 1.2.13 h5eee18b_1
+  run:
+    - cffi >=1.12
+    - libgcc-ng
+    - openssl >=3.0.15,<4.0a0
+    - python >=3.12,<3.13.0a0
+  run_constrained:
+    - bcrypt >=3.1.5
+test:
+  commands:
+    - pip check
+    - pytest tests
+  requires:
+    - certifi
+    - cryptography-vectors 43.0.3.*
+    - pip
+    - pretend
+    - pytest >=6.2.0
+    - pytest-benchmark
+    - pytest-xdist
+  source_files:
+    - pyproject.toml
+    - tests
+about:
+  description: 'Cryptography is a package which provides cryptographic recipes and
+
+    primitives to Python developers. Our goal is for it to be your
+
+    "cryptographic standard library". It supports Python 3.6+ and PyPy3 7.2+.
+
+    cryptography includes both high level recipes and low level interfaces to
+
+    common cryptographic algorithms such as symmetric ciphers, message digests,
+
+    and key derivation functions.
+
+    '
+  dev_url: https://github.com/pyca/cryptography
+  doc_url: https://cryptography.io/
+  home: https://github.com/pyca/cryptography
+  license: Apache-2.0 OR BSD-3-Clause
+  license_family: OTHER
+  license_file:
+    - LICENSE
+    - LICENSE.APACHE
+    - LICENSE.BSD
+  summary: Provides cryptographic recipes and primitives to Python developers
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 20ae3f15-ba47-4880-a541-4279613d9373
+  recipe-maintainers:
+    - chenghlee
+    - jakirkham
+    - ocefpaf
+  remote_url: git@github.com:AnacondaRecipes/cryptography-feedstock.git
+  sha: 7f71ebd7a05825a90011e57e561afc48ff4c61f7

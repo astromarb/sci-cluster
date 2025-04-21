@@ -1,0 +1,19 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "depends": [
+    "attrs >=22.2.0",
+    "jsonschema-specifications >=2023.03.6",
+    "python >=3.12,<3.13.0a0",
+    "referencing >=0.28.4",
+    "rpds-py >=0.7.1"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "jsonschema",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1728486818997,
+  "version": "4.23.0"
+}

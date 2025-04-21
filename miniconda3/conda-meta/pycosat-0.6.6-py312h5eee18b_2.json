@@ -1,0 +1,48 @@
+{
+  "arch": "x86_64",
+  "build": "py312h5eee18b_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=11.2.0",
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/pycosat-0.6.6-py312h5eee18b_2",
+  "files": [
+    "lib/python3.12/site-packages/__pycache__/test_pycosat.cpython-312.pyc",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/AUTHORS.md",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/LICENSE",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/METADATA",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/RECORD",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/WHEEL",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/pycosat-0.6.6.dist-info/top_level.txt",
+    "lib/python3.12/site-packages/pycosat.cpython-312-x86_64-linux-gnu.so",
+    "lib/python3.12/site-packages/test_pycosat.py"
+  ],
+  "fn": "pycosat-0.6.6-py312h5eee18b_2.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/pycosat-0.6.6-py312h5eee18b_2",
+    "type": 1
+  },
+  "md5": "a367210937e0fcd71a3796820e243cb9",
+  "name": "pycosat",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/pycosat-0.6.6-py312h5eee18b_2.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::pycosat==0.6.6=py312h5eee18b_2[md5=a367210937e0fcd71a3796820e243cb9]",
+  "sha256": "6eda8e210f0a3c14b6088fdb3bb20b85cb78e93a81c6818dcf91b1c6bf3ebe65",
+  "size": 92865,
+  "subdir": "linux-64",
+  "timestamp": 1736868479000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pycosat-0.6.6-py312h5eee18b_2.conda",
+  "version": "0.6.6"
+}

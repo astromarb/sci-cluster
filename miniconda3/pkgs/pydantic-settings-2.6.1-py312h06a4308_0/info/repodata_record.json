@@ -1,0 +1,29 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [
+    "pyyaml >=6.0.1",
+    "azure-keyvault-secrets >=4.8.0",
+    "tomli >=2.0.1",
+    "azure-identity >=1.16.0"
+  ],
+  "depends": [
+    "python >=3.12,<3.13.0a0",
+    "pydantic >=2.7.0",
+    "python-dotenv >=0.21.0"
+  ],
+  "fn": "pydantic-settings-2.6.1-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "d89163dc6db587efdbb89ad49acde7c7",
+  "name": "pydantic-settings",
+  "platform": "linux",
+  "sha256": "74add3b1f2080088b8073f2775b27aa0e562ec05b44898e47f512138e64ae72d",
+  "size": 77858,
+  "subdir": "linux-64",
+  "timestamp": 1730800862000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pydantic-settings-2.6.1-py312h06a4308_0.conda",
+  "version": "2.6.1"
+}

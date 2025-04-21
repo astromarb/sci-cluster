@@ -1,0 +1,55 @@
+{
+  "arch": "x86_64",
+  "build": "py312h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main",
+  "constrains": [],
+  "depends": [
+    "python >=3.12,<3.13.0a0"
+  ],
+  "extracted_package_dir": "/home/ec2-user/miniconda3/pkgs/truststore-0.10.0-py312h06a4308_0",
+  "files": [
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/INSTALLER",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/LICENSE",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/METADATA",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/RECORD",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/REQUESTED",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/WHEEL",
+    "lib/python3.12/site-packages/truststore-0.10.0.dist-info/direct_url.json",
+    "lib/python3.12/site-packages/truststore/__init__.py",
+    "lib/python3.12/site-packages/truststore/__pycache__/__init__.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/__pycache__/_api.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/__pycache__/_macos.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/__pycache__/_openssl.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/__pycache__/_ssl_constants.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/__pycache__/_windows.cpython-312.pyc",
+    "lib/python3.12/site-packages/truststore/_api.py",
+    "lib/python3.12/site-packages/truststore/_macos.py",
+    "lib/python3.12/site-packages/truststore/_openssl.py",
+    "lib/python3.12/site-packages/truststore/_ssl_constants.py",
+    "lib/python3.12/site-packages/truststore/_windows.py",
+    "lib/python3.12/site-packages/truststore/py.typed"
+  ],
+  "fn": "truststore-0.10.0-py312h06a4308_0.conda",
+  "license": "MIT",
+  "license_family": "MIT",
+  "link": {
+    "source": "/home/ec2-user/miniconda3/pkgs/truststore-0.10.0-py312h06a4308_0",
+    "type": 1
+  },
+  "md5": "bff15e2c8deb69594f61795bd328eff8",
+  "name": "truststore",
+  "package_tarball_full_path": "/home/ec2-user/miniconda3/pkgs/truststore-0.10.0-py312h06a4308_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "platform": "linux",
+  "requested_spec": "defaults/linux-64::truststore==0.10.0=py312h06a4308_0[md5=bff15e2c8deb69594f61795bd328eff8]",
+  "sha256": "fbd797774e3950f8ceee50c2db43557a7f40d48cc523c47b217bcaf4a30b46ed",
+  "size": 48573,
+  "subdir": "linux-64",
+  "timestamp": 1736550220000,
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/truststore-0.10.0-py312h06a4308_0.conda",
+  "version": "0.10.0"
+}
