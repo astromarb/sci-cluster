@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4675a4ca-5709-4a63-bafd-4976f6ca1e10" name="Changes" comment="refactor: simplify paths in configuration files">
+    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sci-cluster.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm-color" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm-color" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm-color" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/eterm-color" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCR260VT300WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCR260VT300WPP" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCR260VT300WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/ncr260vt300wpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P12" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P12" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P12-M" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P12-M" afterDir="false" />
@@ -28,9 +33,9 @@
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm-color" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm-color" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm-color" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/E/eterm-color" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/L/LFT-PC850" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCR260VT300WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCR260VT300WPP" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCR260VT300WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/N/ncr260vt300wpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCRVT100WPP" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P12" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P12" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P12-M" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P12-M" afterDir="false" />
@@ -55,120 +60,113 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" show_ignored="true">
-    <option name="groupingKeys">
-      <option value="directory" />
+  <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_TAGS">
-      <GitPushTagMode>
-        <option name="argument" value="--tags" />
-        <option name="title" value="All" />
-      </GitPushTagMode>
-    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="WARN_ABOUT_LARGE_FILES_LIMIT_MB" value="85" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;astromarb&quot;
+  }
 }</component>
-  <component name="ProjectId" id="2w1kwvcagZmAyZlHRkCNLLV5mCR" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/astromarb/sci-cluster.git",
+    "accountId": "bba6bcf8-12f8-4a8a-b6c8-51bf787b2890"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2vtOn5zyLSqoBBeL62TCfqrQeyB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/marvi/PycharmProjects",
+    "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
+    "settings.editor.selected.configurable": "settings.sync",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
-    ]
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="sci-cluster" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
-        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
+        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\marvi\AppData\Roaming\Subversion</configuration>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+    <option name="myConnectionId" value="" />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4675a4ca-5709-4a63-bafd-4976f6ca1e10" name="Changes" comment="" />
-      <created>1745216709785</created>
+      <changelist id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="" />
+      <created>1744961067811</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1745216709785</updated>
-      <workItem from="1745216711658" duration="153000" />
-      <workItem from="1745216877882" duration="9008000" />
-      <workItem from="1745225917058" duration="500000" />
+      <updated>1744961067811</updated>
+      <workItem from="1744961068881" duration="710000" />
+      <workItem from="1745284057952" duration="332000" />
+      <workItem from="1745284419616" duration="180000" />
+      <workItem from="1745284602130" duration="1955000" />
     </task>
-    <task id="LOCAL-00001" summary="Added .gitignore file auto-generated by PyCharm">
-      <option name="closed" value="true" />
-      <created>1745220129987</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1745220129987</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Fixing auto push script">
-      <option name="closed" value="true" />
-      <created>1745224654571</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1745224654571</updated>
-    </task>
-    <task id="LOCAL-00003" summary="refactor: update paths in configuration files and add .gitignore">
-      <option name="closed" value="true" />
-      <created>1745226112828</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1745226112828</updated>
-    </task>
-    <task id="LOCAL-00004" summary="refactor: simplify paths in configuration files">
-      <option name="closed" value="true" />
-      <created>1745226277191</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1745226277191</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
-  </component>
-  <component name="TerminalProjectNonSharedOptionsProvider">
-    <envs>
-      <env key="PATH" value="&quot;$HOME/miniconda3/bin:$PATH&quot;" />
-    </envs>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -179,6 +177,18 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="38" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="42" />
+                  <entry key="Table.GitHub.CommitStatus.ColumnIdWidth" value="41" />
+                </map>
+              </option>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -195,13 +205,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Added .gitignore file auto-generated by PyCharm" />
-    <MESSAGE value="Fixing auto push script" />
-    <MESSAGE value="refactor: update paths in configuration files and add .gitignore" />
-    <MESSAGE value="refactor: simplify paths in configuration files" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: simplify paths in configuration files" />
   </component>
 </project>
