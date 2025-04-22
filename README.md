@@ -86,8 +86,7 @@ Graduate Researcher – Magmatic Systems, Geochemistry
 Fisk–Vanderbilt Master’s to PhD Bridge Program  
 Department of Earth and Environmental Sciences  
 Vanderbilt University  
-
-- Email: [marvin@marvinlopezacevedo.com](mailto:marvin@marvinlopezacevedo.com)  
+ 
 - Website: [https://marvinlopezacevedo.com](https://marvinlopezacevedo.com)  
 
 
