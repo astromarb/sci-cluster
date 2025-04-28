@@ -4,3 +4,4 @@
 /.conda/
 /.cache/
 /.ssh/
+!/sci-data/tuolumnedata_csvready.csv

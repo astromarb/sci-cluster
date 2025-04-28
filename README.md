@@ -81,7 +81,7 @@ At present, Conda environments must be manually activated upon login.
 
 ## Author
 
-**Marvin Lopez-Acevedo**  
+**Marvin Lopez Acevedo**  
 Graduate Researcher – Magmatic Systems, Geochemistry  
 Fisk–Vanderbilt Master’s to PhD Bridge Program  
 Department of Earth and Environmental Sciences  
