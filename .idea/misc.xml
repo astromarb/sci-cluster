@@ -4,5 +4,5 @@
     <option name="pathToExecutable" value="/opt/anaconda3/bin/black" />
     <option name="sdkName" value="/opt/anaconda3" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="masters" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="scientific-coding-env" project-jdk-type="Python SDK" />
 </project>
