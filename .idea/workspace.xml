@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="Set up environment on Vandy MacBook for EC2 remote SSH access.">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ActiveNotebooks/Protoyping.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hi.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ActiveNotebooks/Protoyping.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/ActiveNotebooks/Protoyping.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -31,6 +29,8 @@
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-8-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/P/P9-W" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/e/eterm-color" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/n/ncr260vt300wpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -51,6 +51,8 @@
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/e/eterm-color" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/n/ncr260vt300wpp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +98,7 @@
   }
 }</component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="9f59a41d-06ec-41ef-94c5-fb5c5068924c" />
+    <option name="defaultAccountId" value="161e12a9-dbe0-4c59-b44e-e9cfbcc2e229" />
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
@@ -108,6 +110,7 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2vtOn5zyLSqoBBeL62TCfqrQeyB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -119,6 +122,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -126,7 +130,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "DSTables",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -158,8 +162,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
-        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
       </set>
     </attachedChunks>
   </component>
@@ -188,6 +192,7 @@
       <workItem from="1745794498270" duration="37000" />
       <workItem from="1745794540925" duration="80000" />
       <workItem from="1745794627827" duration="5848000" />
+      <workItem from="1745882197344" duration="5445000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on Vandy MacBook for EC2 remote SSH access.">
       <option name="closed" value="true" />
@@ -240,6 +245,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Set up environment on Vandy MacBook for EC2 remote SSH access." />
-    <option name="LAST_COMMIT_MESSAGE" value="Set up environment on Vandy MacBook for EC2 remote SSH access." />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
