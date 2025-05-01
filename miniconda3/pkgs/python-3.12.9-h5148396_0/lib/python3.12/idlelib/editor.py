@@ -1053,7 +1053,7 @@ class EditorWindow:
         elif long:
             title = long
         else:
-            title = "untitled"
+            title = "astro-site"
         icon = short or long or title
         if not self.get_saved():
             title = "*%s*" % title
@@ -1079,7 +1079,7 @@ class EditorWindow:
 
     def short_title(self):
         filename = self.io.filename
-        return os.path.basename(filename) if filename else "untitled"
+        return os.path.basename(filename) if filename else "astro-site"
 
     def long_title(self):
         return self.io.filename or ""

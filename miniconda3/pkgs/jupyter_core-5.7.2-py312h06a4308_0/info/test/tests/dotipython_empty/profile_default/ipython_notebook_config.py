@@ -412,7 +412,7 @@ c = get_config()
 # - if unspecified, path defaults to '',
 #   indicating the root path.
 
-# The base name used when creating untitled directories.
+# The base name used when creating astro-site directories.
 # c.ContentsManager.untitled_directory = 'Untitled Folder'
 
 # Python callable or importstring thereof
@@ -435,10 +435,10 @@ c = get_config()
 # Glob patterns to hide in file and directory listings.
 # c.ContentsManager.hide_globs = ['__pycache__', '*.pyc', '*.pyo', '.DS_Store', '*.so', '*.dylib', '*~']
 
-# The base name used when creating untitled files.
-# c.ContentsManager.untitled_file = 'untitled'
+# The base name used when creating astro-site files.
+# c.ContentsManager.untitled_file = 'astro-site'
 
-# The base name used when creating untitled notebooks.
+# The base name used when creating astro-site notebooks.
 # c.ContentsManager.untitled_notebook = 'Untitled'
 
 #
@@ -456,7 +456,7 @@ c = get_config()
 
 # FileContentsManager will inherit config from: ContentsManager
 
-# The base name used when creating untitled directories.
+# The base name used when creating astro-site directories.
 # c.FileContentsManager.untitled_directory = 'Untitled Folder'
 
 # Python callable or importstring thereof
@@ -479,10 +479,10 @@ c = get_config()
 # Glob patterns to hide in file and directory listings.
 # c.FileContentsManager.hide_globs = ['__pycache__', '*.pyc', '*.pyo', '.DS_Store', '*.so', '*.dylib', '*~']
 
-# The base name used when creating untitled files.
-# c.FileContentsManager.untitled_file = 'untitled'
+# The base name used when creating astro-site files.
+# c.FileContentsManager.untitled_file = 'astro-site'
 
-# The base name used when creating untitled notebooks.
+# The base name used when creating astro-site notebooks.
 # c.FileContentsManager.untitled_notebook = 'Untitled'
 
 # Python callable or importstring thereof

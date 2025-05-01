@@ -188,7 +188,7 @@ class IOBinding:
         if self.get_saved():
             return "yes"
         message = ("Do you want to save "
-                   f"{self.filename or 'this untitled document'}"
+                   f"{self.filename or 'this astro-site document'}"
                    " before closing?")
         confirm = messagebox.askyesnocancel(
                   title="Save On Close",
