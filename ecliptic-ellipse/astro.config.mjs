@@ -1,5 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+import github from "@astrojs/github";
+
+export default defineConfig({
+  output: 'static',
+  base: '/sci-cluster/',
+  adapter: github(),
+});
