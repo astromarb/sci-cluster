@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="Initialize Astro project with configuration files and basic structure">
+    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="update GitHub adapter import and rename project in package-lock.json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-ellipse/astro.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/ecliptic-ellipse/astro.config.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -122,6 +121,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -141,6 +141,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ecliptic-ellipse" />
+      <recent name="$PROJECT_DIR$/ecliptic-ellipse/node_modules" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/../untitled" />
     </key>
@@ -204,7 +206,7 @@
       <workItem from="1745794540925" duration="80000" />
       <workItem from="1745794627827" duration="16426000" />
       <workItem from="1746132022578" duration="4910000" />
-      <workItem from="1746139136292" duration="2160000" />
+      <workItem from="1746139136292" duration="3416000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on Vandy MacBook for EC2 remote SSH access.">
       <option name="closed" value="true" />
@@ -246,7 +248,31 @@
       <option name="project" value="LOCAL" />
       <updated>1746139502949</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: configure Astro project with GitHub adapter and add package dependencies">
+      <option name="closed" value="true" />
+      <created>1746141514723</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746141514723</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: configure Astro project with GitHub adapter and add package dependencies">
+      <option name="closed" value="true" />
+      <created>1746141729987</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746141729987</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update GitHub adapter import and rename project in package-lock.json">
+      <option name="closed" value="true" />
+      <created>1746141984819</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746141984819</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +318,11 @@
     <MESSAGE value="feat: add CSV handling functionality and update .gitignore" />
     <MESSAGE value="feat: add cleaned_data.csv and update data processing in Protoyping.ipynb" />
     <MESSAGE value="Initialize Astro project with configuration files and basic structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initialize Astro project with configuration files and basic structure" />
+    <MESSAGE value="feat: configure Astro project with GitHub adapter and add package dependencies" />
+    <MESSAGE value="update GitHub adapter import and rename project in package-lock.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="update GitHub adapter import and rename project in package-lock.json" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/sci_cluster$main.coverage" NAME="main Coverage Results" MODIFIED="1746141857496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
