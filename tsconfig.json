@@ -1,0 +1,6 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    "ecliptic-equator/.astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}
