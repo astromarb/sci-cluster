@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\ActiveNotebooks\aplite_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\ActiveNotebooks\cleaned_data.csv">
           <value>
             <Attribute>
