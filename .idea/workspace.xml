@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="feat: add new files and restructure assets for improved organization">
+      <change afterPath="$PROJECT_DIR$/hi.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -45,7 +47,6 @@
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,9 +100,6 @@
     &quot;accountId&quot;: &quot;9f59a41d-06ec-41ef-94c5-fb5c5068924c&quot;
   }
 }</component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -198,7 +196,7 @@
       <workItem from="1745882197344" duration="18054000" />
       <workItem from="1746144488859" duration="1945000" />
       <workItem from="1746146438220" duration="2000" />
-      <workItem from="1746146453884" duration="2663000" />
+      <workItem from="1746146453884" duration="4552000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on Vandy MacBook for EC2 remote SSH access.">
       <option name="closed" value="true" />
@@ -344,7 +342,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746148977486</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: update workspace.xml to reflect changes in project structure and task management">
+      <option name="closed" value="true" />
+      <created>1746149270305</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746149270305</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
