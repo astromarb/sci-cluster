@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="fix: update paths in configuration files for correct references">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/astro.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="fix: update configuration files and paths for correct deployment settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/astro.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/astro.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/magical-debris/astro.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/magical-debris/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/magical-debris/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/magical-debris/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/magical-debris/src/pages/index.astro" beforeDir="false" afterPath="$PROJECT_DIR$/magical-debris/src/pages/index.astro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -52,7 +47,6 @@
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-8-W" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/share/terminfo/P/P9-W" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,28 +109,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/marvi/PycharmProjects/scientific-coding-v1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marvi/PycharmProjects/scientific-coding-v1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\marvi\PycharmProjects\scientific-coding-v1" />
@@ -237,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746216803853</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: update configuration files and paths for correct deployment settings">
+      <option name="closed" value="true" />
+      <created>1746217222558</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746217222558</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +286,7 @@
     <MESSAGE value="fix: update workspace settings and task summaries for CSV file paths" />
     <MESSAGE value="fix: update astro.config.mjs and astro.yml for improved deployment settings" />
     <MESSAGE value="fix: update paths in configuration files for correct references" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: update paths in configuration files for correct references" />
+    <MESSAGE value="fix: update configuration files and paths for correct deployment settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: update configuration files and paths for correct deployment settings" />
   </component>
 </project>
