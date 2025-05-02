@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="feat: update index.astro structure and modify workspace settings">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/astro.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/astro.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="feat: update base path in astro.config.mjs for improved deployment structure">
       <change beforePath="$PROJECT_DIR$/ecliptic-equator/astro.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/ecliptic-equator/astro.config.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
@@ -189,7 +187,7 @@
       <workItem from="1745794540925" duration="80000" />
       <workItem from="1745794627827" duration="5848000" />
       <workItem from="1745882197344" duration="18054000" />
-      <workItem from="1746144488859" duration="865000" />
+      <workItem from="1746144488859" duration="1184000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on Vandy MacBook for EC2 remote SSH access.">
       <option name="closed" value="true" />
@@ -231,7 +229,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746144849235</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: update astro.config.mjs and streamline astro.yml for GitHub Pages deployment">
+      <option name="closed" value="true" />
+      <created>1746145461100</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746145461100</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: update base path in astro.config.mjs for improved deployment structure">
+      <option name="closed" value="true" />
+      <created>1746145574378</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746145574378</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +292,8 @@
     <MESSAGE value="fix: update workspace settings and task summaries for CSV file paths" />
     <MESSAGE value="feat: initialize Astro project with basic configuration and structure" />
     <MESSAGE value="feat: update index.astro structure and modify workspace settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update index.astro structure and modify workspace settings" />
+    <MESSAGE value="feat: update astro.config.mjs and streamline astro.yml for GitHub Pages deployment" />
+    <MESSAGE value="feat: update base path in astro.config.mjs for improved deployment structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update base path in astro.config.mjs for improved deployment structure" />
   </component>
 </project>
