@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="feat: update .gitignore and tsconfig.json for improved path references">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/src/assets/astro.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/astro.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/src/assets/background.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/background.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/src/components/Welcome.astro" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Welcome.astro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/src/layouts/Layout.astro" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Layout.astro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecliptic-equator/src/pages/index.astro" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.astro" afterDir="false" />
+    <list default="true" id="db369c97-91f3-48c1-aa7c-011acac82125" name="Changes" comment="feat: add new files and restructure assets for improved organization">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/astro.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/astro.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/E/Eterm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/L/LFT-PC850" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" beforeDir="false" afterPath="$PROJECT_DIR$/miniconda3/pkgs/ncurses-6.4-h6a678d5_0/share/terminfo/N/NCRVT100WPP" afterDir="false" />
@@ -208,7 +198,7 @@
       <workItem from="1745882197344" duration="18054000" />
       <workItem from="1746144488859" duration="1945000" />
       <workItem from="1746146438220" duration="2000" />
-      <workItem from="1746146453884" duration="2074000" />
+      <workItem from="1746146453884" duration="2501000" />
     </task>
     <task id="LOCAL-00001" summary="Set up environment on Vandy MacBook for EC2 remote SSH access.">
       <option name="closed" value="true" />
@@ -338,7 +328,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746148174901</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="feat: add new files and restructure assets for improved organization">
+      <option name="closed" value="true" />
+      <created>1746148748015</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746148748015</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +391,7 @@
     <MESSAGE value="feat: update base path in astro.config.mjs for correct site deployment" />
     <MESSAGE value="feat: rename configuration files and update index.astro for improved project structure" />
     <MESSAGE value="feat: update .gitignore and tsconfig.json for improved path references" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update .gitignore and tsconfig.json for improved path references" />
+    <MESSAGE value="feat: add new files and restructure assets for improved organization" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add new files and restructure assets for improved organization" />
   </component>
 </project>
