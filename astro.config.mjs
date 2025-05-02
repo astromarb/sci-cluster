@@ -1,8 +1,7 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
+import { defineConfig } from 'astro/config'
+
 export default defineConfig({
-    site: 'https://astromarb.github.io',
-    base: '/',
-});
+  site: 'https://astromarb.github.io',
+  base: '/sci-cluster',
+})

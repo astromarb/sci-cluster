@@ -3,10 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "magical-debris/node_modules/.bin/astro dev",
+    "build": "magical-debris/node_modules/.bin/astro build",
+    "preview": "magical-debris/node_modules/.bin/astro preview",
+    "astro": "magical-debris/node_modules/.bin/astro"
   },
   "dependencies": {
     "astro": "^5.7.10"
