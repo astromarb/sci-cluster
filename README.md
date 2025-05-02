@@ -1,93 +1,48 @@
-# AWS EC2 Scientific Computing Server
+# Astro Starter Kit: Basics
 
-This project documents the architecture and purpose of a cloud-hosted EC2 instance configured for graduate-level scientific research in geochemistry and petrology. It is built to support reproducible thermodynamic modeling, trace element analysis, and Python/Julia-based computation workflows via remote access and containerized environments. The infrastructure is centered on practical utility, modularity, and long-term scalability.
+```sh
+npm create astro@latest -- --template basics
+```
 
-## Overview
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
 
-The server is hosted on an Amazon Web Services (AWS) Elastic Compute Cloud (EC2) instance and serves as a persistent, cloud-based environment for executing research-related code, particularly high-load or dependency-sensitive programs such as MELTS-based modeling tools. The goal is to ensure a consistent and reproducible computing setup regardless of the local machine, facilitating collaborative work, computational reproducibility, and long-term storage of results and scripts.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Use Cases
+![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-- Thermodynamic simulations (e.g., Rhyolite-MELTS, ThermoEngine)
-- Geochemical modeling of magma evolution
-- Trace element spider diagram generation
-- Statistical analysis and data visualization using Python and Jupyter
-- Scheduled GitHub backups and automated synchronization
-- Remote development of Python and Julia packages for modular research workflows
+## 🚀 Project Structure
 
-## System Specifications
+Inside of your Astro project, you'll see the following folders and files:
 
-- **Cloud Provider**: Amazon Web Services (AWS)
-- **Instance Type**: t3.micro (scalable as needed)
-- **Operating System**: Amazon Linux 2
-- **Remote Interface**: JupyterLab (served over HTTPS)
-- **Domain**: `https://lab.marvinlopezacevedo.com`
-- **SSL Security**: Enabled via domain-level TLS certificates
-- **Access Control**: SSH keys only; public password access is disabled
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
 
-## Structure
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-All work is contained within a master repository directory (`db_sci_cluster/`) organized for clean modularity. Each subdirectory is focused on a specific function of the server or the research workflow.
+## 🧞 Commands
 
+All commands are run from the root of the project, from a terminal:
 
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## Notable Features
+## 👀 Want to learn more?
 
-### JupyterLab Access
-
-JupyterLab is served securely at `https://lab.marvinlopezacevedo.com` and configured to support multiple computational kernels:
-
-- **Python 3.10+** (for general scientific computing)
-- **Julia 1.9+** (for numerical modeling, AI tools, and potential ML extensions)
-- **Container-based Interpreters** for encapsulated tools such as ThermoEngine
-
-### Git Integration and Backups
-
-The server supports scheduled GitHub uploads to maintain synchronized research scripts and notebooks. A backup script is scheduled via `cron` to commit and push files at:
-- 12:00 PM Central Time
-- 12:00 AM Central Time
-
-These backups are useful for code versioning, collaboration, and long-term reproducibility.
-
-### Dockerized Modeling Environments
-
-Scientific tools such as ThermoEngine are installed inside Docker containers. This avoids dependency conflicts and ensures that computational environments remain portable and reproducible. Containers can be spun up manually or integrated into JupyterLab as back-end kernels.
-
-### Security
-
-- All traffic to JupyterLab is encrypted via HTTPS.
-- SSH access is restricted to machines holding authorized private keys.
-- `.ssh/`, API keys, and sensitive configuration files are excluded via `.gitignore`.
-
-### Monitoring and Utility Scripts
-
-The `server_tools/` folder contains scripts for:
-- Logging and displaying storage and CPU usage in real-time
-- Initializing environments on SSH login
-- Running diagnostic or performance tests
-- Future logging of modeling runs (e.g., MELTS batches)
-
-### Manual Activation (Current Limitation)
-
-At present, Conda environments must be manually activated upon login. 
-
-## Future Directions
-
-- **GPU acceleration** for high-temperature fluid and melt transport simulations  
-- **Automated MELTS batch runners** with CSV input for parametric model sweeps  
-- **Machine Learning integration** for classifying trace element signatures or model predictions  
-- **Cloud storage connection** to AWS S3 or Glacier for long-term dataset archiving  
-- **Authentication portal** for controlled multi-user collaboration  
-
-## Author
-
-**Marvin Lopez Acevedo**  
-Graduate Researcher – Magmatic Systems, Geochemistry  
-Fisk–Vanderbilt Master’s to PhD Bridge Program  
-Department of Earth and Environmental Sciences  
-Vanderbilt University  
- 
-- Website: [https://marvinlopezacevedo.com](https://marvinlopezacevedo.com)  
-
-
-
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
