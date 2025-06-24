@@ -1,9 +1,9 @@
 #!/bin/bash
-# Auto-load conda environmen(base)
+# Auto-load conda environment (base)
 
-cd .
-source sci-cluster/scripts/conda-init.sh
-source ~/.bashrc
-
-
-
+if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+    conda activate base
+else
+    echo "Conda initialization script not found" >&2
+fi

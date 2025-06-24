@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/sci-uster
+cd ~/sci-cluster
 source ~/.bashrc
 now=$(date +"%Y-%m-%d %H:%M:%S")
 git add .
