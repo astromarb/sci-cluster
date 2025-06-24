@@ -1,24 +1,106 @@
-# build output
-dist/
-
-# generated types
-../.astro/
+# editor
+.idea
+.vscode
 
 # dependencies
-ecliptic-equator/node_modules/
+**/node_modules
+**/package-lock.json
+**/yarn.lock
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+## logs
+**/logs
+**/*.log
 
-# environment variables
-.env
-.env.production
+## pnpm
+.pnpm-store/
 
-# macOS-specific files
+## build
+**/dist
+**/build
+
+## temp
+**/tmp
+**/temp
+
+## test
+**/coverage
+
+# misc
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+## env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+## turbo
+.turbo
+
+## secrets
+**/*.key
+**/api.json
+
+## uploads
+**/uploads
+
+## compressed
+**/*.tgz
+
+## vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+## other keys
+*.key
+*.keys
+*.priv
+*.rsa
+*.key.json
+
+## ssh keys
+*.ssh
+*.ssh-key
+.key-mrc
+
+## Certificate Authority
+*.ca
+
+## Certificate
+*.crt
+
+## Certificate Sign Request
+*.csr
+
+## Certificate
+*.der 
+
+## Key database file
+*.kdb
+
+## OSCP request data
+*.org
+
+## PKCS #12
+*.p12
+
+## PEM-encoded certificate data
+*.pem
+
+## Random number seed
+*.rnd
+
+## SSLeay data
+*.ssleay
+
+## S/MIME message
+*.smime
+*.vsix
