@@ -1,8 +1,0 @@
-{
-  "extends": "astro/tsconfigs/strict",
-  "include": [
-    "magical-debris/.astro/types.d.ts", "**/*"],
-  "exclude": [
-    "magical-debris/dist"
-  ]
-}
