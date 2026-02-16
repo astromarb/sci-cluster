@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: sci-cluster
+Version: 0.0.1
+Summary: Helper utilities for the sci-cluster project
+Requires-Python: >=3.8
+Dynamic: requires-python
+Dynamic: summary
