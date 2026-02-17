@@ -11,7 +11,7 @@ import pandas as pd
 from sci_helpers import wrangle_dataframe
 
 parser = argparse.ArgumentParser(description='Run MC wrangler on CSV/Excel and print summary')
-parser.add_argument('--write-out', '-w', help='Optional output path: directory for CSVs or path ending with .xlsx to write one workbook', default=None)
+parser.add_argument('--write-out', '-w', help='Optional output path: directory for CSVs or path ending with .xlsx to write one workbook (suggested: ../wrangled-outputs)', default=None)
 args = parser.parse_args()
 
 csv_path = repo_root / 'sci-data' / 'Aplites_XRF_data' / 'HAL_XRF_WholeRock_andUncertanties.csv'

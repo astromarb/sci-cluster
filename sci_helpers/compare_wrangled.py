@@ -186,10 +186,87 @@ def compare_wrangled(file_a: str, file_b: str, data_path: Optional[str] = None, 
     return True, []
 
 
-def compare_wrangled_simple(file_a: str, file_b: str, path: str) -> Tuple[bool, List[Tuple[str,str,float,float,float]]]:
-    """Thin wrapper implementing the simple 3-argument API: (file_a, file_b, path).
+# Preserve programmatic comparator under a new name
+compare_wrangled_detailed = compare_wrangled
 
-    Calls the more general `compare_wrangled` function with `data_path=path` and default tol/list_all.
-    Returns (ok, mismatches).
+
+def compare_wrangled(file_a: str, file_b: str, path: Optional[str] = None, filepath: Optional[str] = None) -> None:
+    """Simple print-only comparator: compare_wrangled(file_a, file_b, path) or with keyword `filepath`.
+
+    Backwards-compatible: accepts either `path` or `filepath` as the directory containing files.
+    This function prints concise confirmation messages and returns None. For programmatic access use `compare_wrangled_detailed`.
     """
-    return compare_wrangled(file_a, file_b, data_path=path)
+    # Accept filepath alias for backward compatibility
+    if path is None and filepath is not None:
+        path = filepath
+    # resolve files
+    try:
+        pa = _find_file(path, file_a)
+        pb = _find_file(path, file_b)
+    except FileNotFoundError as e:
+        print('ERROR:', e)
+        print('DATASETS ARE NOT EQUAL! DO NOT PROCEED WITH WRANGLED DATA.')
+        return
+
+    # read data
+    da = _read_wrangled(pa)
+    db = _read_wrangled(pb)
+
+    # canonicalize columns
+    da.columns = [canonicalize_oxide_label(c) for c in da.columns]
+    db.columns = [canonicalize_oxide_label(c) for c in db.columns]
+
+    # decide which is smaller
+    area_a = da.shape[0] * da.shape[1]
+    area_b = db.shape[0] * db.shape[1]
+    small, large = (da, db) if area_a <= area_b else (db, da)
+    name_small = file_a if area_a <= area_b else file_b
+    name_large = file_b if area_a <= area_b else file_a
+
+    print('Input datasets confirmed as WRANGLED datasets....')
+    print(f'Verifying that "{name_small}" is in "{name_large}"....')
+
+    # check rows
+    missing_rows = [r for r in small.index if r not in large.index]
+    if missing_rows:
+        print('DATASETS ARE NOT EQUAL!')
+        print('Missing rows in larger dataset:')
+        for r in missing_rows:
+            print(' -', r)
+        print('DO NOT PROCEED WITH WRANGLED DATA.')
+        return
+    print('CONFIRMED!')
+
+    # check columns
+    large_map = {canonicalize_oxide_label(c): c for c in large.columns}
+    small_canon = [canonicalize_oxide_label(c) for c in small.columns]
+    missing_cols = [c for c in small_canon if c not in large_map]
+    print('\nChecking for headers matches (strings) equality across datasets....')
+    if missing_cols:
+        print('DATASETS ARE NOT EQUAL!')
+        print('Missing columns in larger dataset:')
+        for c in missing_cols:
+            print(' -', c)
+        print('DO NOT PROCEED WITH WRANGLED DATA.')
+        return
+    print('CONFIRMED!')
+
+    # compare numeric values
+    col_map = {small.columns[i]: large_map[small_canon[i]] for i in range(len(small.columns))}
+    print('\nChecking for difference between similarly-indexed numeric values across datasets....')
+    tol = 1e-12
+    for r in small.index:
+        for sc in small.columns:
+            lc = col_map[sc]
+            vs = pd.to_numeric(small.at[r, sc], errors='coerce')
+            vl = pd.to_numeric(large.at[r, lc], errors='coerce')
+            if pd.isna(vs) and pd.isna(vl):
+                continue
+            if pd.isna(vs) != pd.isna(vl) or (not pd.isna(vs) and not np.isclose(float(vs), float(vl), atol=tol, rtol=0)):
+                print('DATASETS ARE NOT EQUAL!')
+                print(f'First mismatch at Row: {r}, Column: {sc} -> small={vs} large={vl}')
+                print('DO NOT PROCEED WITH WRANGLED DATA.')
+                return
+    print('CONFIRMED!!!')
+    print('\nDATASETS ARE EQUAL! REJOICE!')
+    return
