@@ -7,6 +7,23 @@
 #     """Simple print-only comparator for notebook use. Prints confirmations only, no return value."""
 # - compare_wrangled_detailed(file_a, file_b, data_path, tol=1e-12, list_all=False, output_csv=None) -> (bool, mismatches)
 #     """Programmatic comparator returning (ok, mismatches). Use this when you need mismatch details."""
+#
+# Notes and recommendations:
+# - The comparator supports searching for files anywhere under a provided `data_path` (recursive lookup).
+#   This means you may pass filenames, relative paths (e.g., 'Aplites_XRF_data/wrangled_dataset_1.csv')
+#   or absolute paths. When supplying Windows paths with backslashes in Python source, prefer raw strings
+#   (r"C:\path\to\sci-data") to avoid escape-sequence warnings.
+# - Recommended import pattern to guarantee the callable is bound in long-lived kernels:
+#     from sci_helpers.compare_wrangled import compare_wrangled
+#   This imports the print-only comparator directly. For programmatic access (returning mismatches)
+#   import `compare_wrangled_detailed` from the same module:
+#     from sci_helpers.compare_wrangled import compare_wrangled_detailed
+#
+# - The package-level module attempts to import and bind key functions directly so `from sci_helpers import compare_wrangled`
+#   will provide the callable in usual interactive use. If you encounter import issues in old kernels, restart the
+#   kernel or import the function directly from the submodule as shown above.
+#
+# End of header notes.
 
 # Defensive binding: import the comparator function(s) directly from the submodule
 # This ensures `from sci_helpers import compare_wrangled` gives the function even in long-lived kernels

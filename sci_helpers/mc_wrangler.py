@@ -155,6 +155,30 @@ def detect_orientation_at_anchor(df: pd.DataFrame, r: int, c: int, oxide_names: 
         match_counts[name] = len(labels)
         match_labels[name] = labels
 
+    # Special-case: headerless matrix where first column has oxide names and first row has sample names.
+    # Example layout (mat in the tests):
+    #   ['', 'Sample_1', 'Sample_2']
+    #   ['SiO2', 60.0, 61.0]
+    #   ['TiO2', 0.1, 0.2]
+    # In that case anchor at (1,0) = 'SiO2' should be treated as oxide label at first column,
+    # so oxide_dir = (1,0) (down) and sample_dir = (0,1) (right). Detect this by checking if the entire
+    # first column contains strings that are oxide-like and the first row (excluding first cell) are sample names.
+    try:
+        first_col = [str(x).strip() for x in df.iloc[:,0].values]
+        first_row = [str(x).strip() for x in df.iloc[0,:].values]
+        # check if many entries in first_col match oxide names and many entries in first_row look like sample identifiers
+        col_oxide_count = sum(1 for x in first_col if _is_oxide_label(x, oxide_names))
+        row_sample_count = sum(1 for x in first_row[1:] if x != '' and not _is_oxide_label(x, oxide_names))
+        if col_oxide_count >= max(2, int(0.6 * len(first_col))) and row_sample_count >= 1:
+            oxide_dir = (1,0)
+            sample_dir = (0,1)
+            oxide_labels = [str(x).strip() for x in first_col if str(x).strip()!='']
+            sample_labels = [str(x).strip() for x in first_row[1:] if str(x).strip()!='']
+            notes.append('Detected headerless matrix: first column=oxides, first row=samples (standard format).')
+            return oxide_dir, sample_dir, oxide_labels, sample_labels, notes
+    except Exception:
+        pass
+
     # pick direction with max matches
     best_dir = max(match_counts.items(), key=lambda x: x[1])[0]
     best_count = match_counts[best_dir]
@@ -207,27 +231,30 @@ def detect_orientation_at_anchor(df: pd.DataFrame, r: int, c: int, oxide_names: 
     return oxide_dir, sample_dir, oxide_labels, [], notes
 
 
-def extract_dataset_from_anchor(df: pd.DataFrame, r: int, c: int, oxide_dir: Tuple[int,int], sample_dir: Tuple[int,int], oxide_names: List[str], min_oxides: int = 3, blank_row_tolerance: int = 50, auto_name_prefix: str = 'sample_auto_', anchor: str = 'SiO2') -> Dict:
+def extract_dataset_from_anchor(df: pd.DataFrame, r: int, c: int, oxide_dir: Tuple[int,int], sample_dir: Tuple[int,int], oxide_names: List[str], min_oxides: int = 3, blank_row_tolerance: int = 50, auto_name_prefix: str = 'sample_auto_', anchor: str = 'SiO2', oxide_labels_override: Optional[List[str]] = None) -> Dict:
     """Extract a table starting at anchor (r,c) given oxide and sample directions.
 
     Returns dataset dict as described.
     """
     notes = []
-    # Collect oxide labels by scanning along oxide_dir starting from anchor
-    ox_labels = []
-    i = 0
-    while True:
-        rr = r + (i+1)*oxide_dir[0]
-        cc = c + (i+1)*oxide_dir[1]
-        if rr < 0 or rr >= df.shape[0] or cc < 0 or cc >= df.shape[1]:
-            break
-        val = df.iat[rr, cc]
-        if _is_oxide_label(val, oxide_names) or (isinstance(val, str) and val.strip()!=''):
-            ox_labels.append(str(val).strip())
-            i += 1
-            continue
-        else:
-            break
+    # Determine oxide labels: if override provided (from detector), use it; otherwise scan along oxide_dir starting from anchor
+    if oxide_labels_override and len(oxide_labels_override) >= min_oxides:
+        ox_labels = list(oxide_labels_override)
+    else:
+        ox_labels = []
+        i = 0
+        while True:
+            rr = r + (i+1)*oxide_dir[0]
+            cc = c + (i+1)*oxide_dir[1]
+            if rr < 0 or rr >= df.shape[0] or cc < 0 or cc >= df.shape[1]:
+                break
+            val = df.iat[rr, cc]
+            if _is_oxide_label(val, oxide_names) or (isinstance(val, str) and val.strip()!=''):
+                ox_labels.append(str(val).strip())
+                i += 1
+                continue
+            else:
+                break
     if len(ox_labels) < min_oxides:
         notes.append(f'Found only {len(ox_labels)} oxide labels at anchor; aborting extraction.')
         return {'samples_list':[], 'oxides_order':[], 'df':pd.DataFrame(), 'anchor':(r,c), 'sheet':None, 'notes':notes}
@@ -386,6 +413,7 @@ def wrangle_dataframe(df: pd.DataFrame, oxide_names: Optional[List[str]] = None,
             blank_row_tolerance=blank_row_tolerance,
             auto_name_prefix=auto_name_prefix,
             anchor=anchor,
+            oxide_labels_override=oxide_labels,
         )
         ds['sheet'] = None
         ds['notes'] = ds.get('notes', []) + notes

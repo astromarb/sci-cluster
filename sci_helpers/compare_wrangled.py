@@ -38,17 +38,55 @@ def _read_wrangled(path: str) -> pd.DataFrame:
 
 
 def _find_file(data_path: str, fname: str) -> str:
-    # If fname has extension use directly, else try .csv
-    p = os.path.join(data_path, fname)
-    if os.path.exists(p):
-        return p
-    p_csv = p if fname.lower().endswith('.csv') else p + '.csv'
-    if os.path.exists(p_csv):
-        return p_csv
-    p_xlsx = p if fname.lower().endswith('.xlsx') else p + '.xlsx'
-    if os.path.exists(p_xlsx):
-        return p_xlsx
-    raise FileNotFoundError(f'Could not locate file {fname} in {data_path}')
+    """Locate a file by name under `data_path`.
+
+    Behavior:
+    - If `fname` is an absolute path and exists, return it (try common extensions if missing).
+    - If `fname` is a path relative to `data_path` (may include subfolders), check the joined path.
+    - Otherwise search recursively under `data_path` for a file whose relative path (from data_path)
+      ends with the provided `fname` (useful for searching nested folders), or whose basename matches.
+    - If no match, raise FileNotFoundError.
+    """
+    # Absolute path provided?
+    if os.path.isabs(fname):
+        if os.path.exists(fname):
+            return fname
+        # try with common extensions
+        for ext in ('.csv', '.xlsx'):
+            if os.path.exists(fname + ext):
+                return fname + ext
+        raise FileNotFoundError(f'Could not locate file {fname} (absolute path)')
+
+    # Normalize separators so comparisons are consistent
+    norm_fname = fname.replace('/', os.sep).replace('\\', os.sep).lstrip('.' + os.sep)
+
+    # Direct join (covers the common case where fname includes a subfolder under data_path)
+    candidate = os.path.join(data_path, norm_fname)
+    if os.path.exists(candidate):
+        return candidate
+    # Try adding extensions if missing
+    base, ext = os.path.splitext(candidate)
+    if ext == '':
+        for add_ext in ('.csv', '.xlsx'):
+            if os.path.exists(candidate + add_ext):
+                return candidate + add_ext
+
+    # Recursive search: match either by basename or by relative-path "endswith" (robust for nested folders)
+    # Prepare a normalized match string (use forward slashes for portability)
+    match_norm = norm_fname.replace(os.sep, '/').lower()
+    for root, dirs, files in os.walk(data_path):
+        for f in files:
+            # build relative path from data_path to this file (use forward slashes)
+            rel = os.path.relpath(os.path.join(root, f), data_path).replace('\\', '/').replace('\\', '/')
+            rel_low = rel.lower()
+            if rel_low.endswith(match_norm) or f.lower() == os.path.basename(match_norm).lower():
+                return os.path.join(root, f)
+            # also allow match when user provided name without extension
+            if os.path.splitext(match_norm)[1] == '':
+                if os.path.splitext(f)[0].lower() == os.path.basename(match_norm).lower():
+                    return os.path.join(root, f)
+
+    raise FileNotFoundError(f'Could not locate file {fname} in {data_path} (searched recursively)')
 
 
 def compare_wrangled(file_a: str, file_b: str, data_path: Optional[str] = None, tol: float = 1e-12, list_all: bool = False, output_csv: Optional[str] = None, filepath: Optional[str] = None) -> Tuple[bool, List[Tuple[str,str,float,float,float]]]:

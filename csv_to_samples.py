@@ -74,11 +74,22 @@ def csv_to_samples_list(
 
     # Define oxide-like heuristic for labels
     def oxide_like_label(s: str) -> bool:
-        s = str(s)
-        if re.search('[A-Za-z]', s) is None:
+        s = str(s).strip()
+        if s == '':
             return False
-        # oxide names often contain an 'O' and optionally digits (e.g., SiO2)
-        return bool(re.search('O', s, re.IGNORECASE) or re.search('\d', s))
+        s_up = s.upper()
+        # Accept explicit common tokens
+        if s_up in ("LOI", "SUM"):
+            return True
+        # Require that oxide-like labels contain at least one letter and an 'O' (e.g., SiO2, TiO2, FeO)
+        has_letter = bool(re.search('[A-Za-z]', s_up))
+        has_o = 'O' in s_up
+        if has_letter and has_o:
+            return True
+        # Also accept common short forms like 'FeO*' (contains O) or patterns like 'P2O5'
+        if re.search(r'O\d', s_up):
+            return True
+        return False
 
     # Check first column values (likely oxide names if the file is in expected orientation)
     first_col_vals = raw.iloc[:, 0].astype(str)
