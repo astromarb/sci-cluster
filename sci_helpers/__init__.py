@@ -36,5 +36,6 @@ except Exception:
 
 from .csv_to_samples import csv_to_samples_list
 from .mc_wrangler import wrangle_dataframe, wrangle_excel
+from .stacked_to_samples import stacked_file_to_wrangled, merge_wrangled_results
 
-__all__ = ["csv_to_samples_list", "wrangle_dataframe", "wrangle_excel", "compare_wrangled", "compare_wrangled_detailed"]
+__all__ = ["csv_to_samples_list", "wrangle_dataframe", "wrangle_excel", "compare_wrangled", "compare_wrangled_detailed", "stacked_file_to_wrangled", "merge_wrangled_results"]

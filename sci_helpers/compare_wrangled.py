@@ -77,7 +77,7 @@ def _find_file(data_path: str, fname: str) -> str:
     for root, dirs, files in os.walk(data_path):
         for f in files:
             # build relative path from data_path to this file (use forward slashes)
-            rel = os.path.relpath(os.path.join(root, f), data_path).replace('\\', '/').replace('\\', '/')
+            rel = os.path.relpath(os.path.join(root, f), data_path).replace('\\', '/')
             rel_low = rel.lower()
             if rel_low.endswith(match_norm) or f.lower() == os.path.basename(match_norm).lower():
                 return os.path.join(root, f)
