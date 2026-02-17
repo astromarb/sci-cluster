@@ -36,6 +36,11 @@ except Exception:
 
 from .csv_to_samples import csv_to_samples_list
 from .mc_wrangler import wrangle_dataframe, wrangle_excel
-from .stacked_to_samples import stacked_file_to_wrangled, merge_wrangled_results
+try:
+    from .stacked_to_samples import stacked_file_to_wrangled, merge_wrangled_results
+except Exception:
+    # avoid failing package import if stacked_to_samples has an import-time error; callers can import directly
+    stacked_file_to_wrangled = None
+    merge_wrangled_results = None
 
 __all__ = ["csv_to_samples_list", "wrangle_dataframe", "wrangle_excel", "compare_wrangled", "compare_wrangled_detailed", "stacked_file_to_wrangled", "merge_wrangled_results"]

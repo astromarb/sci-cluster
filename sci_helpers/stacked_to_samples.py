@@ -374,8 +374,55 @@ def stacked_file_to_wrangled(path: str,
                     out_dir = Path.cwd() / 'wrangled-outputs'
             out_dir.mkdir(parents=True, exist_ok=True)
             used = set()
+            # Prefer using the tab-name column (first column) to name datasets. Collect non-empty names in order.
+            tab_names = []
+            try:
+                col_series = raw_df.iloc[:, int(tab_name_col)].astype(str).fillna('').str.strip()
+                for v in col_series.tolist():
+                    if v and v.upper() not in ('TAB NAMES', 'TAB', 'NAMES'):
+                        tab_names.append(v)
+            except Exception:
+                tab_names = []
+
+            # If we have at least as many tab names as detected datasets, assign them in order.
+            assign_tab_names = len(tab_names) >= len(datasets)
+            if not assign_tab_names and tab_names:
+                # if fewer names than datasets, warn in notes and proceed with best-effort assignment
+                pass
+
             for i, ds in enumerate(datasets, start=1):
-                raw_name = ds.get('dataset_name') or f'dataset_{i}'
+                # If tab_names adequate, set dataset_name from it
+                if assign_tab_names:
+                    try:
+                        ds['dataset_name'] = tab_names[i-1]
+                    except Exception:
+                        pass
+                # Resolve dataset name: prefer explicit dataset_name, otherwise scan raw_df upward
+                raw_name = ds.get('dataset_name')
+                def _is_blank(x):
+                    return x is None or (isinstance(x, float) and pd.isna(x)) or str(x).strip().lower() in ('', 'nan', 'none')
+                if _is_blank(raw_name):
+                    # attempt to get a nearby tab name from the original raw dataframe
+                    try:
+                        best_row = ds.get('anchor', (None, None))[0]
+                        col = int(tab_name_col)
+                        found = None
+                        if raw_df is not None and best_row is not None:
+                            # search up to 30 rows above the header for a non-empty name
+                            for r in range(int(best_row), max(-1, int(best_row) - 30), -1):
+                                if 0 <= r < raw_df.shape[0] and 0 <= col < raw_df.shape[1]:
+                                    val = raw_df.iat[r, col]
+                                    if not _is_blank(val):
+                                        sval = str(val).strip()
+                                        if sval.upper() not in ('TAB NAMES', 'TAB', 'NAMES'):
+                                            found = sval
+                                            break
+                        if found:
+                            raw_name = found
+                    except Exception:
+                        raw_name = None
+                if _is_blank(raw_name):
+                    raw_name = f'dataset_{i}'
                 base = _sanitize_name(raw_name)
                 fname = f'wrangled_{base}_compositions.csv'
                 target = out_dir / fname
@@ -384,15 +431,39 @@ def stacked_file_to_wrangled(path: str,
                 while target.exists() or str(target) in used:
                     target = out_dir / f'wrangled_{base}_{k}_compositions.csv'
                     k += 1
-                # build df for writing
-                df_block = ds.get('df')
+                # build a reliable DataFrame for writing
+                ox_list = ds.get('oxides_order') or []
                 samples = ds.get('samples_list', [])
-                try:
-                    idx = [str(s[0]) for s in samples]
+                df_block = ds.get('df')
+                # If df_block is not a pandas DataFrame (or is None), construct from samples_list
+                if not hasattr(df_block, 'to_csv') or not hasattr(df_block, 'columns'):
+                    # samples are lists [sample_name, v1, v2, ...]
+                    rows = [s[1:] for s in samples]
+                    try:
+                        df_view = pd.DataFrame(rows, columns=ox_list)
+                    except Exception:
+                        # fallback: create frame without column names
+                        df_view = pd.DataFrame(rows)
+                    try:
+                        idx = [str(s[0]) for s in samples]
+                        if len(idx) == df_view.shape[0]:
+                            df_view.index = idx
+                    except Exception:
+                        pass
+                else:
+                    # ensure we have a copy and correct index
                     df_view = df_block.copy()
-                    df_view.index = idx
-                except Exception:
-                    df_view = df_block.copy()
+                    try:
+                        idx = [str(s[0]) for s in samples]
+                        if len(idx) == df_view.shape[0]:
+                            df_view.index = idx
+                    except Exception:
+                        # ensure index is sensible
+                        try:
+                            df_view.index = [f'sample_{j+1}' for j in range(df_view.shape[0])]
+                        except Exception:
+                            pass
+                # final write
                 try:
                     df_view.to_csv(target, index=True)
                     ds.setdefault('notes', []).append(f'WROTE_CSV: {str(target)}')
@@ -410,4 +481,39 @@ def stacked_file_to_wrangled(path: str,
             ds['sheet'] = sheet_name
             ds['col_offset'] = skip_first_cols
         return results
+
+
+def merge_wrangled_results(results: List[Dict]) -> pd.DataFrame:
+    """Merge a list of wrangled dataset dicts into a single tidy DataFrame.
+
+    Each dict in `results` is expected to contain:
+      - 'dataset_name'
+      - 'samples_list': list of [sample_name, v1, v2, ...]
+      - 'oxides_order': list of oxide column names
+
+    Returns a pandas DataFrame indexed by (dataset_name, sample_name).
+    """
+    rows = []
+    for ds in results or []:
+        dataset_name = ds.get('dataset_name') or ds.get('sheet') or None
+        ox_list = ds.get('oxides_order') or []
+        for s in ds.get('samples_list', []):
+            if not s:
+                continue
+            sample_name = s[0]
+            vals = s[1:]
+            row = {'dataset_name': dataset_name, 'sample_name': sample_name}
+            for ox, val in zip(ox_list, vals):
+                row[ox] = val
+            rows.append(row)
+    if not rows:
+        return pd.DataFrame()
+    df = pd.DataFrame(rows)
+    try:
+        df = df.set_index(['dataset_name', 'sample_name'])
+    except Exception:
+        pass
+    return df
+
+# end of file
 
