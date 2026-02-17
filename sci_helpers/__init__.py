@@ -8,8 +8,16 @@
 # - compare_wrangled_detailed(file_a, file_b, data_path, tol=1e-12, list_all=False, output_csv=None) -> (bool, mismatches)
 #     """Programmatic comparator returning (ok, mismatches). Use this when you need mismatch details."""
 
+# Defensive binding: import the comparator function(s) directly from the submodule
+# This ensures `from sci_helpers import compare_wrangled` gives the function even in long-lived kernels
+try:
+    from .compare_wrangled import compare_wrangled as compare_wrangled, compare_wrangled_detailed as compare_wrangled_detailed
+except Exception:
+    # fallback: avoid hard failure during import; the names may be bound later
+    compare_wrangled = None
+    compare_wrangled_detailed = None
+
 from .csv_to_samples import csv_to_samples_list
 from .mc_wrangler import wrangle_dataframe, wrangle_excel
-from .compare_wrangled import compare_wrangled, compare_wrangled_detailed
 
 __all__ = ["csv_to_samples_list", "wrangle_dataframe", "wrangle_excel", "compare_wrangled", "compare_wrangled_detailed"]
