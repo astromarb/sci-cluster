@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from csv_to_samples import csv_to_samples_list
+from sci_helpers.csv_to_samples import csv_to_samples_list
 
 
 def write_csv(df, path):
