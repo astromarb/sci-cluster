@@ -1,0 +1,2 @@
+dataset_name,sample_label,status,excel_path,helper_filename,num_pressure_steps,num_data_points,P_QF,P_Q2F,total_time_s,calc_time_s,error,run_dir,melts_input_csv_path
+kcp109c_onecomp_smoketest,KCP109C,error,,,,,,,,,[Errno 1] Operation not permitted,/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/runs/20260225_145336,/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/runs/20260225_145336/melts_input.csv

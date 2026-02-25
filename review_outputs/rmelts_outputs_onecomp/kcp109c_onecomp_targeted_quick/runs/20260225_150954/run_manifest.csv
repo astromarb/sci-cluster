@@ -1,0 +1,3 @@
+dataset_name,sample_label,status,excel_path,helper_filename,num_pressure_steps,num_data_points,P_QF,P_Q2F,total_time_s,calc_time_s,error,run_dir,melts_input_csv_path
+kcp109c_onecomp_targeted_quick,KCP109C,success,/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_targeted_quick/runs/20260225_150954/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_1cores.xlsx,parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_1cores.xlsx,3,11,,,2.623150110244751,1.1867401599884033,,/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_targeted_quick/runs/20260225_150954,/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_targeted_quick/runs/20260225_150954/melts_input.csv
+,,,,,,,,,

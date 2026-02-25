@@ -1,0 +1,46 @@
+{
+  "summary": {
+    "dataset_name": "kcp109c_tinygrid",
+    "num_samples": 1,
+    "num_success": 1,
+    "num_error": 0,
+    "elapsed_wall_time_s": 2.5612730979919434,
+    "backend_requested": "import",
+    "backend_used": "import",
+    "backend_error": null,
+    "run_dir": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_tinygrid/runs/20260225_150300"
+  },
+  "run_params": {
+    "T1": 900.0,
+    "T2": 860.0,
+    "dT": 20.0,
+    "P1": 200.0,
+    "P2": 180.0,
+    "dP": 20.0,
+    "fO2_constraint": "buffered",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "model": "rhyolite-MELTS_v1.0.x",
+    "calculation": "QF_P_Calc",
+    "T_unit": "C",
+    "P_unit": "MPa"
+  },
+  "paths": {
+    "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_tinygrid/prepared/prepared_mc.csv",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_tinygrid/runs/20260225_150300/melts_input.csv",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_tinygrid/runs/20260225_150300/run_manifest.csv",
+    "helper_dir": "/Users/lopezama/Downloads"
+  },
+  "results": [
+    {
+      "label": "KCP109C",
+      "filename": "parallel-results/Parallel_MELTS_KCP109C_dP20.0_02-25_1cores.xlsx",
+      "num_pressure_steps": 2,
+      "num_data_points": 0,
+      "P_QF": NaN,
+      "P_Q2F": NaN,
+      "total_time": 0.514380693435669,
+      "calc_time": 0
+    }
+  ]
+}
