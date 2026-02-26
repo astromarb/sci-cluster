@@ -202,6 +202,7 @@ def test_rmelts_run_import_backend_writes_manifest_and_uses_run_dir(tmp_path, mo
         max_composition_workers=1,
         max_pressure_workers=1,
         verbose=False,
+        pressure_residual_threshold_C=10.0,
     )
 
     manifest = pd.read_csv(result.manifest_csv_path)
@@ -215,10 +216,12 @@ def test_rmelts_run_import_backend_writes_manifest_and_uses_run_dir(tmp_path, mo
         "pressure_calc_time_s",
         "workbook_build_time_s",
         "runtime_log_version",
+        "pressure_residual_threshold_C",
     ]:
         assert col in manifest.columns
     assert manifest.loc[0, "melts_calc_time_s"] == pytest.approx(1.2)
     assert manifest.loc[0, "runtime_log_version"] == "rmp_runtime_v1"
+    assert manifest.loc[0, "pressure_residual_threshold_C"] == pytest.approx(10.0)
 
 
 def _write_test_workbook(path: Path) -> None:
@@ -457,3 +460,177 @@ def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_count
     assert "safe_equilibrium_execute" in out
     assert "timeout in execute" in out
     assert "skip wet-liquidus pre-search" in out
+
+
+def test_safe_float_handles_numeric_and_non_numeric_values():
+    np = pytest.importorskip("numpy")
+    assert rmp._safe_float(None) is None
+    assert rmp._safe_float("Fit Failed") is None
+    assert rmp._safe_float(1) == pytest.approx(1.0)
+    assert rmp._safe_float("2.5") == pytest.approx(2.5)
+    assert rmp._safe_float(float("nan")) is None
+    assert rmp._safe_float(np.float64(3.2)) == pytest.approx(3.2)
+
+
+def test_pressure_analysis_parser_handles_fit_failed_cells():
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Pressure Analysis"
+    ws.append(
+        [
+            "Phase System",
+            "Estimated Pressure (MPa)",
+            "Minimum Residual (°C)",
+            "a (quadratic)",
+            "b (linear)",
+            "c (constant)",
+        ]
+    )
+    ws.append(["2-Phase", "Fit Failed", 8.2, None, None, None])
+    ws.append(["3-Phase", 301.0, 4.1, 0.02, -12.0, 1800.0])
+    parsed = rmp._read_pressure_analysis_sheet_from_workbook(wb)
+    assert parsed["P_2phase_qtz_fsp_MPa"] is None
+    assert parsed["Rmin_2phase_qtz_fsp_C"] == pytest.approx(8.2)
+    assert parsed["P_3phase_qtz_fsp_fsp1_MPa"] == pytest.approx(301.0)
+
+
+def test_pipeline_fallback_pressure_threshold_acceptance():
+    wb = openpyxl.Workbook()
+    ws_qz = wb.active
+    ws_qz.title = "quartz"
+    headers = ["Index", "T (C)", "P (MPa)", "mass (g)"]
+    ws_qz.append(headers)
+    ws_qz.append([1, 800, 400, 1.0])
+    ws_qz.append([2, 790, 300, 1.0])
+    ws_qz.append([3, 780, 200, 1.0])
+
+    ws_f = wb.create_sheet("feldspar")
+    ws_f.append(headers)
+    ws_f.append([1, 788, 400, 1.0])  # |800-788| = 12
+    ws_f.append([2, 783, 300, 1.0])  # |790-783| = 7
+    ws_f.append([3, 768, 200, 1.0])  # |780-768| = 12
+
+    ws_f1 = wb.create_sheet("feldspar_1")
+    ws_f1.append(headers)
+    ws_f1.append([1, 770, 400, 1.0])  # 3-phase spread = 30
+    ws_f1.append([2, 771, 300, 1.0])  # 3-phase spread = 19
+    ws_f1.append([3, 760, 200, 1.0])  # 3-phase spread = 20
+
+    parsed5 = rmp._compute_pressure_analysis_from_workbook(wb, prefer_existing_sheet=False, residual_threshold=5.0)
+    parsed10 = rmp._compute_pressure_analysis_from_workbook(wb, prefer_existing_sheet=False, residual_threshold=10.0)
+
+    assert parsed5["P_2phase_qtz_fsp_MPa"] is None
+    assert parsed10["P_2phase_qtz_fsp_MPa"] is not None
+    assert parsed10["Rmin_2phase_qtz_fsp_C"] is not None
+    assert parsed10["Rmin_2phase_qtz_fsp_C"] <= 10.0
+    assert parsed10["P_3phase_qtz_fsp_fsp1_MPa"] is None
+
+
+def test_pipeline_fallback_uses_raw_residual_threshold_before_fit(monkeypatch):
+    wb = openpyxl.Workbook()
+    ws_qz = wb.active
+    ws_qz.title = "quartz"
+    headers = ["Index", "T (C)", "P (MPa)", "mass (g)"]
+    ws_qz.append(headers)
+    ws_qz.append([1, 800, 400, 1.0])
+    ws_qz.append([2, 790, 300, 1.0])
+    ws_qz.append([3, 780, 200, 1.0])
+
+    ws_f = wb.create_sheet("feldspar")
+    ws_f.append(headers)
+    ws_f.append([1, 790, 400, 1.0])  # res2 = 10
+    ws_f.append([2, 780, 300, 1.0])  # res2 = 10
+    ws_f.append([3, 770, 200, 1.0])  # res2 = 10
+
+    ws_f1 = wb.create_sheet("feldspar_1")
+    ws_f1.append(headers)
+    ws_f1.append([1, 790, 400, 1.0])  # res3 = 10
+    ws_f1.append([2, 780, 300, 1.0])  # res3 = 10
+    ws_f1.append([3, 770, 200, 1.0])  # res3 = 10
+
+    # Force fitted minima above threshold to verify acceptance still uses raw minima.
+    def fake_fit(pressures, residuals):
+        return (250.0, 10.8, (0.01, -1.0, 100.0))
+
+    monkeypatch.setattr(rmp, "_fit_pressure_residual_vertex", fake_fit)
+    parsed = rmp._compute_pressure_analysis_from_workbook(wb, prefer_existing_sheet=False, residual_threshold=10.0)
+    assert parsed["P_2phase_qtz_fsp_MPa"] == pytest.approx(250.0)
+    assert parsed["P_3phase_qtz_fsp_fsp1_MPa"] == pytest.approx(250.0)
+    # Fitted residual is still reported for diagnostics even when > threshold.
+    assert parsed["Rmin_3phase_qtz_fsp_fsp1_C"] == pytest.approx(10.8)
+
+
+def test_create_manifest_parses_runtime_fields_with_safe_float(tmp_path):
+    run_dir = tmp_path / "run"
+    run_dir.mkdir()
+    manifest_df = rmp._create_manifest_from_results(
+        dataset_name="demo",
+        run_dir=run_dir,
+        melts_input_csv_path=run_dir / "melts_input.csv",
+        expected_labels=["S1"],
+        results=[
+            {
+                "label": "S1",
+                "filename": "",
+                "error": "mock error",
+                "calc_time": "1.25",
+                "total_time": "2.5",
+                "melts_calc_time": "1.25",
+                "pressure_calc_time": "0.5",
+                "workbook_build_time": "0.75",
+            }
+        ],
+        pressure_residual_threshold_C=10.0,
+    )
+    row = manifest_df.iloc[0]
+    assert row["melts_calc_time_s"] == pytest.approx(1.25)
+    assert row["pressure_calc_time_s"] == pytest.approx(0.5)
+    assert row["workbook_build_time_s"] == pytest.approx(0.75)
+    assert row["total_time_s"] == pytest.approx(2.5)
+    assert row["pressure_residual_threshold_C"] == pytest.approx(10.0)
+
+
+def test_rmelts_run_passes_pressure_threshold_to_import_backend(tmp_path, monkeypatch):
+    prepared_df = _minimal_prepared_df()
+    prepared_path = tmp_path / "prepared.csv"
+    prepared_df.to_csv(prepared_path, index=False)
+
+    captured: dict[str, object] = {}
+
+    def fake_run_helper_import_backend(**kwargs):
+        captured.update(kwargs)
+        return [
+            {
+                "label": "S1",
+                "filename": "",
+                "error": "mock helper fail",
+                "num_pressure_steps": None,
+                "num_data_points": None,
+                "calc_time": 1.0,
+                "total_time": 1.5,
+            }
+        ]
+
+    monkeypatch.setattr(rmp, "_run_helper_import_backend", fake_run_helper_import_backend)
+
+    result = rmp.rMELTS_run(
+        prepared_path,
+        output_dir=tmp_path,
+        dataset_name="threshold_pass",
+        T1=1100,
+        T2=700,
+        dT=1,
+        P1=400,
+        P2=10,
+        dP=10,
+        fO2_constraint="buffered",
+        fO2_buffer="NNO",
+        fO2_offset=0.0,
+        helper_dir=tmp_path,
+        backend="import",
+        max_composition_workers=1,
+        max_pressure_workers=1,
+        pressure_residual_threshold_C=10.0,
+    )
+    assert Path(result.manifest_csv_path).exists()
+    assert captured["pressure_residual_threshold_C"] == pytest.approx(10.0)

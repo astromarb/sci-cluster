@@ -293,6 +293,13 @@ def _ensure_dir(path: Path) -> Path:
 def _safe_float(value: Any) -> Optional[float]:
     if value is None:
         return None
+    try:
+        f = float(value)
+    except (TypeError, ValueError):
+        return None
+    if math.isnan(f) or math.isinf(f):
+        return None
+    return f
 
 
 def _resolve_helper_patch_profile(profile: Optional[Any] = None) -> _HelperPatchProfile:
@@ -304,13 +311,6 @@ def _resolve_helper_patch_profile(profile: Optional[Any] = None) -> _HelperPatch
     if key in _HELPER_PATCH_PROFILES:
         return _HELPER_PATCH_PROFILES[key]
     raise RMeltsPipelineError(f"Unknown helper patch profile: {profile}")
-    try:
-        f = float(value)
-    except (TypeError, ValueError):
-        return None
-    if math.isnan(f) or math.isinf(f):
-        return None
-    return f
 
 
 def _pressure_analysis_row_defaults() -> dict[str, Any]:
@@ -1115,10 +1115,24 @@ def _compute_pressure_analysis_from_workbook(
         else:
             res3.append(max(t_qz, t_fsp, t_fsp1) - min(t_qz, t_fsp, t_fsp1))
 
-    p2, r2, coeff2 = _fit_pressure_residual_vertex(pressures_desc, [math.nan if v is None else float(v) for v in res2])
-    p3, r3, coeff3 = _fit_pressure_residual_vertex(pressures_desc, [math.nan if v is None else float(v) for v in res3])
+    res2_arr = [math.nan if v is None else float(v) for v in res2]
+    res3_arr = [math.nan if v is None else float(v) for v in res3]
+    p2, r2, coeff2 = _fit_pressure_residual_vertex(pressures_desc, res2_arr)
+    p3, r3, coeff3 = _fit_pressure_residual_vertex(pressures_desc, res3_arr)
 
-    if r2 is not None and r2 <= float(residual_threshold):
+    # Match Liam's acceptance behavior: threshold is applied to the raw sampled
+    # residual minimum prior to parabola fitting, while we still report fitted
+    # residuals for diagnostics/output.
+    raw_r2_min = None
+    raw_r3_min = None
+    valid_res2 = [float(v) for v in res2 if v is not None]
+    valid_res3 = [float(v) for v in res3 if v is not None]
+    if valid_res2:
+        raw_r2_min = min(valid_res2)
+    if valid_res3:
+        raw_r3_min = min(valid_res3)
+
+    if raw_r2_min is not None and raw_r2_min <= float(residual_threshold):
         out["P_2phase_qtz_fsp_MPa"] = p2
         out["Rmin_2phase_qtz_fsp_C"] = r2
         out["fit_a_2phase"], out["fit_b_2phase"], out["fit_c_2phase"] = coeff2
@@ -1126,7 +1140,7 @@ def _compute_pressure_analysis_from_workbook(
         # Keep residual even when above threshold for diagnostics.
         out["Rmin_2phase_qtz_fsp_C"] = r2
         out["fit_a_2phase"], out["fit_b_2phase"], out["fit_c_2phase"] = coeff2
-    if r3 is not None and r3 <= float(residual_threshold):
+    if raw_r3_min is not None and raw_r3_min <= float(residual_threshold):
         out["P_3phase_qtz_fsp_fsp1_MPa"] = p3
         out["Rmin_3phase_qtz_fsp_fsp1_C"] = r3
         out["fit_a_3phase"], out["fit_b_3phase"], out["fit_c_3phase"] = coeff3
@@ -1191,10 +1205,15 @@ def _patch_helper_module_pressure_calc(module: Any) -> Any:
     if original is None or getattr(module, "_rmelts_pressure_calc_patched", False):
         return module
     module._rmelts_pressure_calc_times_queue = []
+    module._rmelts_pressure_residual_threshold_C = _safe_float(
+        getattr(module, "_rmelts_pressure_residual_threshold_C", None)
+    ) or 10.0
 
     def patched_pressure_calc(*args, **kwargs):
         t0 = time.time()
         kwargs.setdefault("embed_plot", False)
+        residual_threshold = _safe_float(getattr(module, "_rmelts_pressure_residual_threshold_C", None)) or 10.0
+        kwargs.setdefault("residual_threshold", float(residual_threshold))
         try:
             wb_out, p2, p3 = original(*args, **kwargs)
         except Exception:
@@ -1207,7 +1226,11 @@ def _patch_helper_module_pressure_calc(module: Any) -> Any:
             if wb is None:
                 # If only filename is supplied, let original error propagate to avoid ambiguous rewrites.
                 raise
-            analysis = _compute_pressure_analysis_from_workbook(wb, prefer_existing_sheet=False)
+            analysis = _compute_pressure_analysis_from_workbook(
+                wb,
+                prefer_existing_sheet=False,
+                residual_threshold=float(residual_threshold),
+            )
             _upsert_pressure_analysis_sheet_in_workbook(wb, analysis)
             p2 = (
                 analysis.get("P_2phase_qtz_fsp_MPa"),
@@ -1239,7 +1262,11 @@ def _patch_helper_module_pressure_calc(module: Any) -> Any:
             wb_for_parse = args[1]
         if wb_for_parse is not None:
             try:
-                analysis = _compute_pressure_analysis_from_workbook(wb_for_parse, prefer_existing_sheet=True)
+                analysis = _compute_pressure_analysis_from_workbook(
+                    wb_for_parse,
+                    prefer_existing_sheet=True,
+                    residual_threshold=float(residual_threshold),
+                )
                 _upsert_pressure_analysis_sheet_in_workbook(wb_for_parse, analysis)
                 p2 = (
                     analysis.get("P_2phase_qtz_fsp_MPa"),
@@ -1281,8 +1308,13 @@ def _run_helper_import_backend(
     max_composition_workers: int,
     max_pressure_workers: int,
     verbose: bool,
+    pressure_residual_threshold_C: float = 10.0,
 ) -> list[dict[str, Any]]:
     module = _load_helper_module(helper_dir, run_dir=run_dir)
+    try:
+        module._rmelts_pressure_residual_threshold_C = float(pressure_residual_threshold_C)
+    except Exception:
+        module._rmelts_pressure_residual_threshold_C = 10.0
     if not hasattr(module, "parallel_melts_main_loop"):
         raise RMeltsPipelineError("Helper module does not expose parallel_melts_main_loop")
 
@@ -1392,6 +1424,7 @@ def _create_manifest_from_results(
     melts_input_csv_path: Path,
     expected_labels: list[str],
     results: list[dict[str, Any]],
+    pressure_residual_threshold_C: float = 10.0,
 ) -> Any:
     pd = _require_pandas()
     openpyxl = _require_openpyxl()
@@ -1426,6 +1459,7 @@ def _create_manifest_from_results(
                     "pressure_calc_time_s": None,
                     "workbook_build_time_s": None,
                     "runtime_log_version": "rmp_runtime_v1",
+                    "pressure_residual_threshold_C": float(pressure_residual_threshold_C),
                     "error": "No helper result returned for sample",
                     "run_dir": str(run_dir),
                     "melts_input_csv_path": str(melts_input_csv_path),
@@ -1450,14 +1484,15 @@ def _create_manifest_from_results(
             "helper_filename": "" if helper_filename is None else str(helper_filename),
             "num_pressure_steps": r.get("num_pressure_steps"),
             "num_data_points": r.get("num_data_points"),
-            "P_QF": r.get("P_QF"),
-            "P_Q2F": r.get("P_Q2F"),
-            "total_time_s": r.get("total_time"),
-            "calc_time_s": r.get("calc_time", r.get("melts_calc_time")),
-            "melts_calc_time_s": r.get("melts_calc_time", r.get("calc_time")),
-            "pressure_calc_time_s": r.get("pressure_calc_time"),
-            "workbook_build_time_s": r.get("workbook_build_time"),
+            "P_QF": _safe_float(r.get("P_QF")),
+            "P_Q2F": _safe_float(r.get("P_Q2F")),
+            "total_time_s": _safe_float(r.get("total_time")),
+            "calc_time_s": _safe_float(r.get("calc_time", r.get("melts_calc_time"))),
+            "melts_calc_time_s": _safe_float(r.get("melts_calc_time", r.get("calc_time"))),
+            "pressure_calc_time_s": _safe_float(r.get("pressure_calc_time")),
+            "workbook_build_time_s": _safe_float(r.get("workbook_build_time")),
             "runtime_log_version": r.get("runtime_log_version", "rmp_runtime_v1"),
+            "pressure_residual_threshold_C": float(pressure_residual_threshold_C),
             "error": r.get("error", ""),
             "run_dir": str(run_dir),
             "melts_input_csv_path": str(melts_input_csv_path),
@@ -1467,7 +1502,11 @@ def _create_manifest_from_results(
             try:
                 wb = openpyxl.load_workbook(excel_path, data_only=True, read_only=True)
                 try:
-                    pa = _compute_pressure_analysis_from_workbook(wb, prefer_existing_sheet=True)
+                    pa = _compute_pressure_analysis_from_workbook(
+                        wb,
+                        prefer_existing_sheet=True,
+                        residual_threshold=float(pressure_residual_threshold_C),
+                    )
                 finally:
                     try:
                         wb.close()
@@ -1499,6 +1538,7 @@ def _create_manifest_from_results(
         "pressure_calc_time_s",
         "workbook_build_time_s",
         "runtime_log_version",
+        "pressure_residual_threshold_C",
         "P_2phase_qtz_fsp_MPa",
         "Rmin_2phase_qtz_fsp_C",
         "fit_a_2phase",
@@ -1546,6 +1586,7 @@ def rMELTS_run(
     helper_dir="/Users/lopezama/Downloads",
     backend="import",
     per_sample_param_overrides_csv=None,
+    pressure_residual_threshold_C=10.0,
 ):
     """Generate helper-compatible MELTS input CSV, run parallel rhyolite-MELTS, and write a manifest."""
     pd = _require_pandas()
@@ -1604,6 +1645,7 @@ def rMELTS_run(
                 max_composition_workers=int(max_composition_workers),
                 max_pressure_workers=int(max_pressure_workers),
                 verbose=bool(verbose),
+                pressure_residual_threshold_C=float(pressure_residual_threshold_C),
             )
         elif backend == "cli_fallback":
             try:
@@ -1614,6 +1656,7 @@ def rMELTS_run(
                     max_composition_workers=int(max_composition_workers),
                     max_pressure_workers=int(max_pressure_workers),
                     verbose=bool(verbose),
+                    pressure_residual_threshold_C=float(pressure_residual_threshold_C),
                 )
                 backend_used = "import"
             except Exception as exc:
@@ -1642,6 +1685,7 @@ def rMELTS_run(
         melts_input_csv_path=melts_input_csv_path,
         expected_labels=expected_labels,
         results=results,
+        pressure_residual_threshold_C=float(pressure_residual_threshold_C),
     )
     manifest_df.to_csv(manifest_csv_path, index=False)
 
@@ -1675,6 +1719,7 @@ def rMELTS_run(
         "num_success": int((manifest_df["status"] == "success").sum()),
         "num_error": int((manifest_df["status"] == "error").sum()),
         "elapsed_wall_time_s": elapsed,
+        "pressure_residual_threshold_C": float(pressure_residual_threshold_C),
         "backend_requested": str(backend),
         "backend_used": backend_used,
         "backend_error": backend_error,
