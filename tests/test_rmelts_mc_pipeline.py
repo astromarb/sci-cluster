@@ -648,6 +648,28 @@ def test_load_helper_module_supports_liam_clone_implementation(tmp_path, monkeyp
     assert (run_dir / "MeltsHelperFunctions.py").exists()
 
 
+def test_resolve_helper_implementation_spec_supports_liam_clone_min_safe(tmp_path, monkeypatch):
+    clone_path = tmp_path / "rmelts_liam_clone_helper.py"
+    clone_path.write_text("VALUE = 42\n", encoding="utf-8")
+    monkeypatch.setattr(rmp, "_repo_local_liam_clone_helper_path", lambda: clone_path)
+
+    spec = rmp._resolve_helper_implementation_spec("liam_clone_min_safe")
+    assert spec.name == "liam_clone_min_safe"
+    assert spec.source_path == clone_path
+    assert spec.patch_profile == "profile_h_production_liquidus_raw_reset"
+
+
+def test_resolve_helper_implementation_spec_supports_liam_clone_guarded_main(tmp_path, monkeypatch):
+    clone_path = tmp_path / "rmelts_liam_clone_helper.py"
+    clone_path.write_text("VALUE = 42\n", encoding="utf-8")
+    monkeypatch.setattr(rmp, "_repo_local_liam_clone_helper_path", lambda: clone_path)
+
+    spec = rmp._resolve_helper_implementation_spec("liam_clone_guarded_main")
+    assert spec.name == "liam_clone_guarded_main"
+    assert spec.source_path == clone_path
+    assert spec.patch_profile == "profile_i_prototype_mainloop_bounded_reset"
+
+
 def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_counter():
     src = (
         "def f():\n"
@@ -1186,3 +1208,173 @@ def test_populate_workbook_deltaqfm_columns_uses_redox_buffer_and_existing_tabs(
     assert summary["deltaqfm_rows_updated"] == 1
     assert summary["deltaqfm_buffer"] == "NNO"
     assert qz.cell(row=2, column=4).value == pytest.approx(1.5)
+
+
+def _build_minimal_melts_excel_template_workbook(path: Path) -> None:
+    from openpyxl.workbook.defined_name import DefinedName
+
+    wb = openpyxl.Workbook()
+    ws_mc = wb.active
+    ws_mc.title = "Multiple_Comp"
+    ws_mc.cell(row=1, column=1, value=" ")
+    ws_mc.cell(row=1, column=2, value="P_Calc")
+    for i, oxide in enumerate(rmp.MELTS_OXIDE_ROWS, start=2):
+        ws_mc.cell(row=i, column=1, value=oxide)
+
+    # Row labels used by the writer on Multiple_Comp.
+    mc_labels = {
+        22: "Model",
+        23: "Calculation",
+        24: "T1",
+        25: "T2",
+        26: "ΔT",
+        27: "T unit",
+        28: "P1",
+        29: "P2",
+        30: "ΔP",
+        31: "P unit",
+        32: "fO2 offset",
+        33: "fO2 buffer",
+        34: "fO2 constraint",
+        35: "Starting T",
+        36: "Min liq content",
+        37: "Fractionate",
+        38: "Phase 1",
+        39: "Phase 2",
+        40: "Phase 3",
+        41: "Formula",
+        42: "ΔH",
+        43: "ΔV",
+        44: "ΔS",
+    }
+    for r, label in mc_labels.items():
+        ws_mc.cell(row=r, column=1, value=label)
+
+    ws_in = wb.create_sheet("Input")
+    for i, oxide in enumerate(rmp.MELTS_OXIDE_ROWS, start=2):
+        ws_in.cell(row=i, column=1, value=oxide)
+    ws_in["D21"] = "Status placeholder"
+    ws_in["E2"] = 0
+    ws_in["E3"] = 0
+    ws_in["E4"] = 0
+
+    ws_seq = wb.create_sheet("Sequences")
+    seq_labels = {
+        2: "T1",
+        3: "T2",
+        4: "ΔT",
+        6: "P1",
+        7: "P2",
+        8: "ΔP",
+        10: "fO2",
+        13: "Starting T",
+        14: "Min liq content",
+        15: "Fractionate",
+        22: "Phase 1",
+        23: "Phase 2",
+        24: "Phase 3",
+        25: "Formula",
+        42: "ΔH",
+        44: "ΔV",
+        54: "ΔS",
+    }
+    for r, label in seq_labels.items():
+        ws_seq.cell(row=r, column=1, value=label)
+
+    wb.defined_names.add(DefinedName("Pressure", attr_text="Input!$E$2"))
+    wb.defined_names.add(DefinedName("Temperature", attr_text="Input!$E$3"))
+    wb.defined_names.add(DefinedName("log_fO2", attr_text="Input!$E$4"))
+
+    wb.save(path)
+    wb.close()
+
+
+def test_write_composition_to_melts_excel_template_populates_multiple_comp_input_sequences(tmp_path):
+    template_path = tmp_path / "melts_template.xlsm"
+    output_path = tmp_path / "filled_template.xlsm"
+    _build_minimal_melts_excel_template_workbook(template_path)
+
+    comp = {
+        "sample_label": "KCP109B-101525-v1",
+        "SiO2": 76.36,
+        "TiO2": 0.07,
+        "Al2O3": 12.65,
+        "FeO": 0.52,
+        "MnO": 0.02,
+        "MgO": 0.031,
+        "CaO": 0.54,
+        "Na2O": 3.97,
+        "K2O": 4.61,
+        "P2O5": 0.01,
+        "H2O": 11.0,
+    }
+    params = rmp.MELTSRunParams(
+        T1=900,
+        T2=700,
+        dT=1,
+        P1=250,
+        P2=150,
+        dP=5,
+        fO2_constraint="TRUE",
+        fO2_buffer="nno",
+        fO2_offset=0.0,
+        model="rhyolite-MELTS_v1.0.x",
+        calculation="QF_P_Calc",
+    )
+
+    result = rmp.write_composition_to_melts_excel_template(
+        template_workbook_path=template_path,
+        output_workbook_path=output_path,
+        composition=comp,
+        params=params,
+        target_column_header="P_Calc",
+        mirror_input_and_sequences=True,
+        starting_T="wet liquidus",
+        min_liq_content=10,
+        phase_1="quartz",
+        phase_2="feldspar1",
+        phase_3="feldspar2",
+        formula="any two phases",
+    )
+
+    assert result.output_workbook_path == str(output_path)
+    assert result.target_column_header == "P_Calc"
+    assert result.multiple_comp_oxide_order_matches_expected is True
+    assert result.rows_written_multiple_comp > 0
+    assert result.rows_written_input_sheet > 0
+    assert result.rows_written_sequences > 0
+
+    wb = openpyxl.load_workbook(output_path, keep_vba=True, data_only=False)
+    try:
+        mc = wb["Multiple_Comp"]
+        # P_Calc is column 2 in the synthetic template.
+        assert mc.cell(row=2, column=2).value == pytest.approx(76.36)  # SiO2
+        assert mc.cell(row=5, column=2).value is None  # Fe2O3 intentionally blank
+        assert mc.cell(row=7, column=2).value == pytest.approx(0.52)  # FeO
+        assert mc.cell(row=16, column=2).value == pytest.approx(11.0)  # H2O
+        assert mc.cell(row=23, column=2).value == "QF_P_Calc"
+        assert mc.cell(row=24, column=2).value == pytest.approx(900.0)
+        assert mc.cell(row=28, column=2).value == pytest.approx(250.0)
+        assert mc.cell(row=33, column=2).value == "NNO"
+        assert mc.cell(row=34, column=2).value is True
+
+        ws_in = wb["Input"]
+        assert ws_in.cell(row=2, column=2).value == pytest.approx(76.36)
+        assert ws_in.cell(row=5, column=2).value is None  # Fe2O3 blank preserved
+        assert ws_in.cell(row=7, column=2).value == pytest.approx(0.52)
+        assert ws_in["E2"].value == pytest.approx(250.0)  # Pressure named cell mirror
+        assert ws_in["E3"].value == pytest.approx(900.0)  # Temperature named cell mirror
+        assert ws_in["E4"].value == pytest.approx(0.0)    # log_fO2 named cell mirror
+
+        ws_seq = wb["Sequences"]
+        assert ws_seq.cell(row=2, column=2).value == pytest.approx(900.0)
+        assert ws_seq.cell(row=3, column=2).value == pytest.approx(700.0)
+        assert ws_seq.cell(row=6, column=2).value == pytest.approx(250.0)
+        assert ws_seq.cell(row=7, column=2).value == pytest.approx(150.0)
+        assert ws_seq.cell(row=8, column=2).value == pytest.approx(5.0)
+        assert ws_seq.cell(row=10, column=2).value == pytest.approx(0.0)
+        assert ws_seq.cell(row=22, column=2).value == "quartz"
+        assert ws_seq.cell(row=23, column=2).value == "feldspar1"
+        assert ws_seq.cell(row=24, column=2).value == "feldspar2"
+    finally:
+        wb.close()

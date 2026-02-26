@@ -104,3 +104,21 @@
 ## S/MIME message
 *.smime
 *.vsix
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# IDE (PyCharm / IntelliJ)
+.idea/
+*.iml
+
+# rMELTS review artifacts: ignore run-local helper code copies, keep outputs
+review_outputs/**/MeltsHelperFunctions.py
+review_outputs/**/run_local_helper/
+review_outputs/**/helper_runlocal/

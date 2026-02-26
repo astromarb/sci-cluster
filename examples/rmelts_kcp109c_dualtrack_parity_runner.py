@@ -4,6 +4,8 @@ import contextlib
 import json
 import os
 import time
+import hashlib
+import importlib.metadata as importlib_metadata
 from pathlib import Path
 from typing import Any
 
@@ -76,6 +78,40 @@ def _parse_pressure_from_workbook(workbook_path: Path) -> dict[str, Any]:
         return out
     finally:
         wb.close()
+
+
+def _sha256_file(path: Path) -> dict[str, Any]:
+    b = path.read_bytes()
+    return {"sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}
+
+
+def _current_env_provenance() -> dict[str, Any]:
+    import sys
+
+    out: dict[str, Any] = {
+        "python_version": sys.version,
+        "python_executable": sys.executable,
+        "packages": {},
+        "files": {},
+    }
+    for pkg in ("thermoengine", "numpy", "scipy", "pandas", "openpyxl"):
+        try:
+            out["packages"][pkg] = importlib_metadata.version(pkg)
+        except Exception as exc:
+            out["packages"][pkg] = f"<unavailable: {exc}>"
+    try:
+        import thermoengine
+        import thermoengine.equilibrate as eq
+
+        out["thermoengine_module_file"] = str(Path(thermoengine.__file__).resolve())
+        out["thermoengine_equilibrate_file"] = str(Path(eq.__file__).resolve())
+    except Exception as exc:
+        out["thermoengine_import_error"] = str(exc)
+
+    for f in (HELPER_DIR / "MeltsHelperFunctions.py", Path("/Users/lopezama/PycharmProjects/sci-cluster/sci_helpers/rmelts_liam_clone_helper.py")):
+        if f.exists():
+            out["files"][str(f)] = _sha256_file(f)
+    return out
 
 
 def _run_track(root: Path, log_path: Path, track_name: str, helper_impl: str) -> dict[str, Any]:
@@ -156,18 +192,27 @@ def main() -> None:
     log_path = root / "workflow_notes.log"
     summary_json = root / "dualtrack_parity_summary.json"
     summary_csv = root / "dualtrack_parity_summary.csv"
+    env_json = root / "environment_provenance_current.json"
 
     tracks_env = os.environ.get("RMELTS_DUALTRACK_TRACKS", "patched_profile_k,liam_clone").strip()
     requested_tracks = [t.strip() for t in tracks_env.split(",") if t.strip()]
     track_map = {
         "patched_profile_k": ("patched_profile_k", "patched_profile_k"),
         "liam_clone": ("liam_clone", "liam_clone"),
+        "liam_clone_min_safe": ("liam_clone_min_safe", "liam_clone_min_safe"),
+        "liam_clone_guarded_main": ("liam_clone_guarded_main", "liam_clone_guarded_main"),
     }
     tracks = [track_map[t] for t in requested_tracks if t in track_map]
     if not tracks:
-        raise ValueError("No valid tracks requested. Use RMELTS_DUALTRACK_TRACKS with patched_profile_k and/or liam_clone.")
+        raise ValueError(
+            "No valid tracks requested. Use RMELTS_DUALTRACK_TRACKS with patched_profile_k, liam_clone, liam_clone_min_safe, and/or liam_clone_guarded_main."
+        )
 
     _note(log_path, f"Starting dual-track parity runner. tracks={requested_tracks}")
+
+    env_snapshot = _current_env_provenance()
+    env_json.write_text(json.dumps(env_snapshot, indent=2, default=str), encoding="utf-8")
+    _note(log_path, f"Wrote environment provenance snapshot: {env_json}")
 
     liam_baseline = _parse_pressure_from_workbook(LIAM_WORKBOOK)
     results: list[dict[str, Any]] = []
@@ -198,6 +243,8 @@ def main() -> None:
     payload = {
         "liam_baseline_workbook": str(LIAM_WORKBOOK),
         "liam_baseline_pressure_analysis": liam_baseline,
+        "environment_provenance_current_json": str(env_json),
+        "environment_provenance_current": env_snapshot,
         "tracks_requested": requested_tracks,
         "results": results,
         "summary_rows": rows,

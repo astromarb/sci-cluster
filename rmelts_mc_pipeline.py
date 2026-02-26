@@ -222,6 +222,23 @@ class GeobarometryBasisResult:
     extraction_report: dict[str, Any]
 
 
+@dataclass
+class MeltsExcelTemplateWriteResult:
+    output_workbook_path: str
+    template_workbook_path: str
+    sample_label: Optional[str]
+    target_column_header: str
+    target_column_index: int
+    multiple_comp_oxide_row_order: list[str]
+    multiple_comp_oxide_order_matches_expected: bool
+    input_sheet_oxide_row_order: Optional[list[str]] = None
+    input_sheet_oxide_order_matches_expected: Optional[bool] = None
+    rows_written_multiple_comp: int = 0
+    rows_written_input_sheet: int = 0
+    rows_written_sequences: int = 0
+    settings_written: dict[str, Any] = field(default_factory=dict)
+
+
 @dataclass(frozen=True)
 class _HelperPatchProfile:
     name: str
@@ -369,8 +386,28 @@ def _resolve_helper_implementation_spec(implementation: Optional[str] = None) ->
             source_path=clone_path,
             patch_profile="profile_a_unpatched",
         )
+    if key == "liam_clone_min_safe":
+        clone_path = _repo_local_liam_clone_helper_path()
+        if not clone_path.exists():
+            raise RMeltsPipelineError(f"Repo-local Liam clone helper not found: {clone_path}")
+        # Liam-like semantics with minimal liquidus-side safety guards/recovery only.
+        return _HelperImplementationSpec(
+            name="liam_clone_min_safe",
+            source_path=clone_path,
+            patch_profile="profile_h_production_liquidus_raw_reset",
+        )
+    if key == "liam_clone_guarded_main":
+        clone_path = _repo_local_liam_clone_helper_path()
+        if not clone_path.exists():
+            raise RMeltsPipelineError(f"Repo-local Liam clone helper not found: {clone_path}")
+        # Liam-like semantics with liquidus safety plus bounded main-loop recovery.
+        return _HelperImplementationSpec(
+            name="liam_clone_guarded_main",
+            source_path=clone_path,
+            patch_profile="profile_i_prototype_mainloop_bounded_reset",
+        )
     raise RMeltsPipelineError(
-        f"Unknown helper implementation '{impl}'. Expected one of: patched_profile_k, liam_clone"
+        f"Unknown helper implementation '{impl}'. Expected one of: patched_profile_k, liam_clone, liam_clone_min_safe, liam_clone_guarded_main"
     )
 
 
@@ -1412,6 +1449,438 @@ def _build_melts_input_wide_dataframe(
 
     wide_df = pd.DataFrame(wide_data, index=row_index)
     return wide_df
+
+
+def _extract_single_prepared_composition_row(
+    *,
+    composition: Optional[dict[str, Any]] = None,
+    prepared_mc_csv_path: Optional[Any] = None,
+    sample_label: Optional[str] = None,
+) -> tuple[dict[str, Any], Optional[str]]:
+    pd = _require_pandas()
+    if composition is None and prepared_mc_csv_path is None:
+        raise ValueError("Provide either composition or prepared_mc_csv_path")
+    if composition is not None and prepared_mc_csv_path is not None:
+        raise ValueError("Provide only one of composition or prepared_mc_csv_path")
+
+    if composition is not None:
+        comp = dict(composition)
+        resolved_label = comp.get("sample_label")
+        if resolved_label is not None:
+            resolved_label = str(resolved_label)
+        if sample_label is not None:
+            resolved_label = str(sample_label)
+        row: dict[str, Any] = {"sample_label": resolved_label or "sample"}
+        for oxide in MELTS_OXIDE_ROWS:
+            row[oxide] = _coerce_numeric(comp.get(oxide))
+        return row, row["sample_label"]
+
+    df = pd.read_csv(prepared_mc_csv_path)
+    df = _normalize_prepared_dataframe_columns(df)
+    if sample_label is None:
+        if len(df) != 1:
+            raise RMeltsPipelineError(
+                "prepared_mc_csv_path contains multiple samples; provide sample_label explicitly"
+            )
+        rec = df.iloc[0]
+    else:
+        mask = df["sample_label"].astype(str) == str(sample_label)
+        if int(mask.sum()) == 0:
+            raise RMeltsPipelineError(f"sample_label '{sample_label}' not found in prepared_mc_csv_path")
+        rec = df.loc[mask].iloc[0]
+    row = {"sample_label": str(rec["sample_label"])}
+    for oxide in MELTS_OXIDE_ROWS:
+        row[oxide] = _coerce_numeric(rec[oxide])
+    return row, row["sample_label"]
+
+
+def _excel_defined_name_first_cell(wb: Any, name: str) -> Optional[tuple[Any, int, int]]:
+    openpyxl = _require_openpyxl()
+    try:
+        dn = wb.defined_names[name]
+    except Exception:
+        return None
+    try:
+        destinations = list(dn.destinations)
+    except Exception:
+        return None
+    if not destinations:
+        return None
+    sheet_name, ref = destinations[0]
+    if sheet_name not in wb.sheetnames:
+        return None
+    try:
+        min_col, min_row, _max_col, _max_row = openpyxl.utils.range_boundaries(ref)
+    except Exception:
+        return None
+    return wb[sheet_name], int(min_row), int(min_col)
+
+
+def _worksheet_label_row_map(
+    ws: Any,
+    *,
+    label_col: int = 1,
+    row_min: int = 1,
+    row_max: Optional[int] = None,
+) -> dict[str, int]:
+    max_row = int(getattr(ws, "max_row", 0) or 0)
+    if row_max is None:
+        row_max = max_row
+    mapping: dict[str, int] = {}
+    for r in range(int(row_min), int(row_max) + 1):
+        v = ws.cell(row=r, column=int(label_col)).value
+        if v is None:
+            continue
+        s = str(v).strip()
+        if not s:
+            continue
+        mapping[s.lower()] = r
+    return mapping
+
+
+def _worksheet_oxide_row_order(
+    ws: Any,
+    *,
+    label_col: int = 1,
+    row_min: int = 1,
+    row_max: Optional[int] = None,
+) -> list[str]:
+    max_row = int(getattr(ws, "max_row", 0) or 0)
+    if row_max is None:
+        row_max = max_row
+    rows: list[str] = []
+    oxide_set = {o.lower() for o in MELTS_OXIDE_ROWS}
+    for r in range(int(row_min), int(row_max) + 1):
+        v = ws.cell(row=r, column=int(label_col)).value
+        if v is None:
+            continue
+        s = str(v).strip()
+        if s.lower() in oxide_set:
+            rows.append(s)
+    return rows
+
+
+def _coerce_excel_bool(value: Any) -> Any:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        key = value.strip().lower()
+        if key in {"true", "t", "yes", "y", "1"}:
+            return True
+        if key in {"false", "f", "no", "n", "0"}:
+            return False
+    return value
+
+
+def _set_excel_cell_preserving_blank(cell: Any, value: Any) -> None:
+    if value is None:
+        cell.value = None
+        return
+    if isinstance(value, float) and math.isnan(value):
+        cell.value = None
+        return
+    cell.value = value
+
+
+def _multiple_comp_column_index(ws: Any, target_column_header: str) -> int:
+    target_norm = str(target_column_header).strip().lower()
+    max_col = int(getattr(ws, "max_column", 0) or 0)
+    for c in range(1, max_col + 1):
+        v = ws.cell(row=1, column=c).value
+        if v is None:
+            continue
+        if str(v).strip().lower() == target_norm:
+            return c
+    new_col = max_col + 1 if max_col > 0 else 2
+    ws.cell(row=1, column=new_col, value=str(target_column_header))
+    return new_col
+
+
+def _write_multiple_comp_column(
+    wb: Any,
+    *,
+    column_header: str,
+    composition_row: dict[str, Any],
+    params: MELTSRunParams,
+    starting_T: Any,
+    min_liq_content: Any,
+    fractionate: Any,
+    phase_1: Any,
+    phase_2: Any,
+    phase_3: Any,
+    formula: Any,
+    delta_h: Any,
+    delta_v: Any,
+    delta_s: Any,
+) -> dict[str, Any]:
+    if "Multiple_Comp" not in wb.sheetnames:
+        raise RMeltsPipelineError("Workbook template missing 'Multiple_Comp' sheet")
+    ws = wb["Multiple_Comp"]
+    col = _multiple_comp_column_index(ws, column_header)
+    row_map = _worksheet_label_row_map(ws, row_min=1, row_max=120)
+    oxide_order = _worksheet_oxide_row_order(ws, row_min=1, row_max=40)
+
+    rows_written = 0
+    for oxide in MELTS_OXIDE_ROWS:
+        r = row_map.get(oxide.lower())
+        if r is None:
+            continue
+        _set_excel_cell_preserving_blank(ws.cell(row=r, column=col), composition_row.get(oxide))
+        rows_written += 1
+
+    calc_settings = {
+        "Model": params.model,
+        "Calculation": params.calculation,
+        "T1": float(params.T1),
+        "T2": float(params.T2),
+        "ΔT": float(params.dT),
+        "T unit": params.T_unit,
+        "P1": float(params.P1),
+        "P2": float(params.P2),
+        "ΔP": float(params.dP),
+        "P unit": params.P_unit,
+        "fO2 offset": float(params.fO2_offset),
+        "fO2 buffer": _normalize_redox_buffer_name(params.fO2_buffer) or params.fO2_buffer,
+        "fO2 constraint": _coerce_excel_bool(params.fO2_constraint),
+        "Starting T": starting_T,
+        "Min liq content": min_liq_content,
+        "Fractionate": fractionate,
+        "Phase 1": phase_1,
+        "Phase 2": phase_2,
+        "Phase 3": phase_3,
+        "Formula": formula,
+        "ΔH": delta_h,
+        "ΔV": delta_v,
+        "ΔS": delta_s,
+    }
+    for label, value in calc_settings.items():
+        r = row_map.get(str(label).strip().lower())
+        if r is None:
+            continue
+        _set_excel_cell_preserving_blank(ws.cell(row=r, column=col), value)
+        rows_written += 1
+
+    return {
+        "target_column_header": str(column_header),
+        "target_column_index": int(col),
+        "rows_written": int(rows_written),
+        "oxide_row_order": oxide_order,
+        "oxide_order_matches_expected": oxide_order[: len(MELTS_OXIDE_ROWS)] == MELTS_OXIDE_ROWS,
+    }
+
+
+def _write_input_and_sequences_sheet_snapshot(
+    wb: Any,
+    *,
+    composition_row: dict[str, Any],
+    params: MELTSRunParams,
+    starting_T: Any,
+    min_liq_content: Any,
+    fractionate: Any,
+    phase_1: Any,
+    phase_2: Any,
+    phase_3: Any,
+    formula: Any,
+    delta_h: Any,
+    delta_v: Any,
+    delta_s: Any,
+) -> dict[str, Any]:
+    rows_written_input = 0
+    rows_written_sequences = 0
+    input_order: Optional[list[str]] = None
+    input_matches: Optional[bool] = None
+
+    if "Input" in wb.sheetnames:
+        ws_in = wb["Input"]
+        row_map_in = _worksheet_label_row_map(ws_in, row_min=1, row_max=120)
+        input_order = _worksheet_oxide_row_order(ws_in, row_min=1, row_max=40)
+        input_matches = input_order[: len(MELTS_OXIDE_ROWS)] == MELTS_OXIDE_ROWS
+        for oxide in MELTS_OXIDE_ROWS:
+            r = row_map_in.get(oxide.lower())
+            if r is None:
+                continue
+            _set_excel_cell_preserving_blank(ws_in.cell(row=r, column=2), composition_row.get(oxide))
+            rows_written_input += 1
+        for name, value in {
+            "Pressure": float(params.P1),
+            "Temperature": float(params.T1),
+            "log_fO2": float(params.fO2_offset),
+        }.items():
+            ref = _excel_defined_name_first_cell(wb, name)
+            if ref is None:
+                continue
+            ws_named, r_named, c_named = ref
+            _set_excel_cell_preserving_blank(ws_named.cell(row=r_named, column=c_named), value)
+            rows_written_input += 1
+
+    if "Sequences" in wb.sheetnames:
+        ws_seq = wb["Sequences"]
+        row_map_seq = _worksheet_label_row_map(ws_seq, row_min=1, row_max=120)
+        seq_settings = {
+            "T1": float(params.T1),
+            "T2": float(params.T2),
+            "ΔT": float(params.dT),
+            "P1": float(params.P1),
+            "P2": float(params.P2),
+            "ΔP": float(params.dP),
+            "fO2": float(params.fO2_offset),
+            "Starting T": starting_T,
+            "Min liq content": min_liq_content,
+            "Fractionate": fractionate,
+            "Phase 1": phase_1,
+            "Phase 2": phase_2,
+            "Phase 3": phase_3,
+            "Formula": formula,
+            "ΔH": delta_h,
+            "ΔV": delta_v,
+            "ΔS": delta_s,
+        }
+        for label, value in seq_settings.items():
+            r = row_map_seq.get(str(label).strip().lower())
+            if r is None:
+                continue
+            _set_excel_cell_preserving_blank(ws_seq.cell(row=r, column=2), value)
+            rows_written_sequences += 1
+
+    return {
+        "rows_written_input_sheet": int(rows_written_input),
+        "rows_written_sequences": int(rows_written_sequences),
+        "input_sheet_oxide_row_order": input_order,
+        "input_sheet_oxide_order_matches_expected": input_matches,
+    }
+
+
+def write_composition_to_melts_excel_template(
+    *,
+    template_workbook_path: Any,
+    output_workbook_path: Any,
+    composition: Optional[dict[str, Any]] = None,
+    prepared_mc_csv_path: Optional[Any] = None,
+    sample_label: Optional[str] = None,
+    params: Optional[MELTSRunParams] = None,
+    target_column_header: str = "P_Calc",
+    mirror_input_and_sequences: bool = True,
+    starting_T: Any = "wet liquidus",
+    min_liq_content: Any = 1,
+    fractionate: Any = "none",
+    phase_1: Any = "quartz",
+    phase_2: Any = "feldspar1",
+    phase_3: Any = "feldspar2",
+    formula: Any = "any two phases",
+    delta_h: Any = 0.2,
+    delta_v: Any = 0,
+    delta_s: Any = 0,
+) -> MeltsExcelTemplateWriteResult:
+    """
+    Write a single composition + run settings into the MELTS Excel (.xlsm) template.
+
+    This preserves user-supplied composition values exactly and writes them into the
+    workbook's expected row-label format (primarily `Multiple_Comp`, optionally also
+    `Input` + `Sequences`) without adding any new sheets.
+    """
+    openpyxl = _require_openpyxl()
+    if params is None:
+        raise ValueError("params (MELTSRunParams) is required")
+
+    comp_row, resolved_label = _extract_single_prepared_composition_row(
+        composition=composition,
+        prepared_mc_csv_path=prepared_mc_csv_path,
+        sample_label=sample_label,
+    )
+
+    template_path = Path(template_workbook_path)
+    output_path = Path(output_workbook_path)
+    if not template_path.exists():
+        raise FileNotFoundError(f"MELTS Excel template not found: {template_path}")
+    _ensure_dir(output_path.parent)
+
+    wb = openpyxl.load_workbook(template_path, keep_vba=True)
+    try:
+        mc_summary = _write_multiple_comp_column(
+            wb,
+            column_header=target_column_header,
+            composition_row=comp_row,
+            params=params,
+            starting_T=starting_T,
+            min_liq_content=min_liq_content,
+            fractionate=fractionate,
+            phase_1=phase_1,
+            phase_2=phase_2,
+            phase_3=phase_3,
+            formula=formula,
+            delta_h=delta_h,
+            delta_v=delta_v,
+            delta_s=delta_s,
+        )
+        mirror_summary = {
+            "rows_written_input_sheet": 0,
+            "rows_written_sequences": 0,
+            "input_sheet_oxide_row_order": None,
+            "input_sheet_oxide_order_matches_expected": None,
+        }
+        if mirror_input_and_sequences:
+            mirror_summary = _write_input_and_sequences_sheet_snapshot(
+                wb,
+                composition_row=comp_row,
+                params=params,
+                starting_T=starting_T,
+                min_liq_content=min_liq_content,
+                fractionate=fractionate,
+                phase_1=phase_1,
+                phase_2=phase_2,
+                phase_3=phase_3,
+                formula=formula,
+                delta_h=delta_h,
+                delta_v=delta_v,
+                delta_s=delta_s,
+            )
+        wb.save(output_path)
+    finally:
+        try:
+            wb.close()
+        except Exception:
+            pass
+
+    settings_written = {
+        "Model": params.model,
+        "Calculation": params.calculation,
+        "T1": float(params.T1),
+        "T2": float(params.T2),
+        "ΔT": float(params.dT),
+        "P1": float(params.P1),
+        "P2": float(params.P2),
+        "ΔP": float(params.dP),
+        "fO2 offset": float(params.fO2_offset),
+        "fO2 buffer": _normalize_redox_buffer_name(params.fO2_buffer) or params.fO2_buffer,
+        "fO2 constraint": _coerce_excel_bool(params.fO2_constraint),
+        "Starting T": starting_T,
+        "Min liq content": min_liq_content,
+        "Fractionate": fractionate,
+        "Phase 1": phase_1,
+        "Phase 2": phase_2,
+        "Phase 3": phase_3,
+        "Formula": formula,
+        "ΔH": delta_h,
+        "ΔV": delta_v,
+        "ΔS": delta_s,
+        "mirror_input_and_sequences": bool(mirror_input_and_sequences),
+    }
+
+    return MeltsExcelTemplateWriteResult(
+        output_workbook_path=str(output_path),
+        template_workbook_path=str(template_path),
+        sample_label=resolved_label,
+        target_column_header=str(mc_summary["target_column_header"]),
+        target_column_index=int(mc_summary["target_column_index"]),
+        multiple_comp_oxide_row_order=list(mc_summary["oxide_row_order"]),
+        multiple_comp_oxide_order_matches_expected=bool(mc_summary["oxide_order_matches_expected"]),
+        input_sheet_oxide_row_order=mirror_summary["input_sheet_oxide_row_order"],
+        input_sheet_oxide_order_matches_expected=mirror_summary["input_sheet_oxide_order_matches_expected"],
+        rows_written_multiple_comp=int(mc_summary["rows_written"]),
+        rows_written_input_sheet=int(mirror_summary["rows_written_input_sheet"]),
+        rows_written_sequences=int(mirror_summary["rows_written_sequences"]),
+        settings_written=settings_written,
+    )
 
 
 def _patch_helper_source_text_for_spawn_safety(
@@ -3562,8 +4031,10 @@ __all__ = [
     "RunResult",
     "StagedRunResult",
     "GeobarometryBasisResult",
+    "MeltsExcelTemplateWriteResult",
     "MC_to_csv_rMELTS",
     "normalize_aplite_xrf_to_rowwise_mc",
+    "write_composition_to_melts_excel_template",
     "rMELTS_run",
     "rMELTS_run_staged_first_appearance",
     "rMELTS_geobarometry_basis",

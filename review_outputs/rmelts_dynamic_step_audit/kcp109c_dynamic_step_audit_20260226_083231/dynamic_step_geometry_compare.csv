@@ -1,0 +1,4 @@
+pressure_mpa,liam_num_rows,patched_num_rows,liam_clone_num_rows,row_count_delta,liam_liquidus_estimate_c,patched_liquidus_estimate_c,liam_clone_liquidus_estimate_c,liam_first_qz_c,patched_first_qz_c,liam_clone_first_qz_c,liam_first_fsp_c,patched_first_fsp_c,liam_clone_first_fsp_c,liam_first_fsp1_c,patched_first_fsp1_c,liam_clone_first_fsp1_c,phase_set_mismatch_rows,liam_only_rows,patched_only_rows,delta_first_qz_c,delta_first_fsp_c,delta_first_fsp1_c
+125.0,40,0,0,-40,807.0,,,783.0,,,806.0,,,773.0,,,40,40,0,,,
+75.0,58,0,0,-58,851.0,,,814.0,,,845.0,,,800.0,,,58,58,0,,,
+50.0,66,0,0,-66,882.0,,,841.0,,,875.0,,,823.0,,,66,66,0,,,
