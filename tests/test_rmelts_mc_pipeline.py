@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -579,9 +580,48 @@ def test_first_appearance_extractor_and_staged_window_selector():
 def test_load_helper_module_uses_stable_name_and_sys_path(tmp_path):
     helper_path = tmp_path / "MeltsHelperFunctions.py"
     helper_path.write_text("VALUE = 1\n", encoding="utf-8")
-    module = rmp._load_helper_module(tmp_path)
+    old_pythonpath = os.environ.get("PYTHONPATH")
+    observed_pythonpath = None
+    try:
+        if "PYTHONPATH" in os.environ:
+            del os.environ["PYTHONPATH"]
+        module = rmp._load_helper_module(tmp_path, run_dir=tmp_path)
+        observed_pythonpath = os.environ.get("PYTHONPATH", "")
+    finally:
+        if old_pythonpath is None:
+            os.environ.pop("PYTHONPATH", None)
+        else:
+            os.environ["PYTHONPATH"] = old_pythonpath
     assert module.__name__ == "MeltsHelperFunctions"
     assert str(tmp_path) in rmp.sys.path
+    assert observed_pythonpath is not None
+    assert str(tmp_path) in observed_pythonpath
+
+
+def test_load_helper_module_keeps_run_local_helper_ahead_of_original_for_spawns(tmp_path):
+    helper_dir = tmp_path / "helper"
+    run_dir = tmp_path / "run"
+    helper_dir.mkdir()
+    helper_path = helper_dir / "MeltsHelperFunctions.py"
+    helper_path.write_text("VALUE = 1\n", encoding="utf-8")
+
+    old_pythonpath = os.environ.get("PYTHONPATH")
+    try:
+        if "PYTHONPATH" in os.environ:
+            del os.environ["PYTHONPATH"]
+        module = rmp._load_helper_module(helper_dir, run_dir=run_dir, patch_pressure_calc=False)
+        run_dir_str = str(run_dir.resolve())
+        helper_dir_str = str(helper_dir.resolve())
+        assert module.__name__ == "MeltsHelperFunctions"
+        assert run_dir_str in rmp.sys.path
+        assert helper_dir_str in rmp.sys.path
+        assert rmp.sys.path.index(run_dir_str) < rmp.sys.path.index(helper_dir_str)
+        assert os.environ.get("PYTHONPATH", "").split(os.pathsep)[0] == run_dir_str
+    finally:
+        if old_pythonpath is None:
+            os.environ.pop("PYTHONPATH", None)
+        else:
+            os.environ["PYTHONPATH"] = old_pythonpath
 
 
 def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_counter():
@@ -598,7 +638,7 @@ def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_count
     )
     out = rmp._patch_helper_source_text_for_spawn_safety(src, patch_profile="profile_e_current_full_patch")
     assert "i = i + 1" in out
-    assert "min(T1, current_T+25)" in out
+    assert "min(_rmelts_T_upper_bound, current_T+25)" in out
     assert "safe_equilibrium_execute" in out
     assert "timeout in execute" in out
     assert "skip wet-liquidus pre-search" in out
@@ -640,9 +680,16 @@ def test_patch_helper_source_text_for_spawn_safety_production_default_resets_liq
         "            return T1\n"
     )
     out = rmp._patch_helper_source_text_for_spawn_safety(src)
+    assert "# rMELTS pipeline bootstrap: prefer this run-local helper copy in spawned workers" in out
+    assert "_rmelts_helper_dir" in out
     assert "_rmelts_reset_equil" in out
+    assert "_rmelts_liquidus_execute" in out
     assert "equilibrate.Equilibrate(equil.element_list, equil.phase_list)" in out
-    assert "min(T1, current_T+25)" in out
+    assert "return equil_obj.execute" in out
+    assert "Liquidus raw execute failed" in out
+    assert "_rmelts_T_upper_bound = T1" in out
+    assert "_rmelts_bounds_invalid" in out
+    assert "min(_rmelts_T_upper_bound, current_T+25)" in out
     assert "skip wet-liquidus pre-search" not in out
     # Production default should not patch run_single_pressure_step main execute timeout wrapper.
     assert "timeout in execute" not in out
@@ -891,4 +938,4 @@ def test_rmelts_run_records_cleanup_summary_in_metadata(tmp_path, monkeypatch):
     assert metadata["cleanup"]["cleanup_attempted"] is True
     assert metadata["cleanup"]["cleanup_terminated_count"] == 1
     assert metadata["cleanup"]["cleanup_killed_count"] == 1
-    assert metadata["summary"]["helper_patch_profile"] == "profile_g_production_liquidus_reset"
+    assert metadata["summary"]["helper_patch_profile"] == "profile_h_production_liquidus_raw_reset"

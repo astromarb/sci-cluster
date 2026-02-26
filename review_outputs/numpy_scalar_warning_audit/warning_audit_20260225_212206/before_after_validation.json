@@ -1,0 +1,44 @@
+{
+  "phase62": {
+    "pressure_mpa": 75.0,
+    "T1_C": 1100,
+    "T2_C": 700,
+    "status": "ok",
+    "liquidus_temp_c": 899.0,
+    "elapsed_s": 1.3069839477539062,
+    "error": null,
+    "nonprogress_log_detected": false,
+    "repeated_899_count": 0,
+    "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_212206/phase62_nonprogress_probe/melts_calculations.log"
+  },
+  "warning_phase_b": {
+    "shape_trace_summary": {
+      "shape_trace_lines": 0,
+      "result_shape_counts": {},
+      "result_ndim_counts": {},
+      "sample_lines": [],
+      "warning_counts_during_shape_audit": {
+        "minimal_direct_equilibrium_scalar_warns": 5720,
+        "tiny_liquidus_probe_50MPa_scalar_warns": 175518
+      },
+      "restore_info": {
+        "restored": true,
+        "equilibrate_sha1_after_restore": "91270904133c08da52a9dc748babb710ad8e9b19",
+        "backup_sha1": "91270904133c08da52a9dc748babb710ad8e9b19",
+        "hashes_match": true,
+        "backup_path": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py.warnbak_20260225_212206"
+      }
+    },
+    "warning_inventory_summary": {
+      "warning_pattern": "Conversion of an array with ndim > 0 to a scalar is deprecated",
+      "total_matches": 16,
+      "files_with_matches": 2,
+      "top_locations": [
+        [
+          "equilibrate.py:2166:",
+          16
+        ]
+      ]
+    }
+  }
+}

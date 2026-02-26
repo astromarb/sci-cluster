@@ -226,9 +226,13 @@ class _HelperPatchProfile:
     name: str
     fix_liquidus_timeout_loop: bool = False
     reset_liquidus_solver_after_none: bool = False
+    raw_liquidus_execute_with_reset: bool = False
+    reset_solver_after_liquidus_presearch: bool = False
     wrap_main_execute_with_timeout: bool = False
     skip_wet_liquidus_presearch: bool = False
     timeout_path_advances_temperature: bool = False
+    reset_main_solver_after_timeout: bool = False
+    bound_main_loop_failures: bool = False
 
 
 _HELPER_PATCH_PROFILES: dict[str, _HelperPatchProfile] = {
@@ -261,9 +265,26 @@ _HELPER_PATCH_PROFILES: dict[str, _HelperPatchProfile] = {
         fix_liquidus_timeout_loop=True,
         reset_liquidus_solver_after_none=True,
     ),
+    "profile_h_production_liquidus_raw_reset": _HelperPatchProfile(
+        name="profile_h_production_liquidus_raw_reset",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+        raw_liquidus_execute_with_reset=True,
+    ),
+    "profile_i_prototype_mainloop_bounded_reset": _HelperPatchProfile(
+        name="profile_i_prototype_mainloop_bounded_reset",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+        raw_liquidus_execute_with_reset=True,
+        reset_solver_after_liquidus_presearch=True,
+        wrap_main_execute_with_timeout=True,
+        timeout_path_advances_temperature=True,
+        reset_main_solver_after_timeout=True,
+        bound_main_loop_failures=True,
+    ),
 }
 
-_DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_g_production_liquidus_reset"
+_DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_h_production_liquidus_raw_reset"
 
 
 class RMeltsPipelineError(RuntimeError):
@@ -1076,6 +1097,20 @@ def _patch_helper_source_text_for_spawn_safety(
     """
     profile = _resolve_helper_patch_profile(patch_profile)
 
+    # Ensure nested multiprocessing spawns (composition -> pressure workers) can
+    # re-import the run-local patched helper by module name from its own directory.
+    bootstrap_marker = "# rMELTS pipeline bootstrap: prefer this run-local helper copy in spawned workers\n"
+    if bootstrap_marker not in source_text:
+        bootstrap = (
+            "import sys as _rmelts_sys\n"
+            "from pathlib import Path as _rmelts_Path\n"
+            f"{bootstrap_marker}"
+            "_rmelts_helper_dir = str(_rmelts_Path(__file__).resolve().parent)\n"
+            "if _rmelts_helper_dir not in _rmelts_sys.path:\n"
+            "    _rmelts_sys.path.insert(0, _rmelts_helper_dir)\n"
+        )
+        source_text = bootstrap + source_text
+
     if profile.reset_liquidus_solver_after_none:
         # Production hardening: if liquidus-search equilibrium calls fail/return None,
         # rebuild the thermoengine Equilibrate object before continuing or returning.
@@ -1093,6 +1128,54 @@ def _patch_helper_source_text_for_spawn_safety(
         )
         if inject_after in source_text and "_rmelts_reset_equil" not in source_text:
             source_text = source_text.replace(inject_after, inject_after + helper_fn, 1)
+
+        if profile.raw_liquidus_execute_with_reset:
+            raw_exec_helper = (
+                "    def _rmelts_liquidus_execute(equil_obj, temp_K, pressure_bar, timeout=None, state=None, bulk_comp=None, con_deltaNNO=0, debug=0):\n"
+                "        try:\n"
+                "            return equil_obj.execute(temp_K, pressure_bar, state=state, bulk_comp=bulk_comp, con_deltaNNO=con_deltaNNO, debug=debug)\n"
+                "        except Exception as _rmelts_exec_exc:\n"
+                "            logging.warning(f\"Liquidus raw execute failed at T={round(temp_K-273.15, 2)}°C, P={P} MPa: {_rmelts_exec_exc}\")\n"
+                "            _rmelts_reset_equil()\n"
+                "            try:\n"
+                "                return equil.execute(temp_K, pressure_bar, state=None, bulk_comp=bulk_comp, con_deltaNNO=con_deltaNNO, debug=debug)\n"
+                "            except Exception as _rmelts_exec_retry_exc:\n"
+                "                logging.warning(f\"Liquidus raw execute retry failed at T={round(temp_K-273.15, 2)}°C, P={P} MPa: {_rmelts_exec_retry_exc}\")\n"
+                "                _rmelts_reset_equil()\n"
+                "                return None\n"
+            )
+            if "_rmelts_liquidus_execute" not in source_text:
+                source_text = source_text.replace(helper_fn, helper_fn + raw_exec_helper, 1)
+
+            liquidus_call_replacements = [
+                (
+                    "state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \n"
+                    "                                       bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)",
+                    "state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n"
+                    "                                       bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)",
+                ),
+                (
+                    "state = safe_equilibrium_execute(equil, current_T+1+273.15, P*10, timeout=timeout, \n"
+                    "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)",
+                    "state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, timeout=timeout, \n"
+                    "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)",
+                ),
+                (
+                    "state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \n"
+                    "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)",
+                    "state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n"
+                    "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)",
+                ),
+                (
+                    "state = safe_equilibrium_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \n"
+                    "                                         con_deltaNNO=fO2_offset, debug=dbg)",
+                    "state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \n"
+                    "                                         con_deltaNNO=fO2_offset, debug=dbg)",
+                ),
+            ]
+            for old_call, new_call in liquidus_call_replacements:
+                if old_call in source_text:
+                    source_text = source_text.replace(old_call, new_call, 1)
 
         # Initial liquidus midpoint failure -> reset before fallback return.
         old_initial_none = (
@@ -1183,6 +1266,64 @@ def _patch_helper_source_text_for_spawn_safety(
             source_text = source_text.replace(old_loop_except, new_loop_except, 1)
 
     if profile.fix_liquidus_timeout_loop:
+        # 0) Track immutable physical liquidus-search bounds and restart counters so
+        # recovery logic cannot drift to unphysical temperatures.
+        bounds_anchor = "    timeout = 10\n"
+        bounds_inject = (
+            "    _rmelts_T_upper_bound = T1\n"
+            "    _rmelts_T_lower_bound = T2\n"
+            "    _rmelts_liquidus_restart_count = 0\n"
+            "    _rmelts_liquidus_max_restarts = 6\n"
+        )
+        if (
+            "def find_wet_liquidus(" in source_text
+            and "_rmelts_T_upper_bound = T1" not in source_text
+            and bounds_anchor in source_text
+        ):
+            source_text = source_text.replace(bounds_anchor, bounds_anchor + bounds_inject, 1)
+
+        # 0.5) Guard the top of the liquidus loop so corrupted bracket/current_T values
+        # are reset before another equilibrium execute call is attempted.
+        loop_anchors = [
+            "    while (T1 > T2) and i < 50:\n\n        try:\n",
+            "    while (T1 > T2) and i < 50:\n        try:\n",
+        ]
+        loop_guard = (
+            "    while (T1 > T2) and i < 50:\n"
+            "\n"
+            "        _rmelts_bounds_invalid = (\n"
+            "            (not np.isfinite(current_T)) or\n"
+            "            (not np.isfinite(T1)) or\n"
+            "            (not np.isfinite(T2)) or\n"
+            "            (current_T < _rmelts_T_lower_bound) or\n"
+            "            (current_T > _rmelts_T_upper_bound) or\n"
+            "            (T1 > _rmelts_T_upper_bound) or\n"
+            "            (T2 < _rmelts_T_lower_bound)\n"
+            "        )\n"
+            "        if _rmelts_bounds_invalid:\n"
+            "            logging.error(\n"
+            "                f\"Liquidus search invalid state detected (current_T={current_T}, T1={T1}, T2={T2}, P={P} MPa); restarting bounded search\"\n"
+            "            )\n"
+            "            _rmelts_reset_equil()\n"
+            "            _rmelts_liquidus_restart_count = _rmelts_liquidus_restart_count + 1\n"
+            "            if _rmelts_liquidus_restart_count > _rmelts_liquidus_max_restarts:\n"
+            "                logging.error(f\"Liquidus search exceeded max bounded restarts at P={P} MPa\")\n"
+            "                return _rmelts_T_upper_bound\n"
+            "            T1 = _rmelts_T_upper_bound\n"
+            "            T2 = _rmelts_T_lower_bound\n"
+            "            current_T = round((T1+T2)/2)\n"
+            "            state = None\n"
+            "            i = i + 1\n"
+            "            continue\n"
+            "\n"
+            "        try:\n"
+        )
+        if "_rmelts_bounds_invalid" not in source_text:
+            for loop_anchor in loop_anchors:
+                if loop_anchor in source_text:
+                    source_text = source_text.replace(loop_anchor, loop_guard, 1)
+                    break
+
         # 1) find_wet_liquidus timeout branch can loop forever because i is not
         # incremented on repeated timeouts and current_T can march upward forever.
         old = (
@@ -1196,7 +1337,20 @@ def _patch_helper_source_text_for_spawn_safety(
             )
         new = (
             f"{reset_lines}"
-            "                current_T = min(T1, current_T+25)  # continue with higher temperature (bounded)\n"
+            "                _rmelts_liquidus_restart_count = _rmelts_liquidus_restart_count + 1\n"
+            "                _rmelts_next_T = min(_rmelts_T_upper_bound, current_T+25)\n"
+            "                if _rmelts_next_T == current_T:\n"
+            "                    logging.error(f\"Liquidus search nonprogressing after repeated failures at T={current_T}°C, P={P} MPa\")\n"
+            "                    if _rmelts_liquidus_restart_count > _rmelts_liquidus_max_restarts:\n"
+            "                        logging.error(f\"Liquidus search exceeded max bounded restarts at P={P} MPa\")\n"
+            "                        return _rmelts_T_upper_bound\n"
+            "                    T1 = _rmelts_T_upper_bound\n"
+            "                    T2 = _rmelts_T_lower_bound\n"
+            "                    current_T = round((T1+T2)/2)\n"
+            "                    state = None\n"
+            "                    i = i + 1\n"
+            "                    continue\n"
+            "                current_T = max(_rmelts_T_lower_bound, _rmelts_next_T)  # continue with higher temperature (physically bounded)\n"
             "                i = i + 1  # avoid infinite loop on repeated timeout states\n"
             "                continue\n"
         )
@@ -1209,6 +1363,29 @@ def _patch_helper_source_text_for_spawn_safety(
         continue_line = "                    continue\n"
         if profile.timeout_path_advances_temperature:
             continue_line = "                    temp -= delta_T\n                    continue\n"
+        main_none_extra = ""
+        if profile.reset_main_solver_after_timeout:
+            main_none_extra += (
+                "                    try:\n"
+                "                        equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n"
+                "                        state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n"
+                "                        omni_phase = state.omni_phase()\n"
+                "                        state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n"
+                "                    except Exception as _rmelts_main_reset_exc:\n"
+                "                        print(f\"Error resetting solver after timeout at P={pressure}: {_rmelts_main_reset_exc}\")\n"
+                "                        state = None\n"
+            )
+        if profile.bound_main_loop_failures:
+            main_none_extra += (
+                "                    _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n"
+                "                    if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n"
+                "                        print(f\"Aborting pressure path at P={pressure} after repeated timeout/None returns\")\n"
+                "                        solidus = True\n"
+                "                        break\n"
+            )
+            success_counter_reset = "                _rmelts_main_consecutive_failures = 0\n"
+        else:
+            success_counter_reset = ""
         old_exec = (
             "                state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
             "\n"
@@ -1220,8 +1397,10 @@ def _patch_helper_source_text_for_spawn_safety(
             "                                              bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
             "                if state is None:\n"
             "                    print(f'Error at T={temp}, P={pressure}: timeout in execute')\n"
+            f"{main_none_extra}"
             f"{continue_line}"
             "\n"
+            f"{success_counter_reset}"
             "                t1 = time.time()\n"
             "                calc_time += (t1 - t0)\n"
         )
@@ -1234,6 +1413,89 @@ def _patch_helper_source_text_for_spawn_safety(
         liq_new = "        temp = T1  # pipeline patch: skip wet-liquidus pre-search for robustness\n"
         if liq_old in source_text:
             source_text = source_text.replace(liq_old, liq_new, 1)
+
+    if profile.reset_solver_after_liquidus_presearch:
+        liq_anchor = "        temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
+        liq_reset_block = (
+            "        temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
+            "        # pipeline patch: reset solver after liquidus search so the main TP sequence\n"
+            "        # starts from a fresh numerical state for this pressure path.\n"
+            "        try:\n"
+            "            equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n"
+            "            state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n"
+            "            omni_phase = state.omni_phase()\n"
+            "            state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n"
+            "        except Exception as _rmelts_main_reset_exc:\n"
+            "            print(f\"Error resetting solver after liquidus at P={pressure}: {_rmelts_main_reset_exc}\")\n"
+            "            state = None\n"
+        )
+        if liq_anchor in source_text and "reset solver after liquidus search" not in source_text:
+            source_text = source_text.replace(liq_anchor, liq_reset_block, 1)
+
+    if profile.bound_main_loop_failures:
+        loop_anchor = "        # Run temperature sequence for this pressure\n        for step in range(N_runs + 1):\n"
+        loop_prefix = (
+            "        # Run temperature sequence for this pressure\n"
+            "        _rmelts_main_consecutive_failures = 0\n"
+            "        _rmelts_main_max_consecutive_failures = 6\n"
+            "        _rmelts_main_temp_upper = T1\n"
+            "        _rmelts_main_temp_lower = T2\n"
+            "        for step in range(N_runs + 1):\n"
+        )
+        init_marker = "_rmelts_main_max_consecutive_failures = "
+        if loop_anchor in source_text and init_marker not in source_text:
+            source_text = source_text.replace(loop_anchor, loop_prefix, 1)
+        if init_marker not in source_text:
+            # Fallback for helper source variants where nearby patches slightly alter
+            # spacing/blank lines around the loop anchor.
+            fallback_for = "        for step in range(N_runs + 1):\n"
+            if fallback_for in source_text:
+                source_text = source_text.replace(
+                    fallback_for,
+                    "        _rmelts_main_consecutive_failures = 0\n"
+                    "        _rmelts_main_max_consecutive_failures = 6\n"
+                    "        _rmelts_main_temp_upper = T1\n"
+                    "        _rmelts_main_temp_lower = T2\n"
+                    + fallback_for,
+                    1,
+                )
+
+        guard_old = "            if temp < T2 or solidus:\n"
+        guard_new = "            if temp < T2 or temp > T1 or solidus:\n"
+        if guard_old in source_text:
+            source_text = source_text.replace(guard_old, guard_new, 1)
+
+        except_old = (
+            "            except Exception as e:\n"
+            "                print(f\"Error at T={temp}, P={pressure}: {e}\")\n"
+            "                # Continue to next temperature step\n"
+            "                pass\n"
+        )
+        except_reset_lines = ""
+        if profile.reset_main_solver_after_timeout:
+            except_reset_lines = (
+                "                try:\n"
+                "                    equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n"
+                "                    state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n"
+                "                    omni_phase = state.omni_phase()\n"
+                "                    state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n"
+                "                except Exception as _rmelts_main_reset_exc:\n"
+                "                    print(f\"Error resetting solver after main-loop exception at P={pressure}: {_rmelts_main_reset_exc}\")\n"
+                "                    state = None\n"
+            )
+        except_new = (
+            "            except Exception as e:\n"
+            "                print(f\"Error at T={temp}, P={pressure}: {e}\")\n"
+            f"{except_reset_lines}"
+            "                _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n"
+            "                if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n"
+            "                    print(f\"Aborting pressure path at P={pressure} after repeated main-loop errors\")\n"
+            "                    solidus = True\n"
+            "                # Continue to next temperature step\n"
+            "                pass\n"
+        )
+        if except_old in source_text:
+            source_text = source_text.replace(except_old, except_new, 1)
     return source_text
 
 
@@ -1278,13 +1540,29 @@ def _load_helper_module(
         run_dir_str = str(run_dir)
         if run_dir_str not in sys.path:
             sys.path.insert(0, run_dir_str)
+        # Make the run-local helper importable by nested multiprocessing spawns
+        # that reconstruct sys.path from environment/Python startup defaults.
+        existing_pythonpath = os.environ.get("PYTHONPATH", "")
+        pythonpath_parts = [p for p in existing_pythonpath.split(os.pathsep) if p]
+        if run_dir_str not in pythonpath_parts:
+            os.environ["PYTHONPATH"] = os.pathsep.join([run_dir_str] + pythonpath_parts)
 
     # Use a stable canonical module name so multiprocessing spawn workers can re-import
     # helper functions defined in this module (e.g., process_single_composition_parallel).
     module_name = "MeltsHelperFunctions"
     helper_dir_str = str(helper_dir)
-    if helper_dir_str not in sys.path:
-        sys.path.insert(0, helper_dir_str)
+    if run_dir is not None:
+        run_dir_str = str(run_dir)
+        # Keep the run-local patched helper directory ahead of the original helper
+        # directory so nested multiprocessing spawns import the patched helper copy.
+        if run_dir_str in sys.path:
+            sys.path = [p for p in sys.path if p != run_dir_str]
+            sys.path.insert(0, run_dir_str)
+        if helper_dir_str not in sys.path:
+            sys.path.insert(1 if sys.path and sys.path[0] == run_dir_str else 0, helper_dir_str)
+    else:
+        if helper_dir_str not in sys.path:
+            sys.path.insert(0, helper_dir_str)
 
     spec = importlib.util.spec_from_file_location(module_name, str(import_path))
     if spec is None or spec.loader is None:

@@ -1,0 +1,12 @@
+{
+  "pressure_mpa": 75.0,
+  "T1_C": 1100,
+  "T2_C": 700,
+  "status": "ok",
+  "liquidus_temp_c": 899.0,
+  "elapsed_s": 1.3069839477539062,
+  "error": null,
+  "nonprogress_log_detected": false,
+  "repeated_899_count": 0,
+  "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_212206/phase62_nonprogress_probe/melts_calculations.log"
+}

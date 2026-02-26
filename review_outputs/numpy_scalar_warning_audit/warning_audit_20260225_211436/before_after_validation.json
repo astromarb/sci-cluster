@@ -1,0 +1,100 @@
+{
+  "phase": "6.1_plus_warning_audit_phase_a",
+  "helper_patch_profile_default": "profile_h_production_liquidus_raw_reset",
+  "probe_results": [
+    {
+      "pressure_mpa": 50.0,
+      "liquidus_temp_c": 949.0,
+      "elapsed_s": 1.8217310905456543,
+      "scalar_warn_count": 175518
+    },
+    {
+      "pressure_mpa": 75.0,
+      "liquidus_temp_c": 888.0,
+      "elapsed_s": 0.3510119915008545,
+      "scalar_warn_count": 28627
+    },
+    {
+      "pressure_mpa": 100.0,
+      "liquidus_temp_c": 888.0,
+      "elapsed_s": 0.36944007873535156,
+      "scalar_warn_count": 34465
+    }
+  ],
+  "probe_expected_baseline_C": {
+    "50": 949,
+    "75": 888,
+    "100": 888
+  },
+  "probe_values_match_baseline": true,
+  "nested_worker_patched_helper_log_evidence_count": 53,
+  "nested_worker_patched_helper_log_evidence_sample": [
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_205230/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_205231/melts_calculations.log",
+      "line": "2026-02-25 20:52:56,679 - ERROR - find_wet_liquidus:446 - Equilibrium calculation failed or timed out at T=850\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210059/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210059/melts_calculations.log",
+      "line": "2026-02-25 21:01:26,843 - ERROR - find_wet_liquidus:446 - Equilibrium calculation failed or timed out at T=850\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210513/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210513/melts_calculations.log",
+      "line": "2026-02-25 21:05:41,608 - ERROR - find_wet_liquidus:446 - Equilibrium calculation failed or timed out at T=850\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - WARNING - _rmelts_liquidus_execute:397 - Liquidus raw execute failed at T=850.0\u00b0C, P=75.0 MPa: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 22 is different from 25)"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=850\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=875\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=899\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=899\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=899\u00b0C"
+    },
+    {
+      "file": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-25/kcp109c_phase7_parity_20260225_210638/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_210639/melts_calculations.log",
+      "line": "2026-02-25 21:07:07,817 - ERROR - find_wet_liquidus:475 - Equilibrium calculation failed or timed out at T=899\u00b0C"
+    }
+  ],
+  "warning_inventory_summary": {
+    "warning_pattern": "Conversion of an array with ndim > 0 to a scalar is deprecated",
+    "total_matches": 16,
+    "files_with_matches": 2,
+    "top_files": [
+      [
+        "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/_tmp_phase2_logs/phase3_run_stdout.log",
+        13
+      ],
+      [
+        "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/_tmp_phase2_logs/phase2_run_stdout.log",
+        3
+      ]
+    ],
+    "top_locations": [
+      [
+        "equilibrate.py:2166",
+        16
+      ]
+    ]
+  },
+  "warning_capture_counts": {
+    "minimal_direct_equilibrium_numpy_scalar": 5720,
+    "tiny_liquidus_probe_50MPa_numpy_scalar": 175518,
+    "tiny_liquidus_probe_75MPa_numpy_scalar": 28627,
+    "tiny_liquidus_probe_100MPa_numpy_scalar": 34465
+  }
+}

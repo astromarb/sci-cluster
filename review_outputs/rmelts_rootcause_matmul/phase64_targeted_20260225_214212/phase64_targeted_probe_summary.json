@@ -1,0 +1,13 @@
+{
+  "status": "ok",
+  "error": null,
+  "liquidus_temp_c": 903,
+  "elapsed_s": 0.5692880153656006,
+  "helper_patch_profile_default": "profile_h_production_liquidus_raw_reset",
+  "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_targeted_20260225_214212/probe/melts_calculations.log",
+  "helper_log_exists": false,
+  "max_reported_temp_C": null,
+  "min_reported_temp_C": null,
+  "out_of_range_log_count": 0,
+  "out_of_range_log_examples": []
+}

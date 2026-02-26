@@ -1,0 +1,14 @@
+{
+  "elapsed_s": 11.573780059814453,
+  "success": false,
+  "pressure": 125.0,
+  "num_steps": null,
+  "error": "name '_rmelts_main_max_consecutive_failures' is not defined",
+  "solidus_reached": null,
+  "helper_log_exists": false,
+  "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64b_p125_20260225_215054/probe/melts_calculations.log",
+  "helper_log_size": null,
+  "max_reported_temp_C": null,
+  "out_of_range_log_count": 0,
+  "out_of_range_examples": []
+}

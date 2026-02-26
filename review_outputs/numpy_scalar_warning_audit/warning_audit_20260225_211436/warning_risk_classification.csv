@@ -1,0 +1,2 @@
+warning_site,classification,related_to_matmul_22_vs_25,notes
+thermoengine/equilibrate.py:2166,provisional_future_compatibility,unknown_pending_shape_and_trace_analysis,Repeated deprecation warning observed; separate root-cause classification pending instrumentation of shapes and comparison to _compute_a_and_qr matmul failure path.

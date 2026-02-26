@@ -1,0 +1,11 @@
+{
+  "warning_pattern": "Conversion of an array with ndim > 0 to a scalar is deprecated",
+  "total_matches": 16,
+  "files_with_matches": 2,
+  "top_locations": [
+    [
+      "equilibrate.py:2166:",
+      16
+    ]
+  ]
+}

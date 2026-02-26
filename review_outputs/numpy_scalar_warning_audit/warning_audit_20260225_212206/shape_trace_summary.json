@@ -1,0 +1,17 @@
+{
+  "shape_trace_lines": 0,
+  "result_shape_counts": {},
+  "result_ndim_counts": {},
+  "sample_lines": [],
+  "warning_counts_during_shape_audit": {
+    "minimal_direct_equilibrium_scalar_warns": 5720,
+    "tiny_liquidus_probe_50MPa_scalar_warns": 175518
+  },
+  "restore_info": {
+    "restored": true,
+    "equilibrate_sha1_after_restore": "91270904133c08da52a9dc748babb710ad8e9b19",
+    "backup_sha1": "91270904133c08da52a9dc748babb710ad8e9b19",
+    "hashes_match": true,
+    "backup_path": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py.warnbak_20260225_212206"
+  }
+}

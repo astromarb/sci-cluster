@@ -1,0 +1,83 @@
+{
+  "summary": {
+    "dataset_name": "kcp109c_norm_parity_run",
+    "num_samples": 1,
+    "num_success": 0,
+    "num_error": 1,
+    "elapsed_wall_time_s": 12.25255012512207,
+    "pressure_residual_threshold_C": 10.0,
+    "backend_requested": "import",
+    "backend_used": "import",
+    "backend_error": null,
+    "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/runs/kcp109c_norm_parity_run/runs/20260225_190830"
+  },
+  "run_params": {
+    "T1": 1100.0,
+    "T2": 700.0,
+    "dT": 1.0,
+    "P1": 400.0,
+    "P2": 50.0,
+    "dP": 25.0,
+    "fO2_constraint": "TRUE",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "model": "rhyolite-MELTS_v1.0.x",
+    "calculation": "QF_P_Calc",
+    "T_unit": "C",
+    "P_unit": "MPa"
+  },
+  "paths": {
+    "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/prep/kcp109c_norm_prepared/prepared/prepared_mc.csv",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/runs/kcp109c_norm_parity_run/runs/20260225_190830/melts_input.csv",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/runs/kcp109c_norm_parity_run/runs/20260225_190830/run_manifest.csv",
+    "helper_dir": "/Users/lopezama/Downloads"
+  },
+  "results": [
+    {
+      "label": "KCP109C",
+      "error": "[Errno 1] Operation not permitted",
+      "runtime_log_version": "rmp_runtime_v1",
+      "melts_calc_time": null,
+      "pressure_calc_time": null,
+      "workbook_build_time": null
+    }
+  ],
+  "manifest_preview": [
+    {
+      "dataset_name": "kcp109c_norm_parity_run",
+      "sample_label": "KCP109C",
+      "status": "error",
+      "excel_path": "",
+      "helper_filename": "",
+      "num_pressure_steps": null,
+      "num_data_points": null,
+      "P_QF": null,
+      "P_Q2F": null,
+      "melts_calc_time_s": null,
+      "pressure_calc_time_s": null,
+      "workbook_build_time_s": null,
+      "runtime_log_version": "rmp_runtime_v1",
+      "pressure_residual_threshold_C": 10.0,
+      "P_2phase_qtz_fsp_MPa": null,
+      "Rmin_2phase_qtz_fsp_C": null,
+      "fit_a_2phase": null,
+      "fit_b_2phase": null,
+      "fit_c_2phase": null,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null,
+      "pressure_calc_method": null,
+      "pressure_calc_error": null,
+      "phase_sheet_quartz_present": null,
+      "phase_sheet_feldspar_present": null,
+      "phase_sheet_feldspar_1_present": null,
+      "total_time_s": null,
+      "calc_time_s": null,
+      "error": "[Errno 1] Operation not permitted",
+      "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/runs/kcp109c_norm_parity_run/runs/20260225_190830",
+      "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit/2026-02-26/kcp109c_parity_audit_20260225_190830/runs/kcp109c_norm_parity_run/runs/20260225_190830/melts_input.csv"
+    }
+  ]
+}
