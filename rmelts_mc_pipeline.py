@@ -225,6 +225,7 @@ class GeobarometryBasisResult:
 class _HelperPatchProfile:
     name: str
     fix_liquidus_timeout_loop: bool = False
+    reset_liquidus_solver_after_none: bool = False
     wrap_main_execute_with_timeout: bool = False
     skip_wet_liquidus_presearch: bool = False
     timeout_path_advances_temperature: bool = False
@@ -255,9 +256,14 @@ _HELPER_PATCH_PROFILES: dict[str, _HelperPatchProfile] = {
         skip_wet_liquidus_presearch=True,
         timeout_path_advances_temperature=True,
     ),
+    "profile_g_production_liquidus_reset": _HelperPatchProfile(
+        name="profile_g_production_liquidus_reset",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+    ),
 }
 
-_DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_e_current_full_patch"
+_DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_g_production_liquidus_reset"
 
 
 class RMeltsPipelineError(RuntimeError):
@@ -279,6 +285,13 @@ def _require_pandas() -> Any:
 
 def _require_openpyxl() -> Any:
     return _require_dependency("openpyxl")
+
+
+def _try_import_psutil() -> Optional[Any]:
+    try:
+        return __import__("psutil")
+    except Exception:
+        return None
 
 
 def _now_run_id() -> str:
@@ -367,6 +380,11 @@ def _coerce_numeric(value: Any) -> Optional[float]:
     return None
 
 
+def _nan_to_zero(value: Any) -> float:
+    f = _safe_float(value)
+    return 0.0 if f is None else float(f)
+
+
 def _normalize_alias_map(oxide_alias_map: Optional[dict[str, str]]) -> dict[str, str]:
     alias_map = dict(oxide_alias_map or {})
     normalized: dict[str, str] = {}
@@ -417,6 +435,13 @@ def _fe_split_from_feot_as_feo(feot_wt: float, fe3fet: float) -> tuple[float, fl
     return feo_wt, fe2o3_wt
 
 
+def _feot_as_feo_from_fe_speciation(feo_wt: float, fe2o3_wt: float) -> float:
+    """
+    Convert FeO + Fe2O3 wt% to FeOt wt% expressed as FeO-equivalent.
+    """
+    return float(feo_wt) + float(fe2o3_wt) * ((2.0 * M_FEO) / M_FE2O3)
+
+
 def _json_safe(value: Any) -> Any:
     if isinstance(value, (str, int, float, bool)) or value is None:
         return value
@@ -441,6 +466,151 @@ def _pushd(path: Path):
         yield
     finally:
         os.chdir(prev)
+
+
+def _snapshot_descendant_processes() -> dict[str, Any]:
+    """
+    Capture the current process descendants (recursive) so we can clean up any
+    MELTS worker processes left behind after helper execution.
+    """
+    snapshot: dict[str, Any] = {
+        "parent_pid": os.getpid(),
+        "psutil_available": False,
+        "descendant_pids": [],
+        "warnings": [],
+    }
+    psutil = _try_import_psutil()
+    if psutil is None:
+        snapshot["warnings"].append("psutil unavailable; descendant snapshot skipped")
+        return snapshot
+    snapshot["psutil_available"] = True
+    try:
+        parent = psutil.Process(int(snapshot["parent_pid"]))
+        children = parent.children(recursive=True)
+        snapshot["descendant_pids"] = sorted(
+            [
+                int(p.pid)
+                for p in children
+                if getattr(p, "pid", None) is not None and int(p.pid) != int(snapshot["parent_pid"])
+            ]
+        )
+    except Exception as exc:
+        snapshot["warnings"].append(f"descendant snapshot failed: {exc}")
+    return snapshot
+
+
+def _cleanup_descendant_processes(
+    before_snapshot: Optional[dict[str, Any]],
+    *,
+    grace_timeout_s: float = 2.0,
+) -> dict[str, Any]:
+    """
+    Best-effort cleanup of leftover descendants created during a helper run.
+
+    This is intentionally scoped to descendants of the current pipeline process
+    to avoid killing unrelated Python jobs (PyCharm, notebooks, etc.).
+    """
+    t0 = time.time()
+    summary: dict[str, Any] = {
+        "cleanup_attempted": True,
+        "cleanup_parent_pid": os.getpid(),
+        "cleanup_psutil_available": False,
+        "cleanup_descendants_before_count": 0,
+        "cleanup_descendants_after_count": 0,
+        "cleanup_descendants_found": 0,
+        "cleanup_target_pids": [],
+        "cleanup_terminated_count": 0,
+        "cleanup_killed_count": 0,
+        "cleanup_remaining_count": 0,
+        "cleanup_duration_s": 0.0,
+        "cleanup_warnings": [],
+    }
+    try:
+        before_pids = set()
+        if isinstance(before_snapshot, dict):
+            before_vals = before_snapshot.get("descendant_pids", [])
+            if isinstance(before_vals, (list, tuple, set)):
+                for pid in before_vals:
+                    try:
+                        before_pids.add(int(pid))
+                    except Exception:
+                        continue
+            before_warnings = before_snapshot.get("warnings")
+            if isinstance(before_warnings, list):
+                for w in before_warnings:
+                    summary["cleanup_warnings"].append(str(w))
+        summary["cleanup_descendants_before_count"] = len(before_pids)
+
+        psutil = _try_import_psutil()
+        if psutil is None:
+            summary["cleanup_warnings"].append("psutil unavailable; cleanup skipped")
+            return summary
+        summary["cleanup_psutil_available"] = True
+
+        try:
+            parent = psutil.Process(int(summary["cleanup_parent_pid"]))
+            current_desc = [
+                p
+                for p in parent.children(recursive=True)
+                if getattr(p, "pid", None) is not None and int(p.pid) != int(summary["cleanup_parent_pid"])
+            ]
+        except Exception as exc:
+            summary["cleanup_warnings"].append(f"descendant enumeration failed: {exc}")
+            return summary
+
+        summary["cleanup_descendants_after_count"] = len(current_desc)
+        targets = []
+        for proc in current_desc:
+            try:
+                pid = int(proc.pid)
+            except Exception:
+                continue
+            if pid in before_pids:
+                continue
+            targets.append(proc)
+        summary["cleanup_descendants_found"] = len(targets)
+        summary["cleanup_target_pids"] = sorted(
+            [int(getattr(p, "pid")) for p in targets if getattr(p, "pid", None) is not None]
+        )
+        if not targets:
+            return summary
+
+        for proc in targets:
+            try:
+                proc.terminate()
+            except Exception as exc:
+                pid = getattr(proc, "pid", "unknown")
+                summary["cleanup_warnings"].append(f"terminate failed pid={pid}: {exc}")
+        try:
+            gone, alive = psutil.wait_procs(targets, timeout=float(grace_timeout_s))
+        except Exception as exc:
+            summary["cleanup_warnings"].append(f"wait_procs after terminate failed: {exc}")
+            gone, alive = [], targets
+        summary["cleanup_terminated_count"] = len(gone)
+
+        if alive:
+            for proc in alive:
+                try:
+                    proc.kill()
+                except Exception as exc:
+                    pid = getattr(proc, "pid", "unknown")
+                    summary["cleanup_warnings"].append(f"kill failed pid={pid}: {exc}")
+            try:
+                gone2, alive2 = psutil.wait_procs(alive, timeout=float(grace_timeout_s))
+            except Exception as exc:
+                summary["cleanup_warnings"].append(f"wait_procs after kill failed: {exc}")
+                gone2, alive2 = [], alive
+            summary["cleanup_killed_count"] = len(gone2)
+            summary["cleanup_remaining_count"] = len(alive2)
+            if alive2:
+                alive_pids = [getattr(p, "pid", "unknown") for p in alive2]
+                summary["cleanup_warnings"].append(f"processes still alive after kill: {alive_pids}")
+    except Exception as exc:
+        # Cleanup should never crash the run path.
+        summary["cleanup_warnings"].append(f"unexpected cleanup error: {exc}")
+    finally:
+        summary["cleanup_duration_s"] = max(time.time() - t0, 0.0)
+    return summary
 
 
 def _validate_run_params(params: MELTSRunParams) -> None:
@@ -468,7 +638,8 @@ def _normalize_prepared_dataframe_columns(df: Any) -> Any:
         )
     ordered = df[PREPARED_MC_COLUMNS].copy()
     for oxide in MELTS_OXIDE_ROWS:
-        ordered[oxide] = pd.to_numeric(ordered[oxide], errors="coerce").fillna(0.0)
+        # Preserve empty cells / NaNs for missing optional oxides.
+        ordered[oxide] = pd.to_numeric(ordered[oxide], errors="coerce")
     ordered["sample_label"] = ordered["sample_label"].astype(str)
     return ordered
 
@@ -481,7 +652,7 @@ def MC_to_csv_rMELTS(
     sample_id_col=None,
     fe_total_col="FeOt",
     fe_total_basis="FeOt_as_FeO",
-    fe3fet=0.0,
+    fe3fet=None,
     h2o_col="H2O",
     validate_only=True,
     total_tolerance_wt=0.5,
@@ -492,19 +663,27 @@ def MC_to_csv_rMELTS(
     """
     Prepare a row-wise Monte Carlo CSV into a standardized composition CSV for rhyolite-MELTS input assembly.
 
-    Stage 1 assumptions:
+    Thesis workflow assumptions (enforced):
     - Input is row-wise (one sample per row).
-    - Data are already normalized; this function validates totals and does not renormalize unless validate_only=False.
-    - Total iron is commonly supplied as FeOt (wt% as FeO-equivalent) and split using a batch-wide fe3fet.
+    - Compositions are preserved exactly as supplied (no renormalization in this function).
+    - Missing MELTS oxide rows are left empty/NaN so MELTS can ignore them.
+    - Total iron (FeOt) is only repartitioned to FeO + Fe2O3 when fe3fet is explicitly provided.
     """
     pd = _require_pandas()
 
-    if not (0.0 <= float(fe3fet) <= 1.0):
-        raise ValueError("fe3fet must be between 0 and 1 inclusive")
-    if fe_total_basis != "FeOt_as_FeO":
-        raise NotImplementedError(
-            f"Unsupported fe_total_basis={fe_total_basis!r}. Stage 1 supports 'FeOt_as_FeO'."
+    if validate_only is not True:
+        raise ValueError(
+            "Composition preservation is enforced for this workflow; renormalization is disabled. "
+            "Use validate_only=True."
         )
+    fe3fet_explicit = fe3fet is not None
+    if fe3fet_explicit:
+        if not (0.0 <= float(fe3fet) <= 1.0):
+            raise ValueError("fe3fet must be between 0 and 1 inclusive when explicitly provided")
+        if fe_total_basis != "FeOt_as_FeO":
+            raise NotImplementedError(
+                f"Unsupported fe_total_basis={fe_total_basis!r}. FeOt splitting supports 'FeOt_as_FeO'."
+            )
 
     mc_csv_path = Path(mc_csv_path).expanduser().resolve()
     output_dir = Path(output_dir).expanduser().resolve()
@@ -552,29 +731,58 @@ def MC_to_csv_rMELTS(
         row_warnings: list[str] = []
         missing_required: list[str] = []
 
-        # Start with direct oxides where available.
+        # Start with direct oxides where available. Missing rows are preserved as NaN.
         for oxide in MELTS_OXIDE_ROWS:
             col = resolved_cols.get(oxide)
             val = _coerce_numeric(row[col]) if col is not None else None
-            prepared[oxide] = 0.0 if val is None else float(val)
+            prepared[oxide] = math.nan if val is None else float(val)
 
         # Iron handling priority:
         # 1) If both FeO and Fe2O3 columns exist directly, keep them.
         # 2) Otherwise derive from total iron column if available.
         feo_direct = resolved_cols.get("FeO") is not None
         fe2o3_direct = resolved_cols.get("Fe2O3") is not None
+        fe_split_applied = False
+        fe_input_mode = "unknown"
         feot_original = None
-        if (not (feo_direct and fe2o3_direct)) and fe_total_col_resolved is not None:
+        if feo_direct and fe2o3_direct:
+            # Preserve user-provided FeO/Fe2O3 exactly.
+            fe_input_mode = "direct_fe_speciation_preserved"
+            if fe_total_col_resolved is not None:
+                feot_original = _coerce_numeric(row[fe_total_col_resolved])
+        elif feo_direct ^ fe2o3_direct:
+            # Partial direct Fe speciation is ambiguous; do not overwrite with inferred values.
+            fe_input_mode = "partial_direct_fe_speciation_error"
+            if fe_total_col_resolved is not None:
+                feot_original = _coerce_numeric(row[fe_total_col_resolved])
+            missing_required.append("FeO_and_Fe2O3_both_required_if_direct_Fe_speciation_used")
+            row_warnings.append(
+                "Only one of FeO/Fe2O3 was supplied. Composition-preserving mode requires both, "
+                "or FeOt with an explicit fe3fet."
+            )
+        elif fe_total_col_resolved is not None:
             feot_original = _coerce_numeric(row[fe_total_col_resolved])
-            if feot_original is not None:
+            if feot_original is None:
+                fe_input_mode = "feot_missing_or_non_numeric_error"
+                missing_required.append("FeOt_numeric_or_explicit_FeO_Fe2O3")
+                row_warnings.append(
+                    f"{fe_total_col} missing/non-numeric and no direct FeO/Fe2O3 supplied"
+                )
+            elif fe3fet_explicit:
                 feo_wt, fe2o3_wt = _fe_split_from_feot_as_feo(float(feot_original), float(fe3fet))
                 prepared["FeO"] = feo_wt
                 prepared["Fe2O3"] = fe2o3_wt
+                fe_split_applied = True
+                fe_input_mode = "feot_explicit_split"
             else:
-                row_warnings.append(f"{fe_total_col} missing/non-numeric; FeO/Fe2O3 left from direct columns/zeros")
-        elif fe_total_col_resolved is not None:
-            feot_original = _coerce_numeric(row[fe_total_col_resolved])
-
+                fe_input_mode = "feot_present_no_explicit_split_error"
+                missing_required.append("FeO_and_Fe2O3_or_explicit_fe3fet_for_FeOt")
+                row_warnings.append(
+                    "FeOt supplied without FeO/Fe2O3. Composition-preserving mode does not repartition iron "
+                    "unless fe3fet is explicitly provided."
+                )
+        else:
+            fe_input_mode = "no_fe_inputs_error"
         # Validate essential inputs (FeO/Fe2O3 allowed if both zeros, but required presence is handled above).
         for required in REQUIRED_PRESENT_OR_DERIVABLE:
             col = resolved_cols.get(required)
@@ -584,22 +792,24 @@ def MC_to_csv_rMELTS(
                 missing_required.append("H2O")
 
         if resolved_cols.get("FeO") is None and resolved_cols.get("Fe2O3") is None and fe_total_col_resolved is None:
-            missing_required.extend(["FeO/Fe2O3_or_FeOt"])
+            missing_required.extend(["FeO_and_Fe2O3_or_FeOt"])
 
         # Track totals
-        prepared_total = float(sum(float(prepared.get(oxide, 0.0) or 0.0) for oxide in MELTS_OXIDE_ROWS))
+        prepared_total = float(sum(_nan_to_zero(prepared.get(oxide, math.nan)) for oxide in MELTS_OXIDE_ROWS))
+        feot_implied_from_prepared = _feot_as_feo_from_fe_speciation(
+            _nan_to_zero(prepared.get("FeO", math.nan)),
+            _nan_to_zero(prepared.get("Fe2O3", math.nan)),
+        )
+        feot_delta_vs_original = (
+            None
+            if feot_original is None
+            else float(feot_implied_from_prepared) - float(feot_original)
+        )
         total_warning = abs(prepared_total - 100.0) > float(total_tolerance_wt)
         if total_warning:
             row_warnings.append(
                 f"Prepared oxide total {prepared_total:.4f} wt% outside tolerance ±{total_tolerance_wt} of 100"
             )
-
-        if not validate_only and prepared_total > 0:
-            scale = 100.0 / prepared_total
-            for oxide in MELTS_OXIDE_ROWS:
-                prepared[oxide] = float(prepared[oxide]) * scale
-            prepared_total = 100.0
-            row_warnings.append("Renormalized all MELTS oxide rows to 100 wt% (validate_only=False)")
 
         status = "ok" if not missing_required else "error"
         if status == "error":
@@ -615,10 +825,14 @@ def MC_to_csv_rMELTS(
                 "status": status,
                 "missing_required": ";".join(missing_required),
                 "warnings": " | ".join(row_warnings),
-                "fe3fet": float(fe3fet),
+                "fe_input_mode": fe_input_mode,
+                "fe3fet": None if fe3fet is None else float(fe3fet),
+                "fe_split_applied": bool(fe_split_applied),
                 "FeOt_original": feot_original,
-                "FeO_prepared": prepared.get("FeO", 0.0),
-                "Fe2O3_prepared": prepared.get("Fe2O3", 0.0),
+                "FeOt_implied_from_prepared_as_FeO": feot_implied_from_prepared,
+                "FeOt_delta_vs_original_as_FeO": feot_delta_vs_original,
+                "FeO_prepared": prepared.get("FeO", math.nan),
+                "Fe2O3_prepared": prepared.get("Fe2O3", math.nan),
                 "prepared_total_wt": prepared_total,
             }
         )
@@ -648,6 +862,8 @@ def MC_to_csv_rMELTS(
             k: (v if v is None else str(v)) for k, v in resolved_cols.items()
         },
         "fe_total_col_resolved": None if fe_total_col_resolved is None else str(fe_total_col_resolved),
+        "composition_preserved": True,
+        "fe_split_requires_explicit_fe3fet": True,
     }
 
     return ConversionResult(
@@ -672,11 +888,16 @@ def normalize_aplite_xrf_to_rowwise_mc(
     target_samples=None,
 ):
     """
-    Convert a column-wise aplite XRF table into a row-wise MC-style CSV with dry normalization and fixed H2O.
+    Convert a column-wise aplite XRF table into a row-wise MC-style CSV while preserving source oxide values.
 
     Expected source layout (e.g., Aplites_HAL_XRF_noUncertainty.csv):
     - First column = oxide names (Sample Name)
     - Remaining columns = sample compositions
+
+    Notes for thesis reproducibility:
+    - This helper preserves the source oxide values exactly (no dry renormalization).
+    - H2O is appended explicitly as a separate user-chosen value.
+    - The legacy `dry_normalize_to` parameter is retained for API compatibility but is not applied.
     """
     pd = _require_pandas()
 
@@ -735,17 +956,13 @@ def normalize_aplite_xrf_to_rowwise_mc(
         rowwise[col] = pd.to_numeric(rowwise[col], errors="coerce")
 
     rowwise["dry_total_original"] = rowwise[dry_cols].sum(axis=1)
-    valid_total_mask = rowwise["dry_total_original"] > 0
-    if not valid_total_mask.any():
+    if not (rowwise["dry_total_original"] > 0).any():
         raise RMeltsPipelineError("All dry totals are <= 0 after transposing aplite XRF table")
-    scale = (float(dry_normalize_to) / rowwise["dry_total_original"]).where(valid_total_mask)
-    for col in dry_cols:
-        rowwise[col] = rowwise[col] * scale
-    rowwise["dry_total_normalized"] = rowwise[dry_cols].sum(axis=1)
+    rowwise["dry_total_preserved"] = rowwise["dry_total_original"]
     rowwise["H2O"] = float(fixed_h2o_wt)
 
     sample_labels = rowwise["SampleID"].astype(str).tolist()
-    all_name = f"{xrf_csv_path.stem}_drynorm_rowwise_H2O{str(fixed_h2o_wt).replace('.', 'p')}.csv"
+    all_name = f"{xrf_csv_path.stem}_rowwise_preserved_H2O{str(fixed_h2o_wt).replace('.', 'p')}.csv"
     all_path = norm_dir / all_name
     rowwise.to_csv(all_path, index=False)
 
@@ -758,9 +975,9 @@ def normalize_aplite_xrf_to_rowwise_mc(
         if target_df.empty:
             raise RMeltsPipelineError(f"None of target_samples found in aplite row-wise table: {target_list}")
         if len(target_df) == 1:
-            target_name = f"{target_df.iloc[0]['SampleID']}_drynorm_one_row.csv"
+            target_name = f"{target_df.iloc[0]['SampleID']}_preserved_one_row.csv"
         else:
-            target_name = f"{dataset_name}_targets_drynorm_rowwise.csv"
+            target_name = f"{dataset_name}_targets_preserved_rowwise.csv"
         target_path = norm_dir / target_name
         target_df.to_csv(target_path, index=False)
 
@@ -770,7 +987,9 @@ def normalize_aplite_xrf_to_rowwise_mc(
         "required_rows": [str(r) for r in required_rows],
         "fe_total_row": str(fe_total_row),
         "fixed_h2o_wt": float(fixed_h2o_wt),
-        "dry_normalize_to": float(dry_normalize_to),
+        "composition_preserved": True,
+        "dry_normalize_to_requested": float(dry_normalize_to),
+        "dry_normalization_applied": False,
         "num_samples": int(len(rowwise)),
         "target_samples": None if target_list is None else target_list,
     }
@@ -857,6 +1076,112 @@ def _patch_helper_source_text_for_spawn_safety(
     """
     profile = _resolve_helper_patch_profile(patch_profile)
 
+    if profile.reset_liquidus_solver_after_none:
+        # Production hardening: if liquidus-search equilibrium calls fail/return None,
+        # rebuild the thermoengine Equilibrate object before continuing or returning.
+        # This targets the state-history-dependent internal matrix/projection mismatch
+        # diagnosed in thermoengine._compute_a_and_qr (A @ P_nz).
+        inject_after = "    dbg = 0\n"
+        helper_fn = (
+            "    def _rmelts_reset_equil():\n"
+            "        nonlocal equil, state\n"
+            "        try:\n"
+            "            equil = equilibrate.Equilibrate(equil.element_list, equil.phase_list)\n"
+            "        except Exception as _rmelts_reset_exc:\n"
+            "            logging.warning(f\"Liquidus solver reset failed at T={current_T}°C, P={P} MPa: {_rmelts_reset_exc}\")\n"
+            "        state = None\n"
+        )
+        if inject_after in source_text and "_rmelts_reset_equil" not in source_text:
+            source_text = source_text.replace(inject_after, inject_after + helper_fn, 1)
+
+        # Initial liquidus midpoint failure -> reset before fallback return.
+        old_initial_none = (
+            "        if state is None:\n"
+            "            logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "            return T1  # Return fallback temperature\n"
+        )
+        new_initial_none = (
+            "        if state is None:\n"
+            "            logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "            _rmelts_reset_equil()\n"
+            "            return T1  # Return fallback temperature\n"
+        )
+        if old_initial_none in source_text:
+            source_text = source_text.replace(old_initial_none, new_initial_none, 1)
+
+        # Initial probe failure -> reset before fallback return.
+        old_initial_probe_none = (
+            "            if state is None:\n"
+            "                logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "                return T1  # Return fallback temperature\n"
+        )
+        new_initial_probe_none = (
+            "            if state is None:\n"
+            "                logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "                _rmelts_reset_equil()\n"
+            "                return T1  # Return fallback temperature\n"
+        )
+        if old_initial_probe_none in source_text:
+            source_text = source_text.replace(old_initial_probe_none, new_initial_probe_none, 1)
+
+        # Probe failure in main liquidus loop -> reset before fallback return.
+        old_loop_probe_none = (
+            "                if state is None:\n"
+            "                    logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "                    return T1  # Return fallback temperature\n"
+        )
+        new_loop_probe_none = (
+            "                if state is None:\n"
+            "                    logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+            "                    _rmelts_reset_equil()\n"
+            "                    return T1  # Return fallback temperature\n"
+        )
+        if old_loop_probe_none in source_text:
+            source_text = source_text.replace(old_loop_probe_none, new_loop_probe_none, 1)
+
+        # Generic liquidus-search exceptions -> reset before fallback return.
+        old_initial_except = (
+            "    except Exception as e:\n"
+            "        logging.error(f\"Initial calculation error: {e}\")\n"
+            "        return T1\n"
+        )
+        new_initial_except = (
+            "    except Exception as e:\n"
+            "        logging.error(f\"Initial calculation error: {e}\")\n"
+            "        _rmelts_reset_equil()\n"
+            "        return T1\n"
+        )
+        if old_initial_except in source_text:
+            source_text = source_text.replace(old_initial_except, new_initial_except, 1)
+
+        old_probe_except = (
+            "        except Exception as e:\n"
+            "            logging.error(f\"Initial calculation error: {e}\")\n"
+            "            return T1\n"
+        )
+        new_probe_except = (
+            "        except Exception as e:\n"
+            "            logging.error(f\"Initial calculation error: {e}\")\n"
+            "            _rmelts_reset_equil()\n"
+            "            return T1\n"
+        )
+        if old_probe_except in source_text:
+            source_text = source_text.replace(old_probe_except, new_probe_except, 1)
+
+        old_loop_except = (
+            "        except Exception as e:\n"
+            "            print(e)\n"
+            "            return T1\n"
+        )
+        new_loop_except = (
+            "        except Exception as e:\n"
+            "            print(e)\n"
+            "            _rmelts_reset_equil()\n"
+            "            return T1\n"
+        )
+        if old_loop_except in source_text:
+            source_text = source_text.replace(old_loop_except, new_loop_except, 1)
+
     if profile.fix_liquidus_timeout_loop:
         # 1) find_wet_liquidus timeout branch can loop forever because i is not
         # incremented on repeated timeouts and current_T can march upward forever.
@@ -864,7 +1189,13 @@ def _patch_helper_source_text_for_spawn_safety(
             "                current_T = current_T+25  # continue with higher temperature\n"
             "                continue\n"
         )
+        reset_lines = ""
+        if profile.reset_liquidus_solver_after_none:
+            reset_lines = (
+                "                _rmelts_reset_equil()\n"
+            )
         new = (
+            f"{reset_lines}"
             "                current_T = min(T1, current_T+25)  # continue with higher temperature (bounded)\n"
             "                i = i + 1  # avoid infinite loop on repeated timeout states\n"
             "                continue\n"
@@ -1635,20 +1966,12 @@ def rMELTS_run(
     results: list[dict[str, Any]] = []
     backend_used = str(backend)
     backend_error: Optional[str] = None
+    cleanup_before_snapshot = _snapshot_descendant_processes()
+    cleanup_summary: dict[str, Any] = {}
 
     try:
-        if backend == "import":
-            results = _run_helper_import_backend(
-                helper_dir=helper_dir,
-                melts_input_csv_path=melts_input_csv_path,
-                run_dir=run_dir,
-                max_composition_workers=int(max_composition_workers),
-                max_pressure_workers=int(max_pressure_workers),
-                verbose=bool(verbose),
-                pressure_residual_threshold_C=float(pressure_residual_threshold_C),
-            )
-        elif backend == "cli_fallback":
-            try:
+        try:
+            if backend == "import":
                 results = _run_helper_import_backend(
                     helper_dir=helper_dir,
                     melts_input_csv_path=melts_input_csv_path,
@@ -1658,24 +1981,37 @@ def rMELTS_run(
                     verbose=bool(verbose),
                     pressure_residual_threshold_C=float(pressure_residual_threshold_C),
                 )
-                backend_used = "import"
-            except Exception as exc:
-                backend_error = f"Import backend failed, falling back to CLI: {exc}"
-                results = _run_helper_cli_backend(
-                    helper_dir=helper_dir,
-                    melts_input_csv_path=melts_input_csv_path,
-                    run_dir=run_dir,
-                    max_composition_workers=int(max_composition_workers),
-                    max_pressure_workers=int(max_pressure_workers),
-                    verbose=bool(verbose),
-                )
-                backend_used = "cli"
-        else:
-            raise ValueError("backend must be 'import' or 'cli_fallback'")
-    except Exception as exc:
-        # Total backend failure: emit an all-error manifest.
-        backend_error = str(exc)
-        results = [{"label": label, "error": str(exc)} for label in expected_labels]
+            elif backend == "cli_fallback":
+                try:
+                    results = _run_helper_import_backend(
+                        helper_dir=helper_dir,
+                        melts_input_csv_path=melts_input_csv_path,
+                        run_dir=run_dir,
+                        max_composition_workers=int(max_composition_workers),
+                        max_pressure_workers=int(max_pressure_workers),
+                        verbose=bool(verbose),
+                        pressure_residual_threshold_C=float(pressure_residual_threshold_C),
+                    )
+                    backend_used = "import"
+                except Exception as exc:
+                    backend_error = f"Import backend failed, falling back to CLI: {exc}"
+                    results = _run_helper_cli_backend(
+                        helper_dir=helper_dir,
+                        melts_input_csv_path=melts_input_csv_path,
+                        run_dir=run_dir,
+                        max_composition_workers=int(max_composition_workers),
+                        max_pressure_workers=int(max_pressure_workers),
+                        verbose=bool(verbose),
+                    )
+                    backend_used = "cli"
+            else:
+                raise ValueError("backend must be 'import' or 'cli_fallback'")
+        except Exception as exc:
+            # Total backend failure: emit an all-error manifest.
+            backend_error = str(exc)
+            results = [{"label": label, "error": str(exc)} for label in expected_labels]
+    finally:
+        cleanup_summary = _cleanup_descendant_processes(cleanup_before_snapshot)
 
     elapsed = time.time() - start
 
@@ -1713,6 +2049,18 @@ def rMELTS_run(
             )
         )
 
+    print(
+        "cleanup attempted={attempted} found={found} terminated={terminated} killed={killed} "
+        "remaining={remaining} duration_s={duration}".format(
+            attempted=cleanup_summary.get("cleanup_attempted"),
+            found=cleanup_summary.get("cleanup_descendants_found"),
+            terminated=cleanup_summary.get("cleanup_terminated_count"),
+            killed=cleanup_summary.get("cleanup_killed_count"),
+            remaining=cleanup_summary.get("cleanup_remaining_count"),
+            duration=cleanup_summary.get("cleanup_duration_s"),
+        )
+    )
+
     summary = {
         "dataset_name": dataset_name,
         "num_samples": int(len(expected_labels)),
@@ -1723,6 +2071,8 @@ def rMELTS_run(
         "backend_requested": str(backend),
         "backend_used": backend_used,
         "backend_error": backend_error,
+        "helper_patch_profile": _resolve_helper_patch_profile().name,
+        "process_cleanup": _json_safe(cleanup_summary),
         "run_dir": str(run_dir),
     }
 
@@ -1737,6 +2087,7 @@ def rMELTS_run(
         },
         "results": _json_safe(results),
         "manifest_preview": _json_safe(manifest_df.to_dict(orient="records")),
+        "cleanup": _json_safe(cleanup_summary),
     }
     metadata_json_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 

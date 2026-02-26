@@ -1,0 +1,35 @@
+[
+  {
+    "pressure_mpa": 50.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "success",
+    "liquidus_temp_c": 949.0,
+    "elapsed_s": 1.5202350616455078,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 75.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.29674506187438965,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 100.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.2928750514984131,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  }
+]

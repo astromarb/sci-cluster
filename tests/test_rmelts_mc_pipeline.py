@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -90,6 +91,143 @@ def test_mc_to_csv_rmelts_converts_and_splits_iron(tmp_path):
     assert row0["Fe2O3"] == pytest.approx(fe2o3_expected, rel=1e-12)
     assert "FeOt_original" in qc.columns
     assert set(prepared.columns) == set(rmp.PREPARED_MC_COLUMNS)
+
+
+def test_mc_to_csv_rmelts_refuses_implicit_feot_repartition(tmp_path):
+    mc_df = pd.DataFrame(
+        [
+            {
+                "SampleID": "s1",
+                "SiO2": 75.0,
+                "TiO2": 0.05,
+                "Al2O3": 13.0,
+                "FeOt": 1.0,
+                "MnO": 0.03,
+                "MgO": 0.08,
+                "CaO": 0.6,
+                "Na2O": 4.2,
+                "K2O": 4.0,
+                "P2O5": 0.01,
+                "H2O": 2.0,
+            }
+        ]
+    )
+    mc_path = tmp_path / "mc.csv"
+    mc_df.to_csv(mc_path, index=False)
+
+    with pytest.raises(rmp.RMeltsPipelineError):
+        rmp.MC_to_csv_rMELTS(
+            mc_path,
+            output_dir=tmp_path,
+            dataset_name="preserve_fe",
+            sample_id_col="SampleID",
+        )
+
+
+def test_mc_to_csv_rmelts_preserves_direct_fe_speciation_without_fe_split(tmp_path):
+    mc_df = pd.DataFrame(
+        [
+            {
+                "SampleID": "s1",
+                "SiO2": 75.0,
+                "TiO2": 0.05,
+                "Al2O3": 13.0,
+                "FeOt": 0.66,  # traceability only; should not override direct Fe species
+                "FeO": 0.49,
+                "Fe2O3": 0.18,
+                "MnO": 0.03,
+                "MgO": 0.08,
+                "CaO": 0.6,
+                "Na2O": 4.2,
+                "K2O": 4.0,
+                "P2O5": 0.01,
+                "H2O": 2.0,
+            }
+        ]
+    )
+    mc_path = tmp_path / "mc.csv"
+    mc_df.to_csv(mc_path, index=False)
+
+    result = rmp.MC_to_csv_rMELTS(
+        mc_path,
+        output_dir=tmp_path,
+        dataset_name="preserve_direct_fe",
+        sample_id_col="SampleID",
+    )
+    prepared = pd.read_csv(result.prepared_mc_csv_path)
+    qc = pd.read_csv(result.qc_report_csv_path)
+    assert prepared.loc[0, "FeO"] == pytest.approx(0.49)
+    assert prepared.loc[0, "Fe2O3"] == pytest.approx(0.18)
+    assert bool(qc.loc[0, "fe_split_applied"]) is False
+    assert qc.loc[0, "FeOt_original"] == pytest.approx(0.66)
+
+
+def test_mc_to_csv_rmelts_leaves_missing_optional_oxides_as_nan(tmp_path):
+    mc_df = pd.DataFrame(
+        [
+            {
+                "SampleID": "s1",
+                "SiO2": 75.0,
+                "TiO2": 0.05,
+                "Al2O3": 13.0,
+                "FeO": 0.49,
+                "Fe2O3": 0.18,
+                "MnO": 0.03,
+                "MgO": 0.08,
+                "CaO": 0.6,
+                "Na2O": 4.2,
+                "K2O": 4.0,
+                "P2O5": 0.01,
+                "H2O": 2.0,
+                # intentionally omit Cr2O3 / NiO / CoO / CO2 / SO3 / halogens
+            }
+        ]
+    )
+    mc_path = tmp_path / "mc.csv"
+    mc_df.to_csv(mc_path, index=False)
+
+    result = rmp.MC_to_csv_rMELTS(
+        mc_path,
+        output_dir=tmp_path,
+        dataset_name="missing_optional_nan",
+        sample_id_col="SampleID",
+    )
+    prepared = pd.read_csv(result.prepared_mc_csv_path)
+    assert pd.isna(prepared.loc[0, "Cr2O3"])
+    assert pd.isna(prepared.loc[0, "NiO"])
+    assert pd.isna(prepared.loc[0, "CoO"])
+
+    params = rmp.MELTSRunParams(
+        T1=1100, T2=700, dT=1, P1=400, P2=200, dP=25,
+        fO2_constraint="TRUE", fO2_buffer="NNO", fO2_offset=0.0
+    )
+    wide = rmp._build_melts_input_wide_dataframe(prepared, params)
+    assert pd.isna(wide.loc["Cr2O3", "s1"])
+
+
+def test_mc_to_csv_rmelts_rejects_renormalization_mode(tmp_path):
+    mc_df = pd.DataFrame(
+        [
+            {
+                "SiO2": 75.0,
+                "TiO2": 0.05,
+                "Al2O3": 13.0,
+                "FeO": 0.49,
+                "Fe2O3": 0.18,
+                "MnO": 0.03,
+                "MgO": 0.08,
+                "CaO": 0.6,
+                "Na2O": 4.2,
+                "K2O": 4.0,
+                "P2O5": 0.01,
+                "H2O": 2.0,
+            }
+        ]
+    )
+    mc_path = tmp_path / "mc.csv"
+    mc_df.to_csv(mc_path, index=False)
+    with pytest.raises(ValueError, match="Composition preservation is enforced"):
+        rmp.MC_to_csv_rMELTS(mc_path, output_dir=tmp_path, dataset_name="x", validate_only=False)
 
 
 def test_mc_to_csv_rmelts_fe3fet_bounds(tmp_path):
@@ -328,7 +466,7 @@ def test_geobarometry_basis_fill_nan_missing_phase_policy(tmp_path):
     assert pd.isna(df.loc[0, "T_C"])
 
 
-def test_normalize_aplite_xrf_to_rowwise_mc_transposes_and_dry_normalizes(tmp_path):
+def test_normalize_aplite_xrf_to_rowwise_mc_transposes_and_preserves_values(tmp_path):
     xrf = pd.DataFrame(
         [
             {"Sample Name": "SiO2", "KCP109B": 76.36, "KCP109C": 75.82},
@@ -357,11 +495,15 @@ def test_normalize_aplite_xrf_to_rowwise_mc_transposes_and_dry_normalizes(tmp_pa
     one_df = pd.read_csv(result.normalized_target_rowwise_csv_path)
 
     assert result.num_samples == 2
-    assert set(["SampleID", "FeOt", "H2O", "dry_total_original", "dry_total_normalized"]).issubset(all_df.columns)
+    assert set(["SampleID", "FeOt", "H2O", "dry_total_original", "dry_total_preserved"]).issubset(all_df.columns)
     assert one_df["SampleID"].tolist() == ["KCP109B"]
     assert one_df.iloc[0]["H2O"] == pytest.approx(13.0)
     dry_cols = ["SiO2", "TiO2", "Al2O3", "FeOt", "MnO", "MgO", "CaO", "Na2O", "K2O", "P2O5"]
-    assert one_df.iloc[0][dry_cols].sum() == pytest.approx(100.0, abs=1e-8)
+    # Values are preserved exactly (no in-function renormalization).
+    assert one_df.iloc[0]["SiO2"] == pytest.approx(76.36)
+    assert one_df.iloc[0]["FeOt"] == pytest.approx(0.52)
+    assert one_df.iloc[0][dry_cols].sum() == pytest.approx(one_df.iloc[0]["dry_total_original"], abs=1e-12)
+    assert one_df.iloc[0]["dry_total_preserved"] == pytest.approx(one_df.iloc[0]["dry_total_original"], abs=1e-12)
 
 
 def test_pressure_analysis_parser_accepts_liam_and_pipeline_labels():
@@ -454,12 +596,56 @@ def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_count
         "                calc_time += (t1 - t0)\n"
         "        temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
     )
-    out = rmp._patch_helper_source_text_for_spawn_safety(src)
+    out = rmp._patch_helper_source_text_for_spawn_safety(src, patch_profile="profile_e_current_full_patch")
     assert "i = i + 1" in out
     assert "min(T1, current_T+25)" in out
     assert "safe_equilibrium_execute" in out
     assert "timeout in execute" in out
     assert "skip wet-liquidus pre-search" in out
+
+
+def test_patch_helper_source_text_for_spawn_safety_production_default_resets_liquidus_solver():
+    src = (
+        "def find_wet_liquidus(equil, T1, T2, P, n, composition, fO2_offset, verbose=False):\n"
+        "    current_T = round((T1+T2)/2)\n"
+        "    i = 0\n"
+        "    max_iterations = 50\n"
+        "    timeout = 10\n"
+        "    dbg = 0\n"
+        "    try:\n"
+        "        state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \\n"
+        "                                       bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)\n"
+        "        if state is None:\n"
+        "            logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+        "            return T1  # Return fallback temperature\n"
+        "    except Exception as e:\n"
+        "        logging.error(f\"Initial calculation error: {e}\")\n"
+        "        return T1\n"
+        "    while (T1 > T2) and i < 50:\n"
+        "        try:\n"
+        "            state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \\n"
+        "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)\n"
+        "            if state is None:\n"
+        "                logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+        "                current_T = current_T+25  # continue with higher temperature\n"
+        "                continue\n"
+        "            if(len(phases) > min_phases):\n"
+        "                state = safe_equilibrium_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \\n"
+        "                                         con_deltaNNO=fO2_offset, debug=dbg)\n"
+        "                if state is None:\n"
+        "                    logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+        "                    return T1  # Return fallback temperature\n"
+        "        except Exception as e:\n"
+        "            print(e)\n"
+        "            return T1\n"
+    )
+    out = rmp._patch_helper_source_text_for_spawn_safety(src)
+    assert "_rmelts_reset_equil" in out
+    assert "equilibrate.Equilibrate(equil.element_list, equil.phase_list)" in out
+    assert "min(T1, current_T+25)" in out
+    assert "skip wet-liquidus pre-search" not in out
+    # Production default should not patch run_single_pressure_step main execute timeout wrapper.
+    assert "timeout in execute" not in out
 
 
 def test_safe_float_handles_numeric_and_non_numeric_values():
@@ -634,3 +820,75 @@ def test_rmelts_run_passes_pressure_threshold_to_import_backend(tmp_path, monkey
     )
     assert Path(result.manifest_csv_path).exists()
     assert captured["pressure_residual_threshold_C"] == pytest.approx(10.0)
+
+
+def test_rmelts_run_records_cleanup_summary_in_metadata(tmp_path, monkeypatch):
+    prepared_df = _minimal_prepared_df()
+    prepared_path = tmp_path / "prepared.csv"
+    prepared_df.to_csv(prepared_path, index=False)
+
+    def fake_run_helper_import_backend(**kwargs):
+        return [
+            {
+                "label": "S1",
+                "filename": "",
+                "error": "mock helper fail",
+                "num_pressure_steps": None,
+                "num_data_points": None,
+                "calc_time": 1.0,
+                "total_time": 1.5,
+            }
+        ]
+
+    monkeypatch.setattr(rmp, "_run_helper_import_backend", fake_run_helper_import_backend)
+    monkeypatch.setattr(
+        rmp,
+        "_snapshot_descendant_processes",
+        lambda: {"parent_pid": 123, "psutil_available": True, "descendant_pids": [10], "warnings": []},
+    )
+    monkeypatch.setattr(
+        rmp,
+        "_cleanup_descendant_processes",
+        lambda snapshot: {
+            "cleanup_attempted": True,
+            "cleanup_parent_pid": 123,
+            "cleanup_psutil_available": True,
+            "cleanup_descendants_before_count": 1,
+            "cleanup_descendants_after_count": 3,
+            "cleanup_descendants_found": 2,
+            "cleanup_target_pids": [11, 12],
+            "cleanup_terminated_count": 1,
+            "cleanup_killed_count": 1,
+            "cleanup_remaining_count": 0,
+            "cleanup_duration_s": 0.25,
+            "cleanup_warnings": [],
+        },
+    )
+
+    result = rmp.rMELTS_run(
+        prepared_path,
+        output_dir=tmp_path,
+        dataset_name="cleanup_meta",
+        T1=1100,
+        T2=700,
+        dT=1,
+        P1=400,
+        P2=10,
+        dP=10,
+        fO2_constraint="buffered",
+        fO2_buffer="NNO",
+        fO2_offset=0.0,
+        helper_dir=tmp_path,
+        backend="import",
+        max_composition_workers=1,
+        max_pressure_workers=2,
+        pressure_residual_threshold_C=10.0,
+    )
+
+    assert result.summary["process_cleanup"]["cleanup_descendants_found"] == 2
+    metadata_path = Path(result.run_dir) / "run_metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    assert metadata["cleanup"]["cleanup_attempted"] is True
+    assert metadata["cleanup"]["cleanup_terminated_count"] == 1
+    assert metadata["cleanup"]["cleanup_killed_count"] == 1
+    assert metadata["summary"]["helper_patch_profile"] == "profile_g_production_liquidus_reset"

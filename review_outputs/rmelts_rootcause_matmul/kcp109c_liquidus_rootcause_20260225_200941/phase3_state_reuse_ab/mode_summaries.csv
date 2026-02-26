@@ -1,0 +1,13 @@
+pressure_mpa,mode,outcome,liquidus_temp_c,elapsed_s,iterations_completed,exception_type,exception_message,traceback_text
+50.0,reuse_state,success,1200.0,0.03820610046386719,0,,Initial equilibrium calculation returned None,
+75.0,reuse_state,success,1200.0,0.03659486770629883,0,,Initial equilibrium calculation returned None,
+100.0,reuse_state,success,1200.0,0.03664708137512207,0,,Initial equilibrium calculation returned None,
+50.0,fresh_state_each_iteration,success,1200.0,0.04068708419799805,0,,Initial equilibrium calculation returned None,
+75.0,fresh_state_each_iteration,success,1200.0,0.054780006408691406,0,,Initial equilibrium calculation returned None,
+100.0,fresh_state_each_iteration,success,1200.0,0.0366971492767334,0,,Initial equilibrium calculation returned None,
+50.0,fresh_state_after_exception,success,1200.0,0.03680706024169922,0,,Initial equilibrium calculation returned None,
+75.0,fresh_state_after_exception,success,1200.0,0.03612494468688965,0,,Initial equilibrium calculation returned None,
+100.0,fresh_state_after_exception,success,1200.0,0.03666400909423828,0,,Initial equilibrium calculation returned None,
+50.0,fresh_state_probe_only,success,1200.0,0.03620100021362305,0,,Initial equilibrium calculation returned None,
+75.0,fresh_state_probe_only,success,1200.0,0.036778926849365234,0,,Initial equilibrium calculation returned None,
+100.0,fresh_state_probe_only,success,1200.0,0.03736996650695801,0,,Initial equilibrium calculation returned None,

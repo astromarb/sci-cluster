@@ -1,0 +1,29 @@
+{
+  "phase": 1,
+  "mode": "minimal_liquidus_reproducer",
+  "liam_workbook": "/Users/lopezama/Downloads/Parallel_MELTS_KCP-109C_dP25.0_02-25_8cores.xlsx",
+  "liam_helper": "/Users/lopezama/Downloads/MeltsHelperFunctions.py",
+  "probe_pressures_mpa": [
+    50.0,
+    75.0,
+    100.0
+  ],
+  "num_success": 3,
+  "num_exception": 0,
+  "trace_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_201256/phase1_min_reproducer/trace.csv",
+  "trace_json_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_201256/phase1_min_reproducer/trace.json",
+  "notes_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_201256/workflow_notes.log",
+  "phase3_state_reuse_ab": {
+    "modes": [
+      "reuse_state",
+      "fresh_state_each_iteration",
+      "fresh_state_after_exception",
+      "fresh_state_probe_only"
+    ],
+    "call_traces_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_201256/phase3_state_reuse_ab/call_traces.csv",
+    "mode_summaries_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/kcp109c_liquidus_rootcause_20260225_201256/phase3_state_reuse_ab/mode_summaries.csv",
+    "num_mode_runs": 12,
+    "num_mode_success": 10,
+    "num_mode_exception": 2
+  }
+}

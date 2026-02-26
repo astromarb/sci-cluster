@@ -1,0 +1,4 @@
+pressure_mpa,temperature_range_c,mode,outcome,liquidus_temp_c,elapsed_s,exception_type,exception_message,traceback_text
+50.0,1200->700,liam_find_wet_liquidus_direct,success,949.0,1.391016960144043,,,
+75.0,1200->700,liam_find_wet_liquidus_direct,success,888.0,0.280444860458374,,,
+100.0,1200->700,liam_find_wet_liquidus_direct,success,888.0,0.2806689739227295,,,
