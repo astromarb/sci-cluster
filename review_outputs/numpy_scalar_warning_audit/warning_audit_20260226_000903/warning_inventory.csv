@@ -1,0 +1,4 @@
+run,site,count
+before_minimal,equilibrate.py:2166,5799
+before_minimal,equilibrate.py:3669,5799
+before_minimal,equilibrate.py:3717,5799

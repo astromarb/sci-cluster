@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import csv
 import importlib.util
+import importlib
 import json
 import math
 import os
@@ -227,8 +228,12 @@ class _HelperPatchProfile:
     fix_liquidus_timeout_loop: bool = False
     reset_liquidus_solver_after_none: bool = False
     raw_liquidus_execute_with_reset: bool = False
+    fresh_liquidus_solver_per_iteration: bool = False
+    fresh_liquidus_solver_per_branch: bool = False
     reset_solver_after_liquidus_presearch: bool = False
     wrap_main_execute_with_timeout: bool = False
+    safe_execute_reraise_non_timeout: bool = False
+    main_execute_timeout_s: float = 10.0
     skip_wet_liquidus_presearch: bool = False
     timeout_path_advances_temperature: bool = False
     reset_main_solver_after_timeout: bool = False
@@ -282,9 +287,91 @@ _HELPER_PATCH_PROFILES: dict[str, _HelperPatchProfile] = {
         reset_main_solver_after_timeout=True,
         bound_main_loop_failures=True,
     ),
+    "profile_j_liquidus_fresh_iteration_bounded_main": _HelperPatchProfile(
+        name="profile_j_liquidus_fresh_iteration_bounded_main",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+        raw_liquidus_execute_with_reset=True,
+        fresh_liquidus_solver_per_iteration=True,
+        reset_solver_after_liquidus_presearch=True,
+        wrap_main_execute_with_timeout=True,
+        timeout_path_advances_temperature=True,
+        reset_main_solver_after_timeout=True,
+        bound_main_loop_failures=True,
+    ),
+    "profile_k_liquidus_fresh_branch_bounded_main": _HelperPatchProfile(
+        name="profile_k_liquidus_fresh_branch_bounded_main",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+        raw_liquidus_execute_with_reset=True,
+        fresh_liquidus_solver_per_branch=True,
+        reset_solver_after_liquidus_presearch=True,
+        wrap_main_execute_with_timeout=True,
+        timeout_path_advances_temperature=True,
+        reset_main_solver_after_timeout=True,
+        bound_main_loop_failures=True,
+    ),
+    "profile_l_main_timeout_wrapper_reraise_non_timeout": _HelperPatchProfile(
+        name="profile_l_main_timeout_wrapper_reraise_non_timeout",
+        fix_liquidus_timeout_loop=True,
+        reset_liquidus_solver_after_none=True,
+        raw_liquidus_execute_with_reset=True,
+        fresh_liquidus_solver_per_branch=True,
+        reset_solver_after_liquidus_presearch=True,
+        wrap_main_execute_with_timeout=True,
+        safe_execute_reraise_non_timeout=True,
+        timeout_path_advances_temperature=True,
+        reset_main_solver_after_timeout=True,
+        bound_main_loop_failures=True,
+    ),
 }
 
 _DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_h_production_liquidus_raw_reset"
+
+_HELPER_IMPLEMENTATION_ENV_VAR = "RMELTS_INTERNAL_HELPER_IMPLEMENTATION"
+
+
+@dataclass(frozen=True)
+class _HelperImplementationSpec:
+    name: str
+    source_path: Optional[Path] = None
+    patch_profile: Optional[Any] = None
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parent
+
+
+def _repo_local_liam_clone_helper_path() -> Path:
+    return _repo_root() / "sci_helpers" / "rmelts_liam_clone_helper.py"
+
+
+def _resolve_helper_implementation_spec(implementation: Optional[str] = None) -> _HelperImplementationSpec:
+    impl = implementation
+    if impl is None:
+        impl = os.environ.get(_HELPER_IMPLEMENTATION_ENV_VAR, "").strip() or None
+    if impl is None:
+        return _HelperImplementationSpec(name="default")
+    key = str(impl).strip().lower()
+    if key == "patched_profile_k":
+        return _HelperImplementationSpec(
+            name="patched_profile_k",
+            source_path=None,
+            patch_profile="profile_k_liquidus_fresh_branch_bounded_main",
+        )
+    if key == "liam_clone":
+        clone_path = _repo_local_liam_clone_helper_path()
+        if not clone_path.exists():
+            raise RMeltsPipelineError(f"Repo-local Liam clone helper not found: {clone_path}")
+        # Keep Liam semantics but still inject the spawn bootstrap in the run-local copy.
+        return _HelperImplementationSpec(
+            name="liam_clone",
+            source_path=clone_path,
+            patch_profile="profile_a_unpatched",
+        )
+    raise RMeltsPipelineError(
+        f"Unknown helper implementation '{impl}'. Expected one of: patched_profile_k, liam_clone"
+    )
 
 
 class RMeltsPipelineError(RuntimeError):
@@ -306,6 +393,54 @@ def _require_pandas() -> Any:
 
 def _require_openpyxl() -> Any:
     return _require_dependency("openpyxl")
+
+
+_THERMOENGINE_REDOX_DB_CACHE: Any = None
+
+
+def _require_thermoengine_model() -> Any:
+    try:
+        return importlib.import_module("thermoengine.model")
+    except ImportError as exc:
+        raise RMeltsPipelineError(
+            "Required dependency 'thermoengine' is not installed in this Python environment."
+        ) from exc
+
+
+def _get_thermoengine_redox_db() -> Any:
+    global _THERMOENGINE_REDOX_DB_CACHE
+    if _THERMOENGINE_REDOX_DB_CACHE is None:
+        model_mod = _require_thermoengine_model()
+        _THERMOENGINE_REDOX_DB_CACHE = model_mod.Database()
+    return _THERMOENGINE_REDOX_DB_CACHE
+
+
+def _scalarize_numeric(value: Any) -> Optional[float]:
+    if value is None:
+        return None
+    if hasattr(value, "item"):
+        try:
+            value = value.item()
+        except Exception:
+            pass
+    if hasattr(value, "shape"):
+        try:
+            shape = tuple(value.shape)
+        except Exception:
+            shape = ()
+        if shape not in ((),):
+            try:
+                import numpy as _np  # local import to avoid hard dependency at import-time
+                arr = _np.asarray(value).reshape(-1)
+                if arr.size == 0:
+                    return None
+                value = arr[0].item() if hasattr(arr[0], "item") else arr[0]
+            except Exception:
+                try:
+                    value = list(value)[0]
+                except Exception:
+                    return None
+    return _safe_float(value)
 
 
 def _try_import_psutil() -> Optional[Any]:
@@ -399,6 +534,199 @@ def _coerce_numeric(value: Any) -> Optional[float]:
         except ValueError:
             return None
     return None
+
+
+def _normalize_redox_buffer_name(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    s = str(value).strip()
+    if not s:
+        return None
+    key = s.lower()
+    alias = {
+        "nno": "NNO",
+        "qfm": "QFM",
+        "fmq": "FMQ",
+        "iw": "IW",
+        "hm": "HM",
+        "mh": "MH",
+        "mw": "MW",
+        "wm": "WM",
+        "qif": "QIF",
+        "cco": "CCO",
+        "mmo": "MMO",
+    }
+    return alias.get(key, s.upper())
+
+
+def _redox_buffer_logfO2(T_K: float, P_bar: float, buffer_name: str) -> Optional[float]:
+    db = _get_thermoengine_redox_db()
+    raw = db.redox_buffer(float(T_K), float(P_bar), buffer=str(buffer_name))
+    return _scalarize_numeric(raw)
+
+
+def _extract_init_cond_redox_settings(wb: Any) -> dict[str, Any]:
+    out = {
+        "fO2_buffer": None,
+        "fO2_offset": 0.0,
+        "fO2_value_row_present": False,
+        "fO2_buffer_row_present": False,
+    }
+    sheet_name = None
+    for s in wb.sheetnames:
+        if str(s).strip().lower() == "init_cond":
+            sheet_name = s
+            break
+    if sheet_name is None:
+        return out
+    ws = wb[sheet_name]
+    max_row = min(int(getattr(ws, "max_row", 0) or 0), 80)
+    max_col = min(int(getattr(ws, "max_column", 0) or 0), 20)
+    label_to_value: dict[str, Any] = {}
+    for r in range(1, max_row + 1):
+        row_vals = [ws.cell(row=r, column=c).value for c in range(1, max_col + 1)]
+        norm_vals = [str(v).strip().lower() if isinstance(v, str) else None for v in row_vals]
+        for target in ("fO2 value", "fO2 buffer", "fo2 value", "fo2 buffer", "fo2path"):
+            if target.lower() not in [nv for nv in norm_vals if nv is not None]:
+                continue
+            idx = next(i for i, nv in enumerate(norm_vals) if nv == target.lower())
+            value = None
+            for j in range(idx + 1, len(row_vals)):
+                cand = row_vals[j]
+                if cand is None:
+                    continue
+                if isinstance(cand, str) and cand.strip() == "":
+                    continue
+                value = cand
+                break
+            label_to_value[target.lower()] = value
+    if "fo2 buffer" in label_to_value:
+        out["fO2_buffer"] = _normalize_redox_buffer_name(label_to_value["fo2 buffer"])
+        out["fO2_buffer_row_present"] = True
+    elif "fo2path" in label_to_value:
+        out["fO2_buffer"] = _normalize_redox_buffer_name(label_to_value["fo2path"])
+        out["fO2_buffer_row_present"] = True
+    if "fo2 value" in label_to_value:
+        out["fO2_offset"] = _coerce_numeric(label_to_value["fo2 value"]) or 0.0
+        out["fO2_value_row_present"] = True
+    return out
+
+
+def _sheet_header_col_map(ws: Any) -> dict[str, int]:
+    mapping: dict[str, int] = {}
+    max_col = int(getattr(ws, "max_column", 0) or 0)
+    for c in range(1, max_col + 1):
+        v = ws.cell(row=1, column=c).value
+        if v is None:
+            continue
+        s = str(v).strip()
+        if not s:
+            continue
+        mapping[s.lower()] = c
+    return mapping
+
+
+def _populate_workbook_deltaqfm_columns(wb: Any) -> dict[str, Any]:
+    summary = {
+        "deltaqfm_enriched": False,
+        "deltaqfm_rows_updated": 0,
+        "deltaqfm_sheets_updated": 0,
+        "deltaqfm_error": None,
+        "deltaqfm_buffer": None,
+        "deltaqfm_offset": None,
+        "deltaqfm_skipped_reason": None,
+        "deltaqfm_sheet_details": [],
+    }
+    redox = _extract_init_cond_redox_settings(wb)
+    buffer_name = _normalize_redox_buffer_name(redox.get("fO2_buffer"))
+    offset = _coerce_numeric(redox.get("fO2_offset"))
+    if offset is None:
+        offset = 0.0
+    summary["deltaqfm_buffer"] = buffer_name
+    summary["deltaqfm_offset"] = offset
+    if buffer_name is None:
+        summary["deltaqfm_skipped_reason"] = "No fO2 buffer found in init_cond"
+        return summary
+
+    # Normalize common alias before thermoengine call.
+    if buffer_name == "FMQ":
+        buffer_name = "QFM"
+
+    total_rows = 0
+    sheets_updated = 0
+    for s in wb.sheetnames:
+        s_lower = str(s).strip().lower()
+        if s_lower in {"init_cond", "pressure analysis"}:
+            continue
+        ws = wb[s]
+        headers = _sheet_header_col_map(ws)
+        t_col = headers.get("t (c)")
+        p_col = headers.get("p (mpa)")
+        dqfm_col = headers.get("deltaqfm")
+        if not (t_col and p_col and dqfm_col):
+            continue
+        rows_updated = 0
+        max_row = int(getattr(ws, "max_row", 0) or 0)
+        for r in range(2, max_row + 1):
+            t_c = _coerce_numeric(ws.cell(row=r, column=t_col).value)
+            p_mpa = _coerce_numeric(ws.cell(row=r, column=p_col).value)
+            if t_c is None or p_mpa is None:
+                continue
+            T_K = float(t_c) + 273.15
+            P_bar = float(p_mpa) * 10.0
+            try:
+                logf_buffer = _redox_buffer_logfO2(T_K, P_bar, str(buffer_name))
+                logf_qfm = _redox_buffer_logfO2(T_K, P_bar, "QFM")
+                if logf_buffer is None or logf_qfm is None:
+                    continue
+                delta_qfm = float(logf_buffer) + float(offset) - float(logf_qfm)
+            except Exception as exc:
+                summary["deltaqfm_error"] = str(exc)
+                summary["deltaqfm_skipped_reason"] = "Redox buffer calculation failed"
+                return summary
+            ws.cell(row=r, column=dqfm_col, value=float(delta_qfm))
+            rows_updated += 1
+        if rows_updated > 0:
+            sheets_updated += 1
+            total_rows += rows_updated
+            summary["deltaqfm_sheet_details"].append({"sheet": str(s), "rows_updated": rows_updated})
+    summary["deltaqfm_rows_updated"] = total_rows
+    summary["deltaqfm_sheets_updated"] = sheets_updated
+    summary["deltaqfm_enriched"] = sheets_updated > 0
+    if not summary["deltaqfm_enriched"] and summary["deltaqfm_skipped_reason"] is None:
+        summary["deltaqfm_skipped_reason"] = "No sheets with T/P/deltaQFM headers found"
+    return summary
+
+
+def _enrich_deltaqfm_in_generated_workbooks(run_dir: Path) -> dict[str, Any]:
+    openpyxl = _require_openpyxl()
+    results = {
+        "workbooks_seen": 0,
+        "workbooks_updated": 0,
+        "rows_updated": 0,
+        "workbook_summaries": [],
+        "errors": [],
+    }
+    for excel_path in sorted((run_dir / "parallel-results").glob("**/*.xlsx")):
+        results["workbooks_seen"] += 1
+        try:
+            wb = openpyxl.load_workbook(excel_path)
+            try:
+                summary = _populate_workbook_deltaqfm_columns(wb)
+                if summary.get("deltaqfm_enriched"):
+                    wb.save(excel_path)
+                    results["workbooks_updated"] += 1
+                    results["rows_updated"] += int(summary.get("deltaqfm_rows_updated") or 0)
+                summary["excel_path"] = str(excel_path)
+                results["workbook_summaries"].append(summary)
+            finally:
+                try:
+                    wb.close()
+                except Exception:
+                    pass
+        except Exception as exc:
+            results["errors"].append({"excel_path": str(excel_path), "error": str(exc)})
+    return results
 
 
 def _nan_to_zero(value: Any) -> float:
@@ -1118,29 +1446,60 @@ def _patch_helper_source_text_for_spawn_safety(
         # diagnosed in thermoengine._compute_a_and_qr (A @ P_nz).
         inject_after = "    dbg = 0\n"
         helper_fn = (
+            "    _rmelts_liquidus_bulk_comp = composition\n"
             "    def _rmelts_reset_equil():\n"
             "        nonlocal equil, state\n"
+            "        logging.warning(f\"LIQUIDUS_RESET_BEGIN T={current_T} P={P}\")\n"
             "        try:\n"
             "            equil = equilibrate.Equilibrate(equil.element_list, equil.phase_list)\n"
             "        except Exception as _rmelts_reset_exc:\n"
             "            logging.warning(f\"Liquidus solver reset failed at T={current_T}°C, P={P} MPa: {_rmelts_reset_exc}\")\n"
-            "        state = None\n"
+            "            logging.warning(f\"LIQUIDUS_RESET_RESEED_FAIL T={current_T} P={P} reason=reset_equil_failed\")\n"
+            "            state = None\n"
+            "            return\n"
+            "        try:\n"
+            "            state = equilibrate.EquilState(equil.element_list, equil.phase_list)\n"
+            "            omni_phase = state.omni_phase()\n"
+            "            state.set_phase_comp(omni_phase, _rmelts_liquidus_bulk_comp, input_as_elements=True)\n"
+            "            logging.warning(f\"LIQUIDUS_RESET_RESEED_OK T={current_T} P={P}\")\n"
+            "        except Exception as _rmelts_reseed_exc:\n"
+            "            logging.warning(f\"LIQUIDUS_RESET_RESEED_FAIL T={current_T} P={P} reason={_rmelts_reseed_exc}\")\n"
+            "            state = None\n"
         )
         if inject_after in source_text and "_rmelts_reset_equil" not in source_text:
             source_text = source_text.replace(inject_after, inject_after + helper_fn, 1)
 
         if profile.raw_liquidus_execute_with_reset:
+            per_branch_prelude = ""
+            if profile.fresh_liquidus_solver_per_branch:
+                per_branch_prelude = (
+                    "        _rmelts_reset_equil()\n"
+                    "        state = None\n"
+                    "        if bulk_comp is None:\n"
+                    "            bulk_comp = _rmelts_liquidus_bulk_comp\n"
+                    "            logging.warning(f\"LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK T={round(temp_K-273.15, 2)} P={P}\")\n"
+                    "        else:\n"
+                    "            logging.warning(f\"LIQUIDUS_FRESH_BRANCH_CALL_BULK T={round(temp_K-273.15, 2)} P={P}\")\n"
+                )
             raw_exec_helper = (
                 "    def _rmelts_liquidus_execute(equil_obj, temp_K, pressure_bar, timeout=None, state=None, bulk_comp=None, con_deltaNNO=0, debug=0):\n"
+                f"{per_branch_prelude}"
                 "        try:\n"
                 "            return equil_obj.execute(temp_K, pressure_bar, state=state, bulk_comp=bulk_comp, con_deltaNNO=con_deltaNNO, debug=debug)\n"
                 "        except Exception as _rmelts_exec_exc:\n"
                 "            logging.warning(f\"Liquidus raw execute failed at T={round(temp_K-273.15, 2)}°C, P={P} MPa: {_rmelts_exec_exc}\")\n"
                 "            _rmelts_reset_equil()\n"
                 "            try:\n"
-                "                return equil.execute(temp_K, pressure_bar, state=None, bulk_comp=bulk_comp, con_deltaNNO=con_deltaNNO, debug=debug)\n"
+                "                _rmelts_retry_bulk_comp = bulk_comp\n"
+                "                if _rmelts_retry_bulk_comp is None:\n"
+                "                    _rmelts_retry_bulk_comp = _rmelts_liquidus_bulk_comp\n"
+                "                    logging.warning(f\"LIQUIDUS_RETRY_WITH_CANONICAL_BULK T={round(temp_K-273.15, 2)} P={P}\")\n"
+                "                else:\n"
+                "                    logging.warning(f\"LIQUIDUS_RETRY_WITH_CALL_BULK T={round(temp_K-273.15, 2)} P={P}\")\n"
+                "                return equil.execute(temp_K, pressure_bar, state=None, bulk_comp=_rmelts_retry_bulk_comp, con_deltaNNO=con_deltaNNO, debug=debug)\n"
                 "            except Exception as _rmelts_exec_retry_exc:\n"
                 "                logging.warning(f\"Liquidus raw execute retry failed at T={round(temp_K-273.15, 2)}°C, P={P} MPa: {_rmelts_exec_retry_exc}\")\n"
+                "                logging.warning(f\"LIQUIDUS_RETRY_FAILED T={round(temp_K-273.15, 2)} P={P}\")\n"
                 "                _rmelts_reset_equil()\n"
                 "                return None\n"
             )
@@ -1265,6 +1624,28 @@ def _patch_helper_source_text_for_spawn_safety(
         if old_loop_except in source_text:
             source_text = source_text.replace(old_loop_except, new_loop_except, 1)
 
+    if profile.safe_execute_reraise_non_timeout:
+        safe_exec_except_block_old = (
+            "    except TimeoutError as e:\n"
+            "        logging.warning(f\"Equilibrium calculation timed out: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+            "        return None\n"
+            "        \n"
+            "    except Exception as e:\n"
+            "        logging.warning(f\"Equilibrium calculation failed: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+            "        return None\n"
+        )
+        safe_exec_except_block_new = (
+            "    except TimeoutError as e:\n"
+            "        logging.warning(f\"Equilibrium calculation timed out: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+            "        return None\n"
+            "        \n"
+            "    except Exception as e:\n"
+            "        logging.warning(f\"Equilibrium calculation failed: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+            "        raise\n"
+        )
+        if safe_exec_except_block_old in source_text:
+            source_text = source_text.replace(safe_exec_except_block_old, safe_exec_except_block_new, 1)
+
     if profile.fix_liquidus_timeout_loop:
         # 0) Track immutable physical liquidus-search bounds and restart counters so
         # recovery logic cannot drift to unphysical temperatures.
@@ -1288,6 +1669,14 @@ def _patch_helper_source_text_for_spawn_safety(
             "    while (T1 > T2) and i < 50:\n\n        try:\n",
             "    while (T1 > T2) and i < 50:\n        try:\n",
         ]
+        fresh_iteration_lines = (
+            "        logging.warning(f\"LIQUIDUS_FRESH_ITERATION_RESET T={current_T} P={P}\")\n"
+            "        _rmelts_reset_equil()\n"
+            "        state = None\n"
+            "\n"
+            if profile.fresh_liquidus_solver_per_iteration
+            else ""
+        )
         loop_guard = (
             "    while (T1 > T2) and i < 50:\n"
             "\n"
@@ -1316,6 +1705,7 @@ def _patch_helper_source_text_for_spawn_safety(
             "            i = i + 1\n"
             "            continue\n"
             "\n"
+            f"{fresh_iteration_lines}"
             "        try:\n"
         )
         if "_rmelts_bounds_invalid" not in source_text:
@@ -1392,8 +1782,9 @@ def _patch_helper_source_text_for_spawn_safety(
             "                t1 = time.time()\n"
             "                calc_time += (t1 - t0)\n"
         )
+        timeout_literal = repr(float(profile.main_execute_timeout_s))
         new_exec = (
-            "                state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10,\n"
+            f"                state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout={timeout_literal},\n"
             "                                              bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
             "                if state is None:\n"
             "                    print(f'Error at T={temp}, P={pressure}: timeout in execute')\n"
@@ -1503,13 +1894,14 @@ def _prepare_run_local_helper_copy(
     helper_dir: Path,
     run_dir: Path,
     *,
+    helper_source_path: Optional[Path] = None,
     patch_profile: Optional[Any] = None,
 ) -> Path:
     """
     Create a run-scoped helper copy so multiprocessing spawn workers import the
     patched helper from the run directory without modifying Liam's source file.
     """
-    helper_src = helper_dir / "MeltsHelperFunctions.py"
+    helper_src = Path(helper_source_path).expanduser().resolve() if helper_source_path is not None else (helper_dir / "MeltsHelperFunctions.py")
     if not helper_src.exists():
         raise FileNotFoundError(f"Helper module not found: {helper_src}")
     helper_dst = run_dir / "MeltsHelperFunctions.py"
@@ -1526,17 +1918,25 @@ def _load_helper_module(
     *,
     run_dir: Optional[Path] = None,
     patch_profile: Optional[Any] = None,
+    helper_implementation: Optional[str] = None,
     patch_pressure_calc: bool = True,
 ) -> Any:
-    helper_path = helper_dir / "MeltsHelperFunctions.py"
+    impl_spec = _resolve_helper_implementation_spec(helper_implementation)
+    helper_path = Path(impl_spec.source_path).resolve() if impl_spec.source_path is not None else (helper_dir / "MeltsHelperFunctions.py")
     if not helper_path.exists():
         raise FileNotFoundError(f"Helper module not found: {helper_path}")
 
     import_path = helper_path
+    effective_patch_profile = patch_profile if patch_profile is not None else impl_spec.patch_profile
     if run_dir is not None:
         run_dir = Path(run_dir).expanduser().resolve()
         _ensure_dir(run_dir)
-        import_path = _prepare_run_local_helper_copy(helper_dir, run_dir, patch_profile=patch_profile)
+        import_path = _prepare_run_local_helper_copy(
+            helper_dir,
+            run_dir,
+            helper_source_path=helper_path,
+            patch_profile=effective_patch_profile,
+        )
         run_dir_str = str(run_dir)
         if run_dir_str not in sys.path:
             sys.path.insert(0, run_dir_str)
@@ -1551,6 +1951,7 @@ def _load_helper_module(
     # helper functions defined in this module (e.g., process_single_composition_parallel).
     module_name = "MeltsHelperFunctions"
     helper_dir_str = str(helper_dir)
+    helper_src_dir_str = str(helper_path.parent)
     if run_dir is not None:
         run_dir_str = str(run_dir)
         # Keep the run-local patched helper directory ahead of the original helper
@@ -1558,11 +1959,22 @@ def _load_helper_module(
         if run_dir_str in sys.path:
             sys.path = [p for p in sys.path if p != run_dir_str]
             sys.path.insert(0, run_dir_str)
+        if impl_spec.source_path is not None:
+            if helper_src_dir_str not in sys.path:
+                sys.path.insert(1 if sys.path and sys.path[0] == run_dir_str else 0, helper_src_dir_str)
         if helper_dir_str not in sys.path:
-            sys.path.insert(1 if sys.path and sys.path[0] == run_dir_str else 0, helper_dir_str)
+            insert_at = 2 if (
+                sys.path
+                and sys.path[0] == run_dir_str
+                and impl_spec.source_path is not None
+                and helper_src_dir_str in sys.path
+            ) else (1 if sys.path and sys.path[0] == run_dir_str else 0)
+            sys.path.insert(insert_at, helper_dir_str)
     else:
+        if impl_spec.source_path is not None and helper_src_dir_str not in sys.path:
+            sys.path.insert(0, helper_src_dir_str)
         if helper_dir_str not in sys.path:
-            sys.path.insert(0, helper_dir_str)
+            sys.path.insert(1 if impl_spec.source_path is not None and sys.path and sys.path[0] == helper_src_dir_str else 0, helper_dir_str)
 
     spec = importlib.util.spec_from_file_location(module_name, str(import_path))
     if spec is None or spec.loader is None:
@@ -1918,8 +2330,9 @@ def _run_helper_import_backend(
     max_pressure_workers: int,
     verbose: bool,
     pressure_residual_threshold_C: float = 10.0,
+    helper_implementation: Optional[str] = None,
 ) -> list[dict[str, Any]]:
-    module = _load_helper_module(helper_dir, run_dir=run_dir)
+    module = _load_helper_module(helper_dir, run_dir=run_dir, helper_implementation=helper_implementation)
     try:
         module._rmelts_pressure_residual_threshold_C = float(pressure_residual_threshold_C)
     except Exception:
@@ -2244,8 +2657,11 @@ def rMELTS_run(
     results: list[dict[str, Any]] = []
     backend_used = str(backend)
     backend_error: Optional[str] = None
+    helper_implementation_requested = os.environ.get(_HELPER_IMPLEMENTATION_ENV_VAR, "").strip() or "default"
+    helper_impl_spec = _resolve_helper_implementation_spec(None)
     cleanup_before_snapshot = _snapshot_descendant_processes()
     cleanup_summary: dict[str, Any] = {}
+    deltaqfm_enrichment_summary: dict[str, Any] = {}
 
     try:
         try:
@@ -2258,6 +2674,7 @@ def rMELTS_run(
                     max_pressure_workers=int(max_pressure_workers),
                     verbose=bool(verbose),
                     pressure_residual_threshold_C=float(pressure_residual_threshold_C),
+                    helper_implementation=helper_implementation_requested if helper_implementation_requested != "default" else None,
                 )
             elif backend == "cli_fallback":
                 try:
@@ -2269,6 +2686,7 @@ def rMELTS_run(
                         max_pressure_workers=int(max_pressure_workers),
                         verbose=bool(verbose),
                         pressure_residual_threshold_C=float(pressure_residual_threshold_C),
+                        helper_implementation=helper_implementation_requested if helper_implementation_requested != "default" else None,
                     )
                     backend_used = "import"
                 except Exception as exc:
@@ -2292,6 +2710,11 @@ def rMELTS_run(
         cleanup_summary = _cleanup_descendant_processes(cleanup_before_snapshot)
 
     elapsed = time.time() - start
+
+    try:
+        deltaqfm_enrichment_summary = _enrich_deltaqfm_in_generated_workbooks(run_dir)
+    except Exception as exc:
+        deltaqfm_enrichment_summary = {"error": str(exc)}
 
     manifest_df = _create_manifest_from_results(
         dataset_name=dataset_name,
@@ -2338,6 +2761,21 @@ def rMELTS_run(
             duration=cleanup_summary.get("cleanup_duration_s"),
         )
     )
+    if deltaqfm_enrichment_summary:
+        print(
+            "deltaQFM workbooks_seen={seen} workbooks_updated={updated} rows_updated={rows} errors={errs}".format(
+                seen=deltaqfm_enrichment_summary.get("workbooks_seen"),
+                updated=deltaqfm_enrichment_summary.get("workbooks_updated"),
+                rows=deltaqfm_enrichment_summary.get("rows_updated"),
+                errs=(len(deltaqfm_enrichment_summary.get("errors", [])) if isinstance(deltaqfm_enrichment_summary.get("errors"), list) else None),
+            )
+        )
+
+    helper_patch_profile_effective = (
+        _resolve_helper_patch_profile(helper_impl_spec.patch_profile).name
+        if helper_impl_spec.patch_profile is not None
+        else _resolve_helper_patch_profile().name
+    )
 
     summary = {
         "dataset_name": dataset_name,
@@ -2349,8 +2787,11 @@ def rMELTS_run(
         "backend_requested": str(backend),
         "backend_used": backend_used,
         "backend_error": backend_error,
-        "helper_patch_profile": _resolve_helper_patch_profile().name,
+        "helper_implementation_requested": helper_implementation_requested,
+        "helper_implementation_resolved": helper_impl_spec.name,
+        "helper_patch_profile": helper_patch_profile_effective,
         "process_cleanup": _json_safe(cleanup_summary),
+        "deltaqfm_enrichment": _json_safe(deltaqfm_enrichment_summary),
         "run_dir": str(run_dir),
     }
 
@@ -2362,10 +2803,12 @@ def rMELTS_run(
             "melts_input_csv_path": str(melts_input_csv_path),
             "manifest_csv_path": str(manifest_csv_path),
             "helper_dir": str(helper_dir),
+            "helper_implementation_source_path": (None if helper_impl_spec.source_path is None else str(helper_impl_spec.source_path)),
         },
         "results": _json_safe(results),
         "manifest_preview": _json_safe(manifest_df.to_dict(orient="records")),
         "cleanup": _json_safe(cleanup_summary),
+        "deltaqfm_enrichment": _json_safe(deltaqfm_enrichment_summary),
     }
     metadata_json_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 

@@ -1,0 +1,20 @@
+{
+  "liquidus_probe_values_unchanged": true,
+  "expected_probe_baseline": {
+    "50.0": 949.0,
+    "75.0": 888.0,
+    "100.0": 888.0
+  },
+  "before_probe_values": {
+    "50.0": 903.0,
+    "75.0": 876.0,
+    "100.0": 855.0
+  },
+  "after_probe_values": {
+    "50.0": 903.0,
+    "75.0": 876.0,
+    "100.0": 855.0
+  },
+  "minimal_dep_count_before": 5799,
+  "minimal_dep_count_after": 5799
+}

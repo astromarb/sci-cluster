@@ -1,0 +1,13 @@
+profile,scenario,success,value,matches_expected,elapsed_s,error
+profile_i_prototype_mainloop_bounded_reset,probe_50MPa,True,903.0,False,1.7679710388183594,
+profile_i_prototype_mainloop_bounded_reset,probe_75MPa,True,888.0,True,0.3312399387359619,
+profile_i_prototype_mainloop_bounded_reset,probe_100MPa,True,888.0,True,0.33214306831359863,
+profile_i_prototype_mainloop_bounded_reset,p125_stress,True,81,,12.802670955657959,
+profile_j_liquidus_fresh_iteration_bounded_main,probe_50MPa,True,1200.0,False,0.22603106498718262,
+profile_j_liquidus_fresh_iteration_bounded_main,probe_75MPa,True,1200.0,False,0.2618861198425293,
+profile_j_liquidus_fresh_iteration_bounded_main,probe_100MPa,True,1200.0,False,0.26882314682006836,
+profile_j_liquidus_fresh_iteration_bounded_main,p125_stress,True,330,,23.589833974838257,
+profile_k_liquidus_fresh_branch_bounded_main,probe_50MPa,True,903.0,False,1.939605951309204,
+profile_k_liquidus_fresh_branch_bounded_main,probe_75MPa,True,875.0,False,1.0554330348968506,
+profile_k_liquidus_fresh_branch_bounded_main,probe_100MPa,True,855.0,False,1.0995092391967773,
+profile_k_liquidus_fresh_branch_bounded_main,p125_stress,True,67,,12.659653902053833,

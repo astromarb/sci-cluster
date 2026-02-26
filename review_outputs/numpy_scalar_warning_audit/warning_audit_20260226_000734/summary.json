@@ -1,0 +1,115 @@
+{
+  "equilibrate_file": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py",
+  "original_hash": "31a469b98498b25d4d2441086ef62f37f1a1f684cd4ff7f6bc89ca0fdc389cd2",
+  "patched_hash": "15037c025630689e5162e76d4d4b13e6a11babc1183a90cc604b55f2d3feda29",
+  "restored_hash": "31a469b98498b25d4d2441086ef62f37f1a1f684cd4ff7f6bc89ca0fdc389cd2",
+  "patch_applied": true,
+  "before": {
+    "minimal_direct_equilibrium": {
+      "result": true,
+      "dep_warning_count": 5799,
+      "dep_warning_sites": [
+        "equilibrate.py:2166",
+        "equilibrate.py:3669",
+        "equilibrate.py:3717"
+      ]
+    },
+    "tiny_liquidus_probes": [
+      {
+        "pressure_mpa": 50.0,
+        "liquidus_temp_c": 903.0,
+        "dep_warning_count": 63776,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      },
+      {
+        "pressure_mpa": 75.0,
+        "liquidus_temp_c": 876.0,
+        "dep_warning_count": 165163,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      },
+      {
+        "pressure_mpa": 100.0,
+        "liquidus_temp_c": 855.0,
+        "dep_warning_count": 83188,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      }
+    ]
+  },
+  "after": {
+    "minimal_direct_equilibrium": {
+      "result": true,
+      "dep_warning_count": 5799,
+      "dep_warning_sites": [
+        "equilibrate.py:2166",
+        "equilibrate.py:3669",
+        "equilibrate.py:3717"
+      ]
+    },
+    "tiny_liquidus_probes": [
+      {
+        "pressure_mpa": 50.0,
+        "liquidus_temp_c": 903.0,
+        "dep_warning_count": 63776,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      },
+      {
+        "pressure_mpa": 75.0,
+        "liquidus_temp_c": 876.0,
+        "dep_warning_count": 165163,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      },
+      {
+        "pressure_mpa": 100.0,
+        "liquidus_temp_c": 855.0,
+        "dep_warning_count": 83188,
+        "dep_warning_sites": [
+          "equilibrate.py:2166",
+          "equilibrate.py:3669",
+          "equilibrate.py:3717"
+        ]
+      }
+    ]
+  },
+  "restored": true,
+  "error": null,
+  "before_after_validation": {
+    "liquidus_probe_values_unchanged": true,
+    "expected_probe_baseline": {
+      "50.0": 949.0,
+      "75.0": 888.0,
+      "100.0": 888.0
+    },
+    "before_probe_values": {
+      "50.0": 903.0,
+      "75.0": 876.0,
+      "100.0": 855.0
+    },
+    "after_probe_values": {
+      "50.0": 903.0,
+      "75.0": 876.0,
+      "100.0": 855.0
+    },
+    "minimal_dep_count_before": 5799,
+    "minimal_dep_count_after": 5799
+  }
+}

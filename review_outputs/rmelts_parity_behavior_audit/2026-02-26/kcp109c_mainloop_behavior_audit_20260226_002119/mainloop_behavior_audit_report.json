@@ -1,0 +1,296 @@
+{
+  "status": "ok",
+  "liam_source": "/Users/lopezama/Downloads/MeltsHelperFunctions.py",
+  "profiles": {
+    "profile_k": {
+      "profile": {
+        "name": "profile_k_liquidus_fresh_branch_bounded_main",
+        "fix_liquidus_timeout_loop": true,
+        "reset_liquidus_solver_after_none": true,
+        "raw_liquidus_execute_with_reset": true,
+        "fresh_liquidus_solver_per_iteration": false,
+        "fresh_liquidus_solver_per_branch": true,
+        "reset_solver_after_liquidus_presearch": true,
+        "wrap_main_execute_with_timeout": true,
+        "safe_execute_reraise_non_timeout": false,
+        "main_execute_timeout_s": 10.0,
+        "skip_wet_liquidus_presearch": false,
+        "timeout_path_advances_temperature": true,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": true
+      },
+      "main_loop_flags": {
+        "wrap_main_execute_with_timeout": true,
+        "main_execute_timeout_s": 10.0,
+        "timeout_path_advances_temperature": true,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": true,
+        "contains_timeout_wrapper_main": true,
+        "contains_timeout_advance": true,
+        "contains_bounded_fail_counter": true,
+        "contains_timeout_abort_message": true,
+        "contains_results_append": false
+      },
+      "snippets": [
+        {
+          "pattern": "state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=",
+          "line_no": 1801,
+          "snippet": "1797:             t0 = time.time()\n1798:             try:\n1799:                 # Execute MELTS calculation\n1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 106,
+          "snippet": "102:         # Execute with timeout protection\n103:         state = protected_execute(T, P, **kwargs)\n104:         \n105:         # Validate the result\n106:         if state is None:\n107:             raise RuntimeError(\"Equilibrium calculation returned None\")\n108:             \n109:         return state\n110:         "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 448,
+          "snippet": "444:             logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n445:         state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n446:                                        bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)\n447:         \n448:         if state is None:\n449:             logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n450:             _rmelts_reset_equil()\n451:             return T1  # Return fallback temperature\n452:             "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 473,
+          "snippet": "469:                 logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n470:             state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, timeout=timeout, \n471:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n472:             \n473:             if state is None:\n474:                 logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n475:                 _rmelts_reset_equil()\n476:                 return T1  # Return fallback temperature\n477:                 "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 529,
+          "snippet": "525:                 logging.info(f\"Computing state at T={current_T}\u00b0C, P={P} MPa\")\n526:             state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n527:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n528:             \n529:             if state is None:\n530:                 logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n531:                 _rmelts_reset_equil()\n532:                 _rmelts_liquidus_restart_count = _rmelts_liquidus_restart_count + 1\n533:                 _rmelts_next_T = min(_rmelts_T_upper_bound, current_T+25)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 560,
+          "snippet": "556:             if(len(phases) > min_phases):\n557:                 state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \n558:                                          con_deltaNNO=fO2_offset, debug=dbg)\n559:             \n560:                 if state is None:\n561:                     logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n562:                     _rmelts_reset_equil()\n563:                     return T1  # Return fallback temperature\n564:                 #state = equil.execute(current_T+1+273.15, P*10, state=state, con_deltaNNO=fO2_offset, debug=1)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 1803,
+          "snippet": "1799:                 # Execute MELTS calculation\n1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:\n1806:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1807:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)"
+        },
+        {
+          "pattern": "_rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1",
+          "line_no": 1813,
+          "snippet": "1809:                         state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n1810:                     except Exception as _rmelts_main_reset_exc:\n1811:                         print(f\"Error resetting solver after timeout at P={pressure}: {_rmelts_main_reset_exc}\")\n1812:                         state = None\n1813:                     _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1814:                     if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1815:                         print(f\"Aborting pressure path at P={pressure} after repeated timeout/None returns\")\n1816:                         solidus = True\n1817:                         break"
+        },
+        {
+          "pattern": "_rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1",
+          "line_no": 1934,
+          "snippet": "1930:                     state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n1931:                 except Exception as _rmelts_main_reset_exc:\n1932:                     print(f\"Error resetting solver after main-loop exception at P={pressure}: {_rmelts_main_reset_exc}\")\n1933:                     state = None\n1934:                 _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1935:                 if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1936:                     print(f\"Aborting pressure path at P={pressure} after repeated main-loop errors\")\n1937:                     solidus = True\n1938:                 # Continue to next temperature step"
+        },
+        {
+          "pattern": "Aborting pressure path at P={pressure} after repeated timeout/None returns",
+          "line_no": 1815,
+          "snippet": "1811:                         print(f\"Error resetting solver after timeout at P={pressure}: {_rmelts_main_reset_exc}\")\n1812:                         state = None\n1813:                     _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1814:                     if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1815:                         print(f\"Aborting pressure path at P={pressure} after repeated timeout/None returns\")\n1816:                         solidus = True\n1817:                         break\n1818:                     temp -= delta_T\n1819:                     continue"
+        },
+        {
+          "pattern": "Error at T={temp}, P={pressure}: timeout in execute",
+          "line_no": 1804,
+          "snippet": "1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:\n1806:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1807:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n1808:                         omni_phase = state.omni_phase()"
+        }
+      ]
+    },
+    "profile_k_no_timeout_temp_advance": {
+      "profile": {
+        "name": "tmp_no_tadvance",
+        "fix_liquidus_timeout_loop": true,
+        "reset_liquidus_solver_after_none": true,
+        "raw_liquidus_execute_with_reset": true,
+        "fresh_liquidus_solver_per_iteration": false,
+        "fresh_liquidus_solver_per_branch": true,
+        "reset_solver_after_liquidus_presearch": true,
+        "wrap_main_execute_with_timeout": true,
+        "safe_execute_reraise_non_timeout": false,
+        "main_execute_timeout_s": 10.0,
+        "skip_wet_liquidus_presearch": false,
+        "timeout_path_advances_temperature": false,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": true
+      },
+      "main_loop_flags": {
+        "wrap_main_execute_with_timeout": true,
+        "main_execute_timeout_s": 10.0,
+        "timeout_path_advances_temperature": false,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": true,
+        "contains_timeout_wrapper_main": true,
+        "contains_timeout_advance": false,
+        "contains_bounded_fail_counter": true,
+        "contains_timeout_abort_message": true,
+        "contains_results_append": false
+      },
+      "snippets": [
+        {
+          "pattern": "state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=",
+          "line_no": 1801,
+          "snippet": "1797:             t0 = time.time()\n1798:             try:\n1799:                 # Execute MELTS calculation\n1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 106,
+          "snippet": "102:         # Execute with timeout protection\n103:         state = protected_execute(T, P, **kwargs)\n104:         \n105:         # Validate the result\n106:         if state is None:\n107:             raise RuntimeError(\"Equilibrium calculation returned None\")\n108:             \n109:         return state\n110:         "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 448,
+          "snippet": "444:             logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n445:         state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n446:                                        bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)\n447:         \n448:         if state is None:\n449:             logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n450:             _rmelts_reset_equil()\n451:             return T1  # Return fallback temperature\n452:             "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 473,
+          "snippet": "469:                 logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n470:             state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, timeout=timeout, \n471:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n472:             \n473:             if state is None:\n474:                 logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n475:                 _rmelts_reset_equil()\n476:                 return T1  # Return fallback temperature\n477:                 "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 529,
+          "snippet": "525:                 logging.info(f\"Computing state at T={current_T}\u00b0C, P={P} MPa\")\n526:             state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n527:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n528:             \n529:             if state is None:\n530:                 logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n531:                 _rmelts_reset_equil()\n532:                 _rmelts_liquidus_restart_count = _rmelts_liquidus_restart_count + 1\n533:                 _rmelts_next_T = min(_rmelts_T_upper_bound, current_T+25)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 560,
+          "snippet": "556:             if(len(phases) > min_phases):\n557:                 state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \n558:                                          con_deltaNNO=fO2_offset, debug=dbg)\n559:             \n560:                 if state is None:\n561:                     logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n562:                     _rmelts_reset_equil()\n563:                     return T1  # Return fallback temperature\n564:                 #state = equil.execute(current_T+1+273.15, P*10, state=state, con_deltaNNO=fO2_offset, debug=1)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 1803,
+          "snippet": "1799:                 # Execute MELTS calculation\n1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:\n1806:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1807:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)"
+        },
+        {
+          "pattern": "_rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1",
+          "line_no": 1813,
+          "snippet": "1809:                         state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n1810:                     except Exception as _rmelts_main_reset_exc:\n1811:                         print(f\"Error resetting solver after timeout at P={pressure}: {_rmelts_main_reset_exc}\")\n1812:                         state = None\n1813:                     _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1814:                     if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1815:                         print(f\"Aborting pressure path at P={pressure} after repeated timeout/None returns\")\n1816:                         solidus = True\n1817:                         break"
+        },
+        {
+          "pattern": "_rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1",
+          "line_no": 1933,
+          "snippet": "1929:                     state.set_phase_comp(omni_phase,blk_cmp,input_as_elements=True)\n1930:                 except Exception as _rmelts_main_reset_exc:\n1931:                     print(f\"Error resetting solver after main-loop exception at P={pressure}: {_rmelts_main_reset_exc}\")\n1932:                     state = None\n1933:                 _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1934:                 if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1935:                     print(f\"Aborting pressure path at P={pressure} after repeated main-loop errors\")\n1936:                     solidus = True\n1937:                 # Continue to next temperature step"
+        },
+        {
+          "pattern": "Aborting pressure path at P={pressure} after repeated timeout/None returns",
+          "line_no": 1815,
+          "snippet": "1811:                         print(f\"Error resetting solver after timeout at P={pressure}: {_rmelts_main_reset_exc}\")\n1812:                         state = None\n1813:                     _rmelts_main_consecutive_failures = _rmelts_main_consecutive_failures + 1\n1814:                     if _rmelts_main_consecutive_failures >= _rmelts_main_max_consecutive_failures:\n1815:                         print(f\"Aborting pressure path at P={pressure} after repeated timeout/None returns\")\n1816:                         solidus = True\n1817:                         break\n1818:                     continue\n1819: "
+        },
+        {
+          "pattern": "Error at T={temp}, P={pressure}: timeout in execute",
+          "line_no": 1804,
+          "snippet": "1800: \n1801:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1802:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1803:                 if state is None:\n1804:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1805:                     try:\n1806:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1807:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n1808:                         omni_phase = state.omni_phase()"
+        }
+      ]
+    },
+    "profile_k_no_bound_main_loop_failures": {
+      "profile": {
+        "name": "tmp_no_bound",
+        "fix_liquidus_timeout_loop": true,
+        "reset_liquidus_solver_after_none": true,
+        "raw_liquidus_execute_with_reset": true,
+        "fresh_liquidus_solver_per_iteration": false,
+        "fresh_liquidus_solver_per_branch": true,
+        "reset_solver_after_liquidus_presearch": true,
+        "wrap_main_execute_with_timeout": true,
+        "safe_execute_reraise_non_timeout": false,
+        "main_execute_timeout_s": 10.0,
+        "skip_wet_liquidus_presearch": false,
+        "timeout_path_advances_temperature": true,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": false
+      },
+      "main_loop_flags": {
+        "wrap_main_execute_with_timeout": true,
+        "main_execute_timeout_s": 10.0,
+        "timeout_path_advances_temperature": true,
+        "reset_main_solver_after_timeout": true,
+        "bound_main_loop_failures": false,
+        "contains_timeout_wrapper_main": true,
+        "contains_timeout_advance": true,
+        "contains_bounded_fail_counter": false,
+        "contains_timeout_abort_message": false,
+        "contains_results_append": false
+      },
+      "snippets": [
+        {
+          "pattern": "state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=",
+          "line_no": 1797,
+          "snippet": "1793:             t0 = time.time()\n1794:             try:\n1795:                 # Execute MELTS calculation\n1796: \n1797:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1798:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1799:                 if state is None:\n1800:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1801:                     try:"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 106,
+          "snippet": "102:         # Execute with timeout protection\n103:         state = protected_execute(T, P, **kwargs)\n104:         \n105:         # Validate the result\n106:         if state is None:\n107:             raise RuntimeError(\"Equilibrium calculation returned None\")\n108:             \n109:         return state\n110:         "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 448,
+          "snippet": "444:             logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n445:         state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n446:                                        bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)\n447:         \n448:         if state is None:\n449:             logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n450:             _rmelts_reset_equil()\n451:             return T1  # Return fallback temperature\n452:             "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 473,
+          "snippet": "469:                 logging.info(f\"Computing initial state at T={current_T}\u00b0C, P={P} MPa\")\n470:             state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, timeout=timeout, \n471:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n472:             \n473:             if state is None:\n474:                 logging.error(f\"Initial equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n475:                 _rmelts_reset_equil()\n476:                 return T1  # Return fallback temperature\n477:                 "
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 529,
+          "snippet": "525:                 logging.info(f\"Computing state at T={current_T}\u00b0C, P={P} MPa\")\n526:             state = _rmelts_liquidus_execute(equil, current_T+273.15, P*10, timeout=timeout, \n527:                                         state=state, con_deltaNNO=fO2_offset, debug=dbg)\n528:             \n529:             if state is None:\n530:                 logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n531:                 _rmelts_reset_equil()\n532:                 _rmelts_liquidus_restart_count = _rmelts_liquidus_restart_count + 1\n533:                 _rmelts_next_T = min(_rmelts_T_upper_bound, current_T+25)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 560,
+          "snippet": "556:             if(len(phases) > min_phases):\n557:                 state = _rmelts_liquidus_execute(equil, current_T+1+273.15, P*10, state=state,timeout=timeout, \n558:                                          con_deltaNNO=fO2_offset, debug=dbg)\n559:             \n560:                 if state is None:\n561:                     logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}\u00b0C\")\n562:                     _rmelts_reset_equil()\n563:                     return T1  # Return fallback temperature\n564:                 #state = equil.execute(current_T+1+273.15, P*10, state=state, con_deltaNNO=fO2_offset, debug=1)"
+        },
+        {
+          "pattern": "if state is None:",
+          "line_no": 1799,
+          "snippet": "1795:                 # Execute MELTS calculation\n1796: \n1797:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1798:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1799:                 if state is None:\n1800:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1801:                     try:\n1802:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1803:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)"
+        },
+        {
+          "pattern": "Error at T={temp}, P={pressure}: timeout in execute",
+          "line_no": 1800,
+          "snippet": "1796: \n1797:                 state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10.0,\n1798:                                               bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1799:                 if state is None:\n1800:                     print(f'Error at T={temp}, P={pressure}: timeout in execute')\n1801:                     try:\n1802:                         equil = equilibrate.Equilibrate(elm_sys_local, phs_sys_local)\n1803:                         state = equilibrate.EquilState(equil.element_list,equil.phase_list)\n1804:                         omni_phase = state.omni_phase()"
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "profile_k_vs_profile_k_no_timeout_temp_advance": {
+      "contains_timeout_advance": {
+        "base": true,
+        "variant": false
+      },
+      "timeout_path_advances_temperature": {
+        "base": true,
+        "variant": false
+      }
+    },
+    "profile_k_vs_profile_k_no_bound_main_loop_failures": {
+      "bound_main_loop_failures": {
+        "base": true,
+        "variant": false
+      },
+      "contains_bounded_fail_counter": {
+        "base": true,
+        "variant": false
+      },
+      "contains_timeout_abort_message": {
+        "base": true,
+        "variant": false
+      }
+    }
+  },
+  "liam": {
+    "main_loop_flags": {
+      "uses_safe_execute_wrapper_main": false,
+      "contains_bounded_fail_counter": false
+    },
+    "snippets": [
+      {
+        "pattern": "state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)",
+        "line_no": 1686,
+        "snippet": "1682:             t0 = time.time()\n1683:             try:\n1684:                 # Execute MELTS calculation\n1685: \n1686:                 state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n1687: \n1688:                 t1 = time.time()\n1689:                 calc_time += (t1 - t0)\n1690:                 "
+      },
+      {
+        "pattern": "print(f\"Error at T={temp}, P={pressure}: {e}\")",
+        "line_no": 1791,
+        "snippet": "1787:                 \n1788:                 results_data.append(step_data)\n1789:                 \n1790:             except Exception as e:\n1791:                 print(f\"Error at T={temp}, P={pressure}: {e}\")\n1792:                 # Continue to next temperature step\n1793:                 pass\n1794:             \n1795:             # Move to next temperature"
+      }
+    ]
+  }
+}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -624,6 +625,29 @@ def test_load_helper_module_keeps_run_local_helper_ahead_of_original_for_spawns(
             os.environ["PYTHONPATH"] = old_pythonpath
 
 
+def test_load_helper_module_supports_liam_clone_implementation(tmp_path, monkeypatch):
+    helper_dir = tmp_path / "helper"
+    run_dir = tmp_path / "run"
+    clone_dir = tmp_path / "clone"
+    helper_dir.mkdir()
+    clone_dir.mkdir()
+    (helper_dir / "MeltsHelperFunctions.py").write_text("VALUE = 1\n", encoding="utf-8")
+    clone_path = clone_dir / "rmelts_liam_clone_helper.py"
+    clone_path.write_text("VALUE = 42\n", encoding="utf-8")
+
+    monkeypatch.setattr(rmp, "_repo_local_liam_clone_helper_path", lambda: clone_path)
+
+    module = rmp._load_helper_module(
+        helper_dir,
+        run_dir=run_dir,
+        helper_implementation="liam_clone",
+        patch_pressure_calc=False,
+    )
+    assert module.__name__ == "MeltsHelperFunctions"
+    assert getattr(module, "VALUE") == 42
+    assert (run_dir / "MeltsHelperFunctions.py").exists()
+
+
 def test_patch_helper_source_text_for_spawn_safety_increments_timeout_loop_counter():
     src = (
         "def f():\n"
@@ -684,15 +708,146 @@ def test_patch_helper_source_text_for_spawn_safety_production_default_resets_liq
     assert "_rmelts_helper_dir" in out
     assert "_rmelts_reset_equil" in out
     assert "_rmelts_liquidus_execute" in out
+    assert "_rmelts_liquidus_bulk_comp = composition" in out
     assert "equilibrate.Equilibrate(equil.element_list, equil.phase_list)" in out
+    assert "state.set_phase_comp(omni_phase, _rmelts_liquidus_bulk_comp, input_as_elements=True)" in out
     assert "return equil_obj.execute" in out
     assert "Liquidus raw execute failed" in out
+    assert "LIQUIDUS_RESET_BEGIN" in out
+    assert "LIQUIDUS_RESET_RESEED_OK" in out
+    assert "LIQUIDUS_RESET_RESEED_FAIL" in out
+    assert "LIQUIDUS_RETRY_WITH_CANONICAL_BULK" in out
+    assert "LIQUIDUS_RETRY_WITH_CALL_BULK" in out
+    assert "LIQUIDUS_RETRY_FAILED" in out
+    assert "bulk_comp=_rmelts_retry_bulk_comp" in out
     assert "_rmelts_T_upper_bound = T1" in out
     assert "_rmelts_bounds_invalid" in out
     assert "min(_rmelts_T_upper_bound, current_T+25)" in out
     assert "skip wet-liquidus pre-search" not in out
     # Production default should not patch run_single_pressure_step main execute timeout wrapper.
     assert "timeout in execute" not in out
+
+
+def test_patch_helper_liquidus_retry_after_reset_never_uses_none_bulk_comp():
+    src = (
+        "def find_wet_liquidus(equil, T1, T2, P, n, composition, fO2_offset, verbose=False):\n"
+        "    current_T = round((T1+T2)/2)\n"
+        "    i = 0\n"
+        "    max_iterations = 50\n"
+        "    timeout = 10\n"
+        "    dbg = 0\n"
+        "    state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \\n"
+        "                                       bulk_comp=composition, con_deltaNNO=fO2_offset, debug=dbg)\n"
+    )
+    out = rmp._patch_helper_source_text_for_spawn_safety(src, patch_profile="profile_h_production_liquidus_raw_reset")
+    # Regression guard: retry path must substitute canonical bulk composition if call-site bulk_comp is None.
+    assert "_rmelts_retry_bulk_comp = bulk_comp" in out
+    assert "_rmelts_retry_bulk_comp = _rmelts_liquidus_bulk_comp" in out
+    assert "bulk_comp=_rmelts_retry_bulk_comp" in out
+    assert "bulk_comp=bulk_comp" not in out.split("return equil.execute", 1)[1]
+
+
+def test_patch_helper_fresh_liquidus_profiles_inject_iteration_and_branch_resets():
+    src = (
+        "def find_wet_liquidus(equil, T1, T2, P, n, composition, fO2_offset, verbose=False):\n"
+        "    current_T = round((T1+T2)/2)\n"
+        "    i = 0\n"
+        "    timeout = 10\n"
+        "    dbg = 0\n"
+        "    while (T1 > T2) and i < 50:\n"
+        "        try:\n"
+        "            state = safe_equilibrium_execute(equil, current_T+273.15, P*10, timeout=timeout, \\n"
+        "                                        state=state, con_deltaNNO=fO2_offset, debug=dbg)\n"
+        "            if state is None:\n"
+        "                logging.error(f\"Equilibrium calculation failed or timed out at T={current_T}°C\")\n"
+        "                current_T = current_T+25  # continue with higher temperature\n"
+        "                continue\n"
+        "        except Exception as e:\n"
+        "            print(e)\n"
+        "            return T1\n"
+        "def run_single_pressure_step(args):\n"
+        "    temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
+        "    for step in range(N_runs + 1):\n"
+        "        try:\n"
+        "                state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
+        "\n"
+        "                t1 = time.time()\n"
+        "                calc_time += (t1 - t0)\n"
+        "        except Exception as e:\n"
+        "            print(f\"Error at T={temp}, P={pressure}: {e}\")\n"
+        "            pass\n"
+    )
+    out_j = rmp._patch_helper_source_text_for_spawn_safety(
+        src, patch_profile="profile_j_liquidus_fresh_iteration_bounded_main"
+    )
+    out_k = rmp._patch_helper_source_text_for_spawn_safety(
+        src, patch_profile="profile_k_liquidus_fresh_branch_bounded_main"
+    )
+    assert "LIQUIDUS_FRESH_ITERATION_RESET" in out_j
+    assert "LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK" not in out_j
+    assert "LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK" in out_k
+    assert "LIQUIDUS_FRESH_BRANCH_CALL_BULK" in out_k
+    assert "_rmelts_liquidus_bulk_comp = composition" in out_j
+    assert "_rmelts_liquidus_bulk_comp = composition" in out_k
+
+
+def test_patch_helper_profile_l_reraises_non_timeout_safe_execute_errors():
+    src = (
+        "def safe_equilibrium_execute(equil, T, P, timeout=30, **kwargs):\n"
+        "    try:\n"
+        "        state = protected_execute(T, P, **kwargs)\n"
+        "        if state is None:\n"
+        "            raise RuntimeError(\"Equilibrium calculation returned None\")\n"
+        "        return state\n"
+        "    except TimeoutError as e:\n"
+        "        logging.warning(f\"Equilibrium calculation timed out: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+        "        return None\n"
+        "        \n"
+        "    except Exception as e:\n"
+        "        logging.warning(f\"Equilibrium calculation failed: T={T:.1f}K, P={P:.1f}bar - {str(e)}\")\n"
+        "        return None\n"
+    )
+    out = rmp._patch_helper_source_text_for_spawn_safety(
+        src, patch_profile="profile_l_main_timeout_wrapper_reraise_non_timeout"
+    )
+    assert "except TimeoutError as e:" in out
+    assert "return None" in out
+    assert "except Exception as e:" in out
+    # Non-timeout safe-equilibrium errors should propagate to the main-loop exception path.
+    assert "logging.warning(f\"Equilibrium calculation failed" in out
+    assert "raise" in out.split("except Exception as e:", 1)[1]
+
+
+def test_patch_helper_source_uses_profile_main_execute_timeout():
+    src = (
+        "def safe_equilibrium_execute(equil, T, P, timeout=30, **kwargs):\n"
+        "    pass\n\n"
+        "def find_wet_liquidus(equil, T1, T2, P, step, composition, fO2_offset, dbg):\n"
+        "    timeout = 10\n"
+        "    while (T1 > T2) and i < 50:\n"
+        "        try:\n"
+        "            pass\n"
+        "        except Exception:\n"
+        "            pass\n"
+        "def run_single_pressure_step(args):\n"
+        "    temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
+        "    for step in range(N_runs + 1):\n"
+        "        try:\n"
+        "                state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
+        "\n"
+        "                t1 = time.time()\n"
+        "                calc_time += (t1 - t0)\n"
+        "        except Exception as e:\n"
+        "            print(f\"Error at T={temp}, P={pressure}: {e}\")\n"
+        "            pass\n"
+    )
+    custom = replace(
+        rmp._HELPER_PATCH_PROFILES["profile_k_liquidus_fresh_branch_bounded_main"],
+        name="profile_k_timeout_42_test",
+        main_execute_timeout_s=42.0,
+    )
+    out = rmp._patch_helper_source_text_for_spawn_safety(src, patch_profile=custom)
+    assert "timeout=42.0" in out
 
 
 def test_safe_float_handles_numeric_and_non_numeric_values():
@@ -939,3 +1094,95 @@ def test_rmelts_run_records_cleanup_summary_in_metadata(tmp_path, monkeypatch):
     assert metadata["cleanup"]["cleanup_terminated_count"] == 1
     assert metadata["cleanup"]["cleanup_killed_count"] == 1
     assert metadata["summary"]["helper_patch_profile"] == "profile_h_production_liquidus_raw_reset"
+
+
+def test_rmelts_run_records_internal_helper_implementation_selector(tmp_path, monkeypatch):
+    prepared_df = _minimal_prepared_df()
+    prepared_path = tmp_path / "prepared.csv"
+    prepared_df.to_csv(prepared_path, index=False)
+
+    def fake_run_helper_import_backend(**kwargs):
+        return [
+            {
+                "label": "S1",
+                "filename": "",
+                "error": "mock helper fail",
+                "num_pressure_steps": None,
+                "num_data_points": None,
+                "calc_time": 1.0,
+                "total_time": 1.5,
+            }
+        ]
+
+    monkeypatch.setattr(rmp, "_run_helper_import_backend", fake_run_helper_import_backend)
+    monkeypatch.setenv("RMELTS_INTERNAL_HELPER_IMPLEMENTATION", "patched_profile_k")
+
+    result = rmp.rMELTS_run(
+        prepared_path,
+        output_dir=tmp_path,
+        dataset_name="helper_impl_meta",
+        T1=1100,
+        T2=700,
+        dT=1,
+        P1=400,
+        P2=10,
+        dP=10,
+        fO2_constraint="buffered",
+        fO2_buffer="NNO",
+        fO2_offset=0.0,
+        helper_dir=tmp_path,
+        backend="import",
+        max_composition_workers=1,
+        max_pressure_workers=1,
+    )
+
+    metadata_path = Path(result.run_dir) / "run_metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    assert metadata["summary"]["helper_implementation_requested"] == "patched_profile_k"
+    assert metadata["summary"]["helper_implementation_resolved"] == "patched_profile_k"
+    assert metadata["summary"]["helper_patch_profile"] == "profile_k_liquidus_fresh_branch_bounded_main"
+
+
+def test_populate_workbook_deltaqfm_columns_uses_redox_buffer_and_existing_tabs(monkeypatch):
+    wb = openpyxl.Workbook()
+    init_ws = wb.active
+    init_ws.title = "init_cond"
+    init_ws.cell(row=9, column=4, value="fO2 value")
+    init_ws.cell(row=9, column=5, value=0.5)
+    init_ws.cell(row=10, column=4, value="fO2 buffer")
+    init_ws.cell(row=10, column=5, value="nno")
+
+    qz = wb.create_sheet("quartz")
+    headers = ["Index", "T (C)", "P (MPa)", "deltaQFM", "mass (g)"]
+    for col, h in enumerate(headers, 1):
+        qz.cell(row=1, column=col, value=h)
+    qz.cell(row=2, column=1, value=1)
+    qz.cell(row=2, column=2, value=900.0)
+    qz.cell(row=2, column=3, value=250.0)
+    qz.cell(row=2, column=4, value=0.0)
+    qz.cell(row=2, column=5, value=1.0)
+
+    pa = wb.create_sheet("Pressure Analysis")
+    pa.cell(row=1, column=1, value="Phase System")
+
+    def fake_redox(T_K, P_bar, buffer_name):
+        assert T_K == pytest.approx(1173.15)
+        assert P_bar == pytest.approx(2500.0)
+        if str(buffer_name).upper() == "NNO":
+            return -11.0
+        if str(buffer_name).upper() == "QFM":
+            return -12.0
+        raise AssertionError(f"Unexpected buffer {buffer_name}")
+
+    monkeypatch.setattr(rmp, "_redox_buffer_logfO2", fake_redox)
+
+    sheet_count_before = len(wb.sheetnames)
+    summary = rmp._populate_workbook_deltaqfm_columns(wb)
+    sheet_count_after = len(wb.sheetnames)
+
+    assert sheet_count_after == sheet_count_before
+    assert summary["deltaqfm_enriched"] is True
+    assert summary["deltaqfm_sheets_updated"] == 1
+    assert summary["deltaqfm_rows_updated"] == 1
+    assert summary["deltaqfm_buffer"] == "NNO"
+    assert qz.cell(row=2, column=4).value == pytest.approx(1.5)

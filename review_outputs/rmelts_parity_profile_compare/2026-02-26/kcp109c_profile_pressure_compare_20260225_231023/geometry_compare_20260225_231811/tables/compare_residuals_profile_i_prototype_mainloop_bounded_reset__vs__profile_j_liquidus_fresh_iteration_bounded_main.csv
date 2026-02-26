@@ -1,0 +1,16 @@
+P_MPa,R2_qz_fsp_C_profile_i_prototype_mainloop_bounded_reset,R3_qz_fsp_fsp1_C_profile_i_prototype_mainloop_bounded_reset,R2_qz_fsp_C_profile_j_liquidus_fresh_iteration_bounded_main,R3_qz_fsp_fsp1_C_profile_j_liquidus_fresh_iteration_bounded_main,delta_R2_C,delta_R3_C
+400,11,27,11,27,0,0
+375,4,23,4,23,0,0
+350,2,21,2,21,0,0
+325,7,26,7,26,0,0
+300,12,30,12,30,0,0
+275,17,34,17,34,0,0
+250,22,39,22,39,0,0
+225,27,43,27,43,0,0
+200,32,47,32,47,0,0
+175,37,52,37,52,0,0
+150,41,56,41,56,0,0
+125,45,61,45,61,0,0
+100,50,66,50,66,0,0
+75,53,71,53,71,0,0
+50,53,74,53,74,0,0

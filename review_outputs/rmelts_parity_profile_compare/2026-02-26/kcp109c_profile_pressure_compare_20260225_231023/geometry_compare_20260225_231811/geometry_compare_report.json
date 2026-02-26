@@ -1,0 +1,175 @@
+{
+  "status": "ok",
+  "liam_workbook": "/Users/lopezama/Downloads/Parallel_MELTS_KCP-109C_dP25.0_02-25_8cores.xlsx",
+  "campaign_json": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/profile_pressure_comparison_summary.json",
+  "primary_profile": "profile_k_liquidus_fresh_branch_bounded_main",
+  "liam_vs_profile_k": {
+    "first_appearance_delta_stats": {
+      "delta_quartz_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 12.0,
+        "mean": 7.0
+      },
+      "delta_feldspar_C": {
+        "count": 15,
+        "min": 22.0,
+        "max": 33.0,
+        "mean": 29.533333333333335
+      },
+      "delta_feldspar_1_C": {
+        "count": 15,
+        "min": 3.0,
+        "max": 8.0,
+        "mean": 4.8
+      }
+    },
+    "residual_delta_stats": {
+      "delta_R2_C": {
+        "count": 15,
+        "min": -26.0,
+        "max": 24.0,
+        "mean": 9.066666666666666
+      },
+      "delta_R3_C": {
+        "count": 15,
+        "min": -8.0,
+        "max": 29.0,
+        "mean": 18.0
+      }
+    },
+    "pressure_points_liam": [
+      400.0,
+      375.0,
+      350.0,
+      325.0,
+      300.0,
+      275.0,
+      250.0,
+      225.0,
+      200.0,
+      175.0,
+      150.0,
+      125.0,
+      100.0,
+      75.0,
+      50.0
+    ],
+    "pressure_points_profile_k": [
+      400.0,
+      375.0,
+      350.0,
+      325.0,
+      300.0,
+      275.0,
+      250.0,
+      225.0,
+      200.0,
+      175.0,
+      150.0,
+      125.0,
+      100.0,
+      75.0,
+      50.0
+    ]
+  },
+  "pairwise_profile_diffs": {
+    "profile_i_prototype_mainloop_bounded_reset__vs__profile_j_liquidus_fresh_iteration_bounded_main": {
+      "delta_quartz_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_1_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R2_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R3_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      }
+    },
+    "profile_i_prototype_mainloop_bounded_reset__vs__profile_k_liquidus_fresh_branch_bounded_main": {
+      "delta_quartz_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_1_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R2_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R3_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      }
+    },
+    "profile_j_liquidus_fresh_iteration_bounded_main__vs__profile_k_liquidus_fresh_branch_bounded_main": {
+      "delta_quartz_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_feldspar_1_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R2_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "delta_R3_C": {
+        "count": 15,
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      }
+    }
+  },
+  "tables_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/geometry_compare_20260225_231811/tables"
+}

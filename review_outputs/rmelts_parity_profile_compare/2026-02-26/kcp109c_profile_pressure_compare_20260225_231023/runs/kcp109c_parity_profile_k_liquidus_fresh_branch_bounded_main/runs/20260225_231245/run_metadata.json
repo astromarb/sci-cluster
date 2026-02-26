@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "dataset_name": "kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main",
+    "num_samples": 1,
+    "num_success": 1,
+    "num_error": 0,
+    "elapsed_wall_time_s": 44.583065032958984,
+    "pressure_residual_threshold_C": 10.0,
+    "backend_requested": "import",
+    "backend_used": "import",
+    "backend_error": null,
+    "helper_patch_profile": "profile_k_liquidus_fresh_branch_bounded_main",
+    "process_cleanup": {
+      "cleanup_attempted": true,
+      "cleanup_parent_pid": 21103,
+      "cleanup_psutil_available": true,
+      "cleanup_descendants_before_count": 0,
+      "cleanup_descendants_after_count": 1,
+      "cleanup_descendants_found": 1,
+      "cleanup_target_pids": [
+        21361
+      ],
+      "cleanup_terminated_count": 0,
+      "cleanup_killed_count": 1,
+      "cleanup_remaining_count": 0,
+      "cleanup_duration_s": 2.009489059448242,
+      "cleanup_warnings": []
+    },
+    "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245"
+  },
+  "run_params": {
+    "T1": 1100.0,
+    "T2": 700.0,
+    "dT": 1.0,
+    "P1": 400.0,
+    "P2": 50.0,
+    "dP": 25.0,
+    "fO2_constraint": "TRUE",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "model": "rhyolite-MELTS_v1.0.x",
+    "calculation": "QF_P_Calc",
+    "T_unit": "C",
+    "P_unit": "MPa"
+  },
+  "paths": {
+    "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/prep/kcp109c_phase7_exact_prep/prepared/prepared_mc.csv",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245/melts_input.csv",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245/run_manifest.csv",
+    "helper_dir": "/Users/lopezama/Downloads"
+  },
+  "results": [
+    {
+      "label": "KCP109C",
+      "filename": "parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_11cores.xlsx",
+      "num_pressure_steps": 15,
+      "num_data_points": 781,
+      "P_QF": 352.82258064520084,
+      "P_Q2F": null,
+      "total_time": 42.513784885406494,
+      "calc_time": 258.37997484207153,
+      "runtime_log_version": "rmp_runtime_v1",
+      "melts_calc_time": 258.37997484207153,
+      "pressure_calc_time": 0.6410439014434814,
+      "workbook_build_time": 0.0
+    }
+  ],
+  "manifest_preview": [
+    {
+      "dataset_name": "kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main",
+      "sample_label": "KCP109C",
+      "status": "success",
+      "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_11cores.xlsx",
+      "helper_filename": "parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_11cores.xlsx",
+      "num_pressure_steps": 15,
+      "num_data_points": 781,
+      "P_QF": 352.82258064520084,
+      "P_Q2F": null,
+      "melts_calc_time_s": 258.37997484207153,
+      "pressure_calc_time_s": 0.6410439014434814,
+      "workbook_build_time_s": 0.0,
+      "runtime_log_version": "rmp_runtime_v1",
+      "pressure_residual_threshold_C": 10.0,
+      "P_2phase_qtz_fsp_MPa": 352.8225806452008,
+      "Rmin_2phase_qtz_fsp_C": 2.743202765033232,
+      "fit_a_2phase": 0.003542857142871503,
+      "fit_b_2phase": -2.500000000010413,
+      "fit_c_2phase": 443.7714285733714,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null,
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": null,
+      "phase_sheet_quartz_present": true,
+      "phase_sheet_feldspar_present": true,
+      "phase_sheet_feldspar_1_present": true,
+      "total_time_s": 42.513784885406494,
+      "calc_time_s": 258.37997484207153,
+      "error": "",
+      "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245",
+      "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_profile_compare/2026-02-26/kcp109c_profile_pressure_compare_20260225_231023/runs/kcp109c_parity_profile_k_liquidus_fresh_branch_bounded_main/runs/20260225_231245/melts_input.csv"
+    }
+  ],
+  "cleanup": {
+    "cleanup_attempted": true,
+    "cleanup_parent_pid": 21103,
+    "cleanup_psutil_available": true,
+    "cleanup_descendants_before_count": 0,
+    "cleanup_descendants_after_count": 1,
+    "cleanup_descendants_found": 1,
+    "cleanup_target_pids": [
+      21361
+    ],
+    "cleanup_terminated_count": 0,
+    "cleanup_killed_count": 1,
+    "cleanup_remaining_count": 0,
+    "cleanup_duration_s": 2.009489059448242,
+    "cleanup_warnings": []
+  }
+}
