@@ -1,0 +1,20 @@
+{
+  "profile": "profile_f_corrected_timeout_progression",
+  "mode": "composition_level",
+  "wall_s": 7.275753021240234,
+  "helper_result": {
+    "label": "KCP109B",
+    "filename": "parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+    "num_pressure_steps": 3,
+    "num_data_points": 303,
+    "P_QF": null,
+    "P_Q2F": null,
+    "total_time": 7.275391101837158,
+    "calc_time": 13.507783651351929
+  },
+  "workbook_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_f_corrected_timeout_progression/composition_level/parallel-results/parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+  "sheet_row_counts": {},
+  "num_data_points": 303,
+  "num_pressure_steps": 3,
+  "elapsed_s": 7.302310228347778
+}

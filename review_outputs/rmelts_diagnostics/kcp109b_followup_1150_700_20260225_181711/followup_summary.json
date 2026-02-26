@@ -1,0 +1,126 @@
+{
+  "sample": "KCP109B",
+  "grid": {
+    "T1": 1150,
+    "T2": 700,
+    "dT": 1,
+    "P1": 400,
+    "P2": 200,
+    "dP": 100
+  },
+  "requested_max_pressure_workers": 11,
+  "direct_profile_a": {
+    "profile": "profile_a_unpatched",
+    "pressures": [
+      {
+        "pressure_mpa": 400.0,
+        "num_steps": 43,
+        "total_calc_time": 8.317916631698608,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 8.866186141967773
+      },
+      {
+        "pressure_mpa": 300.0,
+        "num_steps": 23,
+        "total_calc_time": 5.893429756164551,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 6.175398826599121
+      },
+      {
+        "pressure_mpa": 200.0,
+        "num_steps": 34,
+        "total_calc_time": 5.811757326126099,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 6.897506952285767
+      }
+    ]
+  },
+  "direct_profile_e": {
+    "profile": "profile_e_current_full_patch",
+    "pressures": [
+      {
+        "pressure_mpa": 400.0,
+        "num_steps": 434,
+        "total_calc_time": 24.272393941879272,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 24.868685007095337
+      },
+      {
+        "pressure_mpa": 300.0,
+        "num_steps": 416,
+        "total_calc_time": 22.44293236732483,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 22.9875910282135
+      },
+      {
+        "pressure_mpa": 200.0,
+        "num_steps": 399,
+        "total_calc_time": 21.730324029922485,
+        "solidus_reached": true,
+        "success": true,
+        "error": null,
+        "wall_s": 22.281001806259155
+      }
+    ]
+  },
+  "pipeline_profile_e": {
+    "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855/run_manifest.csv",
+    "wall_s": 30.147060871124268,
+    "manifest_row": {
+      "dataset_name": "kcp109b_1150_700_dp100_dt1",
+      "sample_label": "KCP109B",
+      "status": "success",
+      "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855/parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+      "helper_filename": "parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+      "num_pressure_steps": 3,
+      "num_data_points": 1249,
+      "P_QF": NaN,
+      "P_Q2F": NaN,
+      "melts_calc_time_s": NaN,
+      "pressure_calc_time_s": NaN,
+      "workbook_build_time_s": NaN,
+      "runtime_log_version": "rmp_runtime_v1",
+      "P_2phase_qtz_fsp_MPa": NaN,
+      "Rmin_2phase_qtz_fsp_C": NaN,
+      "fit_a_2phase": NaN,
+      "fit_b_2phase": NaN,
+      "fit_c_2phase": NaN,
+      "P_3phase_qtz_fsp_fsp1_MPa": NaN,
+      "Rmin_3phase_qtz_fsp_fsp1_C": NaN,
+      "fit_a_3phase": NaN,
+      "fit_b_3phase": NaN,
+      "fit_c_3phase": NaN,
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": NaN,
+      "phase_sheet_quartz_present": true,
+      "phase_sheet_feldspar_present": true,
+      "phase_sheet_feldspar_1_present": true,
+      "total_time_s": 30.056639194488525,
+      "calc_time_s": 69.19188570976257,
+      "error": NaN,
+      "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855",
+      "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855/melts_input.csv"
+    },
+    "phase_tables": [
+      "system",
+      "quartz",
+      "feldspar",
+      "feldspar_1",
+      "liquid"
+    ],
+    "phase_availability_rows": 5,
+    "merged_long_rows": 2674,
+    "pressure_analysis_rows": 1
+  }
+}

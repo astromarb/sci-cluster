@@ -221,6 +221,45 @@ class GeobarometryBasisResult:
     extraction_report: dict[str, Any]
 
 
+@dataclass(frozen=True)
+class _HelperPatchProfile:
+    name: str
+    fix_liquidus_timeout_loop: bool = False
+    wrap_main_execute_with_timeout: bool = False
+    skip_wet_liquidus_presearch: bool = False
+    timeout_path_advances_temperature: bool = False
+
+
+_HELPER_PATCH_PROFILES: dict[str, _HelperPatchProfile] = {
+    "profile_a_unpatched": _HelperPatchProfile(name="profile_a_unpatched"),
+    "profile_b_stable_import_only": _HelperPatchProfile(name="profile_b_stable_import_only"),
+    "profile_c_liquidus_guard_only": _HelperPatchProfile(
+        name="profile_c_liquidus_guard_only",
+        fix_liquidus_timeout_loop=True,
+    ),
+    "profile_d_safe_execute_only": _HelperPatchProfile(
+        name="profile_d_safe_execute_only",
+        fix_liquidus_timeout_loop=True,
+        wrap_main_execute_with_timeout=True,
+    ),
+    "profile_e_current_full_patch": _HelperPatchProfile(
+        name="profile_e_current_full_patch",
+        fix_liquidus_timeout_loop=True,
+        wrap_main_execute_with_timeout=True,
+        skip_wet_liquidus_presearch=True,
+    ),
+    "profile_f_corrected_timeout_progression": _HelperPatchProfile(
+        name="profile_f_corrected_timeout_progression",
+        fix_liquidus_timeout_loop=True,
+        wrap_main_execute_with_timeout=True,
+        skip_wet_liquidus_presearch=True,
+        timeout_path_advances_temperature=True,
+    ),
+}
+
+_DEFAULT_HELPER_PATCH_PROFILE_NAME = "profile_e_current_full_patch"
+
+
 class RMeltsPipelineError(RuntimeError):
     """Base error for this module."""
 
@@ -254,6 +293,17 @@ def _ensure_dir(path: Path) -> Path:
 def _safe_float(value: Any) -> Optional[float]:
     if value is None:
         return None
+
+
+def _resolve_helper_patch_profile(profile: Optional[Any] = None) -> _HelperPatchProfile:
+    if profile is None:
+        return _HELPER_PATCH_PROFILES[_DEFAULT_HELPER_PATCH_PROFILE_NAME]
+    if isinstance(profile, _HelperPatchProfile):
+        return profile
+    key = str(profile)
+    if key in _HELPER_PATCH_PROFILES:
+        return _HELPER_PATCH_PROFILES[key]
+    raise RMeltsPipelineError(f"Unknown helper patch profile: {profile}")
     try:
         f = float(value)
     except (TypeError, ValueError):
@@ -796,58 +846,72 @@ def _build_melts_input_wide_dataframe(
     return wide_df
 
 
-def _patch_helper_source_text_for_spawn_safety(source_text: str) -> str:
+def _patch_helper_source_text_for_spawn_safety(
+    source_text: str,
+    *,
+    patch_profile: Optional[Any] = None,
+) -> str:
     """
     Patch a copied helper source (not Liam's original file) to avoid known
     hang paths in spawned pressure workers.
     """
-    # 1) find_wet_liquidus timeout branch can loop forever because i is not
-    # incremented on repeated timeouts and current_T can march upward forever.
-    old = (
-        "                current_T = current_T+25  # continue with higher temperature\n"
-        "                continue\n"
-    )
-    new = (
-        "                current_T = min(T1, current_T+25)  # continue with higher temperature (bounded)\n"
-        "                i = i + 1  # avoid infinite loop on repeated timeout states\n"
-        "                continue\n"
-    )
-    if old in source_text:
-        source_text = source_text.replace(old, new, 1)
+    profile = _resolve_helper_patch_profile(patch_profile)
 
-    # 2) run_single_pressure_step temperature loop uses raw equil.execute with no
-    # timeout; replace it with the helper's timeout-protected wrapper.
-    old_exec = (
-        "                state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
-        "\n"
-        "                t1 = time.time()\n"
-        "                calc_time += (t1 - t0)\n"
-    )
-    new_exec = (
-        "                state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10,\n"
-        "                                              bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
-        "                if state is None:\n"
-        "                    print(f'Error at T={temp}, P={pressure}: timeout in execute')\n"
-        "                    continue\n"
-        "\n"
-        "                t1 = time.time()\n"
-        "                calc_time += (t1 - t0)\n"
-    )
-    if old_exec in source_text:
-        source_text = source_text.replace(old_exec, new_exec, 1)
+    if profile.fix_liquidus_timeout_loop:
+        # 1) find_wet_liquidus timeout branch can loop forever because i is not
+        # incremented on repeated timeouts and current_T can march upward forever.
+        old = (
+            "                current_T = current_T+25  # continue with higher temperature\n"
+            "                continue\n"
+        )
+        new = (
+            "                current_T = min(T1, current_T+25)  # continue with higher temperature (bounded)\n"
+            "                i = i + 1  # avoid infinite loop on repeated timeout states\n"
+            "                continue\n"
+        )
+        if old in source_text:
+            source_text = source_text.replace(old, new, 1)
 
-    # 3) Skip helper wet-liquidus pre-search in spawned pressure workers. It is
-    # an optimization, but it is also the dominant hang source for some aplite
-    # compositions in this environment. Starting at T1 preserves phase-appearance
-    # detection across the requested cooling path.
-    liq_old = "        temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
-    liq_new = "        temp = T1  # pipeline patch: skip wet-liquidus pre-search for robustness\n"
-    if liq_old in source_text:
-        source_text = source_text.replace(liq_old, liq_new, 1)
+    if profile.wrap_main_execute_with_timeout:
+        # 2) run_single_pressure_step temperature loop uses raw equil.execute with no
+        # timeout; replace it with the helper's timeout-protected wrapper.
+        continue_line = "                    continue\n"
+        if profile.timeout_path_advances_temperature:
+            continue_line = "                    temp -= delta_T\n                    continue\n"
+        old_exec = (
+            "                state = equil.execute(temp + 273.15, pressure * 10, bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
+            "\n"
+            "                t1 = time.time()\n"
+            "                calc_time += (t1 - t0)\n"
+        )
+        new_exec = (
+            "                state = safe_equilibrium_execute(equil, temp + 273.15, pressure * 10, timeout=10,\n"
+            "                                              bulk_comp=blk_cmp, con_deltaNNO=fO2_offset, debug=0)\n"
+            "                if state is None:\n"
+            "                    print(f'Error at T={temp}, P={pressure}: timeout in execute')\n"
+            f"{continue_line}"
+            "\n"
+            "                t1 = time.time()\n"
+            "                calc_time += (t1 - t0)\n"
+        )
+        if old_exec in source_text:
+            source_text = source_text.replace(old_exec, new_exec, 1)
+
+    if profile.skip_wet_liquidus_presearch:
+        # 3) Skip helper wet-liquidus pre-search in spawned pressure workers.
+        liq_old = "        temp = find_wet_liquidus(equil, T1, T2, pressure, 50, blk_cmp, fO2_offset, verbose)\n"
+        liq_new = "        temp = T1  # pipeline patch: skip wet-liquidus pre-search for robustness\n"
+        if liq_old in source_text:
+            source_text = source_text.replace(liq_old, liq_new, 1)
     return source_text
 
 
-def _prepare_run_local_helper_copy(helper_dir: Path, run_dir: Path) -> Path:
+def _prepare_run_local_helper_copy(
+    helper_dir: Path,
+    run_dir: Path,
+    *,
+    patch_profile: Optional[Any] = None,
+) -> Path:
     """
     Create a run-scoped helper copy so multiprocessing spawn workers import the
     patched helper from the run directory without modifying Liam's source file.
@@ -857,11 +921,20 @@ def _prepare_run_local_helper_copy(helper_dir: Path, run_dir: Path) -> Path:
         raise FileNotFoundError(f"Helper module not found: {helper_src}")
     helper_dst = run_dir / "MeltsHelperFunctions.py"
     text = helper_src.read_text(encoding="utf-8")
-    helper_dst.write_text(_patch_helper_source_text_for_spawn_safety(text), encoding="utf-8")
+    helper_dst.write_text(
+        _patch_helper_source_text_for_spawn_safety(text, patch_profile=patch_profile),
+        encoding="utf-8",
+    )
     return helper_dst
 
 
-def _load_helper_module(helper_dir: Path, *, run_dir: Optional[Path] = None) -> Any:
+def _load_helper_module(
+    helper_dir: Path,
+    *,
+    run_dir: Optional[Path] = None,
+    patch_profile: Optional[Any] = None,
+    patch_pressure_calc: bool = True,
+) -> Any:
     helper_path = helper_dir / "MeltsHelperFunctions.py"
     if not helper_path.exists():
         raise FileNotFoundError(f"Helper module not found: {helper_path}")
@@ -870,7 +943,7 @@ def _load_helper_module(helper_dir: Path, *, run_dir: Optional[Path] = None) -> 
     if run_dir is not None:
         run_dir = Path(run_dir).expanduser().resolve()
         _ensure_dir(run_dir)
-        import_path = _prepare_run_local_helper_copy(helper_dir, run_dir)
+        import_path = _prepare_run_local_helper_copy(helper_dir, run_dir, patch_profile=patch_profile)
         run_dir_str = str(run_dir)
         if run_dir_str not in sys.path:
             sys.path.insert(0, run_dir_str)
@@ -893,7 +966,9 @@ def _load_helper_module(helper_dir: Path, *, run_dir: Optional[Path] = None) -> 
     finally:
         # Keep module in sys.modules for imported dependencies during execution, but do not override canonical name.
         pass
-    return _patch_helper_module_pressure_calc(module)
+    if patch_pressure_calc:
+        return _patch_helper_module_pressure_calc(module)
+    return module
 
 
 def _fit_pressure_residual_vertex(pressures: list[float], residuals: list[float]) -> tuple[Optional[float], Optional[float], tuple[float, float, float]]:

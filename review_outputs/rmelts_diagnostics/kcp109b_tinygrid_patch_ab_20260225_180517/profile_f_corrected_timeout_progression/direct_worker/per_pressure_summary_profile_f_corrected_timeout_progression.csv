@@ -1,0 +1,4 @@
+error,first_T_C,last_T_C,num_steps,pressure_mpa,profile,solidus_reached,stdout_error_lines,success,total_calc_s,wall_s
+,1000.0,900.0,101,400.0,profile_f_corrected_timeout_progression,False,0,True,4.83012580871582,5.0184807777404785
+,1000.0,900.0,101,300.0,profile_f_corrected_timeout_progression,False,0,True,4.64595627784729,4.827379941940308
+,1000.0,900.0,101,200.0,profile_f_corrected_timeout_progression,False,0,True,4.282529592514038,4.44567608833313
