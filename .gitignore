@@ -48,6 +48,15 @@
 ## compressed
 **/*.tgz
 
+# Python cache / bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# MELTS run artifacts
+outputs/liam-pressure-runs/
+parallel-results/
+
 ## vscode
 .vscode/*
 !.vscode/settings.json

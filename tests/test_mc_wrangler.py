@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
-from sci_helpers.mc_wrangler import wrangle_dataframe
+from sci_helpers.mc_wrangler import (
+    ZERO_EPSILON,
+    _replace_true_zeros_with_epsilon,
+    wrangle_dataframe,
+)
 
 
 def make_simple_table():
@@ -36,3 +40,15 @@ def test_wrangle_transposed_table():
     results = wrangle_dataframe(df2)
     assert len(results) >= 1
 
+
+def test_wrangle_preserves_blank_and_maps_true_zero():
+    df = pd.DataFrame(
+        {
+            "A": [0.0, 1.0, np.nan],
+            "B": [2.0, 0.0, np.nan],
+        }
+    )
+    out = _replace_true_zeros_with_epsilon(df)
+    assert out.loc[0, "A"] == ZERO_EPSILON
+    assert out.loc[1, "B"] == ZERO_EPSILON
+    assert pd.isna(out.loc[2, "A"])

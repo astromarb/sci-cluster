@@ -9,10 +9,15 @@ description = "Helper utilities for the sci-cluster project"
 readme = "sci_helpers/README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "numpy",
+  "numpy<2",
+  "nptyping<2.6",
   "pandas",
+  "scipy",
   "matplotlib",
   "openpyxl",
+  "pillow",
+  "futureproof==0.3.1",
+  "rubicon-objc>=0.4.2; sys_platform == 'darwin'",
 ]
 
 [project.optional-dependencies]

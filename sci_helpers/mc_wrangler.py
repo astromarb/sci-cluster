@@ -25,6 +25,7 @@ import os
 import re
 
 DEFAULT_OXIDES = ['SiO2','TiO2','Al2O3','FeO','Fe2O3','MnO','MgO','CaO','Na2O','K2O','P2O5','LOI','SUM']
+ZERO_EPSILON = 1e-10
 
 
 def _normalize_label(s: str) -> str:
@@ -107,6 +108,15 @@ def _numeric_fraction_of_cells(values: List) -> float:
     if len(coerced) == 0:
         return 0.0
     return float(coerced.notna().mean())
+
+
+def _replace_true_zeros_with_epsilon(df_block: pd.DataFrame, epsilon: float = ZERO_EPSILON) -> pd.DataFrame:
+    """
+    Replace explicit numeric zeros with epsilon, while keeping NaN/blank entries unchanged.
+    """
+    if df_block.empty:
+        return df_block
+    return df_block.mask(df_block == 0, epsilon)
 
 
 def detect_orientation_at_anchor(df: pd.DataFrame, r: int, c: int, oxide_names: List[str]) -> Tuple[Tuple[int,int], Tuple[int,int], List[str], List[str], List[str]]:
@@ -363,8 +373,9 @@ def extract_dataset_from_anchor(df: pd.DataFrame, r: int, c: int, oxide_dir: Tup
 
     ox_order = [canonicalize_oxide_label(x, oxide_names) for x in ox_labels]
     df_block = pd.DataFrame([row[1:] for row in samples], index=[row[0] for row in samples], columns=ox_order)
-    # coerce to numeric
+    # coerce to numeric and preserve blanks as NaN. True zeros become a tiny epsilon.
     df_block = df_block.apply(lambda col: pd.to_numeric(col, errors='coerce'))
+    df_block = _replace_true_zeros_with_epsilon(df_block)
 
     return {'samples_list':samples, 'oxides_order':ox_order, 'df':df_block, 'anchor':(r,c), 'sheet':None, 'notes':notes}
 
