@@ -1,0 +1,21 @@
+name: melts-data-pipeline-310
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy=1.26.4
+  - pandas
+  - scipy
+  - matplotlib
+  - openpyxl
+  - pillow
+  - ipykernel
+  - jupyterlab
+  - nbconvert
+  - pytest
+  - pip
+  - pip:
+      - futureproof
+      - nptyping==2.5.0
+      - thermoengine
