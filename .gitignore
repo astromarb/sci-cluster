@@ -27,6 +27,7 @@
 
 # misc
 .DS_Store
+__pycache__/
 
 ## env
 .env.local
@@ -47,6 +48,11 @@
 
 ## compressed
 **/*.tgz
+
+# MELTS prototype outputs
+outputs/melts-data-only-runs/
+parallel-results/
+melts_calculations.log
 
 ## vscode
 .vscode/*
