@@ -1,0 +1,13 @@
+pressure_mpa,mode,exec_mode,outcome,liquidus_temp_c,elapsed_s,iterations_completed,exception_type,exception_message,traceback_text
+50.0,reuse_state,thread_timeout_wrapper,success,949.0,1.4408259391784668,1,,Probe equilibrium calculation returned None,
+75.0,reuse_state,thread_timeout_wrapper,success,888.0,0.2769961357116699,2,,,
+100.0,reuse_state,thread_timeout_wrapper,success,888.0,0.2976832389831543,2,,,
+50.0,fresh_state_each_iteration,thread_timeout_wrapper,success,903.0,1.9514930248260498,4,,,
+75.0,fresh_state_each_iteration,thread_timeout_wrapper,success,875.0,1.0102112293243408,7,,,
+100.0,fresh_state_each_iteration,thread_timeout_wrapper,success,855.0,1.0431921482086182,7,,,
+50.0,fresh_state_after_exception,thread_timeout_wrapper,success,949.0,1.4565513134002686,1,,Probe equilibrium calculation returned None,
+75.0,fresh_state_after_exception,thread_timeout_wrapper,success,888.0,0.3084139823913574,2,,,
+100.0,fresh_state_after_exception,thread_timeout_wrapper,success,888.0,0.3203141689300537,2,,,
+50.0,fresh_state_probe_only,thread_timeout_wrapper,exception,949.0,1.701874017715454,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,
+75.0,fresh_state_probe_only,thread_timeout_wrapper,success,888.0,0.315568208694458,2,,,
+100.0,fresh_state_probe_only,thread_timeout_wrapper,exception,949.0,0.3395397663116455,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,

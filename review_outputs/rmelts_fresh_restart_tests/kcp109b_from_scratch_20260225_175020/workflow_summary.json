@@ -1,0 +1,107 @@
+{
+  "sample": "KCP109B",
+  "run_tag": "kcp109b_from_scratch_20260225_175020",
+  "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020",
+  "params": {
+    "T1": 1000,
+    "T2": 900,
+    "dT": 1,
+    "P1": 400,
+    "P2": 200,
+    "dP": 100,
+    "fO2_constraint": "TRUE",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "max_composition_workers": 1,
+    "max_pressure_workers": 11
+  },
+  "stages": {
+    "normalize": {
+      "elapsed_s": 0.015890836715698242,
+      "error": null
+    },
+    "prepare": {
+      "elapsed_s": 0.008398294448852539,
+      "error": null
+    },
+    "melts_run": {
+      "elapsed_s": 22.366393089294434,
+      "error": null
+    },
+    "basis_parse": {
+      "elapsed_s": 0.008304119110107422,
+      "error": null
+    }
+  },
+  "artifacts": {
+    "normalized_all_rowwise_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/aplite_norm_from_scratch/normalized_inputs/Aplites_HAL_XRF_noUncertainty_drynorm_rowwise_H2O13p0.csv",
+    "normalized_target_rowwise_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/aplite_norm_from_scratch/normalized_inputs/KCP109B_drynorm_one_row.csv",
+    "prepared_mc_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/aplite_prepared_from_scratch/prepared/prepared_mc.csv",
+    "qc_report_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/aplite_prepared_from_scratch/prepared/qc_report.csv",
+    "melts_run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020",
+    "manifest_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020/run_manifest.csv",
+    "melts_input_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020/melts_input.csv",
+    "manifest_copy_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/manifest_copy.csv",
+    "parsed_tables_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/parsed_tables",
+    "first_appearance_table_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/parsed_tables/first_appearance_table.csv"
+  },
+  "issues": [],
+  "manifest_row": {
+    "dataset_name": "onecomp_1000_900C_400_200MPa_dP100_dT1",
+    "sample_label": "KCP109B",
+    "status": "success",
+    "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020/parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+    "helper_filename": "parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+    "num_pressure_steps": 3,
+    "num_data_points": 0,
+    "P_QF": NaN,
+    "P_Q2F": NaN,
+    "melts_calc_time_s": 0.0,
+    "pressure_calc_time_s": 0.0290560722351074,
+    "workbook_build_time_s": 4.048252105712891,
+    "runtime_log_version": "rmp_runtime_v1",
+    "P_2phase_qtz_fsp_MPa": NaN,
+    "Rmin_2phase_qtz_fsp_C": NaN,
+    "fit_a_2phase": NaN,
+    "fit_b_2phase": NaN,
+    "fit_c_2phase": NaN,
+    "P_3phase_qtz_fsp_fsp1_MPa": NaN,
+    "Rmin_3phase_qtz_fsp_fsp1_C": NaN,
+    "fit_a_3phase": NaN,
+    "fit_b_3phase": NaN,
+    "fit_c_3phase": NaN,
+    "pressure_calc_method": "helper_pressure_analysis_sheet",
+    "pressure_calc_error": NaN,
+    "phase_sheet_quartz_present": false,
+    "phase_sheet_feldspar_present": false,
+    "phase_sheet_feldspar_1_present": false,
+    "total_time_s": 4.077308177947998,
+    "calc_time_s": 0,
+    "error": NaN,
+    "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020/melts_input.csv"
+  },
+  "helper_log_diagnostics": {
+    "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_fresh_restart_tests/kcp109b_from_scratch_20260225_175020/onecomp_1000_900C_400_200MPa_dP100_dT1/runs/20260225_175020/melts_calculations.log",
+    "helper_log_exists": true,
+    "helper_log_lines": 0,
+    "helper_warning_count": 0,
+    "helper_error_count": 0,
+    "timeout_count": 0,
+    "matmul_mismatch_count": 0,
+    "helper_log_tail": []
+  },
+  "phase_success_flags": {
+    "system_sheet_nonempty": false,
+    "system_rows_nonzero_mass": 0,
+    "liquid_sheet_nonempty": false,
+    "liquid_rows_nonzero_mass": 0,
+    "quartz_sheet_nonempty": false,
+    "quartz_rows_nonzero_mass": 0,
+    "feldspar_sheet_nonempty": false,
+    "feldspar_rows_nonzero_mass": 0,
+    "feldspar_1_sheet_nonempty": false,
+    "feldspar_1_rows_nonzero_mass": 0,
+    "melts_phase_success_qz_fsp_fsp1": false
+  }
+}

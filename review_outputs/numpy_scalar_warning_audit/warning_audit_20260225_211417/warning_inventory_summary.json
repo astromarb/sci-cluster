@@ -1,0 +1,21 @@
+{
+  "warning_pattern": "Conversion of an array with ndim > 0 to a scalar is deprecated",
+  "total_matches": 16,
+  "files_with_matches": 2,
+  "top_files": [
+    [
+      "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/_tmp_phase2_logs/phase3_run_stdout.log",
+      13
+    ],
+    [
+      "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/_tmp_phase2_logs/phase2_run_stdout.log",
+      3
+    ]
+  ],
+  "top_locations": [
+    [
+      "equilibrate.py:2166",
+      16
+    ]
+  ]
+}

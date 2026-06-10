@@ -1,0 +1,40 @@
+{
+  "summary": {
+    "dataset_name": "kcp109c_onecomp_smoketest",
+    "num_samples": 1,
+    "num_success": 0,
+    "num_error": 1,
+    "elapsed_wall_time_s": 168.03100419044495,
+    "backend_requested": "import",
+    "backend_used": "import",
+    "backend_error": null,
+    "run_dir": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/runs/20260225_145336"
+  },
+  "run_params": {
+    "T1": 1100.0,
+    "T2": 700.0,
+    "dT": 5.0,
+    "P1": 400.0,
+    "P2": 10.0,
+    "dP": 10.0,
+    "fO2_constraint": "buffered",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "model": "rhyolite-MELTS_v1.0.x",
+    "calculation": "QF_P_Calc",
+    "T_unit": "C",
+    "P_unit": "MPa"
+  },
+  "paths": {
+    "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/prepared/prepared_mc.csv",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/runs/20260225_145336/melts_input.csv",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/rmelts_outputs_onecomp/kcp109c_onecomp_smoketest/runs/20260225_145336/run_manifest.csv",
+    "helper_dir": "/Users/lopezama/Downloads"
+  },
+  "results": [
+    {
+      "label": "KCP109C",
+      "error": "[Errno 1] Operation not permitted"
+    }
+  ]
+}

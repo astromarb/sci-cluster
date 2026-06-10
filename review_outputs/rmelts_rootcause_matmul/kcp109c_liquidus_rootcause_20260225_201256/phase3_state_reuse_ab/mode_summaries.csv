@@ -1,0 +1,13 @@
+pressure_mpa,mode,outcome,liquidus_temp_c,elapsed_s,iterations_completed,exception_type,exception_message,traceback_text
+50.0,reuse_state,success,949.0,1.4102027416229248,1,,Probe equilibrium calculation returned None,
+75.0,reuse_state,success,888.0,0.27082109451293945,2,,,
+100.0,reuse_state,success,888.0,0.31383299827575684,2,,,
+50.0,fresh_state_each_iteration,success,903.0,1.8238179683685303,4,,,
+75.0,fresh_state_each_iteration,success,875.0,0.91646409034729,7,,,
+100.0,fresh_state_each_iteration,success,855.0,0.9942748546600342,7,,,
+50.0,fresh_state_after_exception,success,949.0,1.4254388809204102,1,,Probe equilibrium calculation returned None,
+75.0,fresh_state_after_exception,success,888.0,0.283400297164917,2,,,
+100.0,fresh_state_after_exception,success,888.0,0.31653594970703125,2,,,
+50.0,fresh_state_probe_only,exception,949.0,1.8488597869873047,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,
+75.0,fresh_state_probe_only,success,888.0,0.496535062789917,2,,,
+100.0,fresh_state_probe_only,exception,949.0,0.5189950466156006,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,

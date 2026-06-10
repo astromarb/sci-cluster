@@ -1,0 +1,6 @@
+sample_label,requested_phase,sheet_name,present,row_count,status
+KCP109C,system,system,True,881,ok
+KCP109C,quartz,quartz,True,372,ok
+KCP109C,feldspar,feldspar,True,755,ok
+KCP109C,feldspar_1,feldspar_1,True,100,ok
+KCP109C,liquid,liquid,True,881,ok

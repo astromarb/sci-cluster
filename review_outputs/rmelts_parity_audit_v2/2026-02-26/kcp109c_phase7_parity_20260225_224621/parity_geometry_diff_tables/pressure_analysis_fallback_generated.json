@@ -1,0 +1,17 @@
+{
+  "pressure_calc_method": "pipeline_fallback",
+  "pressure_calc_error": null,
+  "P_2phase_qtz_fsp_MPa": 352.82258064516185,
+  "Rmin_2phase_qtz_fsp_C": 2.7432027649763313,
+  "fit_a_2phase": 0.0035428571428571553,
+  "fit_b_2phase": -2.500000000000013,
+  "fit_c_2phase": 443.77142857143093,
+  "P_3phase_qtz_fsp_fsp1_MPa": null,
+  "Rmin_3phase_qtz_fsp_fsp1_C": 21.991024844720243,
+  "fit_a_3phase": 0.002628571428571436,
+  "fit_b_3phase": -1.8760000000000072,
+  "fit_c_3phase": 356.7142857142871,
+  "phase_sheet_quartz_present": true,
+  "phase_sheet_feldspar_present": true,
+  "phase_sheet_feldspar_1_present": true
+}

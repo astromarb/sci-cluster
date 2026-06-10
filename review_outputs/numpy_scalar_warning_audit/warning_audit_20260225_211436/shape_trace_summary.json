@@ -1,0 +1,5 @@
+{
+  "status": "pending_instrumentation",
+  "reason": "Phase A inventory + probe validation only",
+  "likely_primary_warning_site": "thermoengine/equilibrate.py:2166"
+}

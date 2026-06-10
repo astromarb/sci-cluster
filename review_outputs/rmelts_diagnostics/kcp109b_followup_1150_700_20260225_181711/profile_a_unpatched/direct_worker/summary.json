@@ -1,0 +1,32 @@
+{
+  "profile": "profile_a_unpatched",
+  "pressures": [
+    {
+      "pressure_mpa": 400.0,
+      "num_steps": 43,
+      "total_calc_time": 8.317916631698608,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 8.866186141967773
+    },
+    {
+      "pressure_mpa": 300.0,
+      "num_steps": 23,
+      "total_calc_time": 5.893429756164551,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 6.175398826599121
+    },
+    {
+      "pressure_mpa": 200.0,
+      "num_steps": 34,
+      "total_calc_time": 5.811757326126099,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 6.897506952285767
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+error,first_T_C,last_T_C,num_steps,pressure_mpa,profile,solidus_reached,stdout_error_lines,success,total_calc_s,wall_s
+,,,0,400.0,profile_a_unpatched,False,0,True,0.0,0.2718687057495117
+,,,0,300.0,profile_a_unpatched,False,0,True,0.0,0.22645020484924316
+,,,0,200.0,profile_a_unpatched,False,0,True,0.0,0.2534220218658447

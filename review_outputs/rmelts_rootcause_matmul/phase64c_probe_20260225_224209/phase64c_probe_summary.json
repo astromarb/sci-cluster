@@ -1,0 +1,43 @@
+{
+  "status": "ok",
+  "helper_patch_profile": "profile_i_prototype_mainloop_bounded_reset",
+  "generated_helper_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64c_probe_20260225_224209/probe/helper_runlocal/MeltsHelperFunctions.py",
+  "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64c_probe_20260225_224209/probe/helper_trace.log",
+  "helper_patch_excerpt_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64c_probe_20260225_224209/probe/helper_patch_excerpt.txt",
+  "bulk_comp_reset_error_present": false,
+  "expected_liquidus_c": {
+    "50.0": 949.0,
+    "75.0": 888.0,
+    "100.0": 888.0
+  },
+  "results": [
+    {
+      "pressure_mpa": 50.0,
+      "outcome": "success",
+      "liquidus_temp_c": 903.0,
+      "elapsed_s": 1.7208099365234375,
+      "exception_type": null,
+      "exception_message": null,
+      "matches_expected": false
+    },
+    {
+      "pressure_mpa": 75.0,
+      "outcome": "success",
+      "liquidus_temp_c": 888.0,
+      "elapsed_s": 0.3084688186645508,
+      "exception_type": null,
+      "exception_message": null,
+      "matches_expected": true
+    },
+    {
+      "pressure_mpa": 100.0,
+      "outcome": "success",
+      "liquidus_temp_c": 888.0,
+      "elapsed_s": 0.2765779495239258,
+      "exception_type": null,
+      "exception_message": null,
+      "matches_expected": true
+    }
+  ],
+  "all_match_expected": false
+}

@@ -1,0 +1,2 @@
+sample_label,source_row_index,status,missing_required,warnings,fe_input_mode,fe3fet,fe_split_applied,FeOt_original,FeOt_implied_from_prepared_as_FeO,FeOt_delta_vs_original_as_FeO,FeO_prepared,Fe2O3_prepared,prepared_total_wt
+KCP109C,0,ok,,Prepared oxide total 111.7320 wt% outside tolerance ±0.5 of 100,direct_fe_speciation_preserved,,False,,0.6519648314212715,,0.49,0.18,111.732

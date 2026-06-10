@@ -1,0 +1,32 @@
+{
+  "profile": "profile_e_current_full_patch",
+  "pressures": [
+    {
+      "pressure_mpa": 400.0,
+      "num_steps": 434,
+      "total_calc_time": 24.272393941879272,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 24.868685007095337
+    },
+    {
+      "pressure_mpa": 300.0,
+      "num_steps": 416,
+      "total_calc_time": 22.44293236732483,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 22.9875910282135
+    },
+    {
+      "pressure_mpa": 200.0,
+      "num_steps": 399,
+      "total_calc_time": 21.730324029922485,
+      "solidus_reached": true,
+      "success": true,
+      "error": null,
+      "wall_s": 22.281001806259155
+    }
+  ]
+}

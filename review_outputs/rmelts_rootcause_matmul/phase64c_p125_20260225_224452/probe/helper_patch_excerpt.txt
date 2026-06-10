@@ -1,0 +1,5 @@
+[_rmelts_liquidus_bulk_comp = composition] present=True
+[LIQUIDUS_RESET_RESEED_OK] present=True
+[LIQUIDUS_RETRY_WITH_CANONICAL_BULK] present=True
+[_rmelts_main_max_consecutive_failures] present=True
+[Aborting pressure path at P={pressure} after repeated main-loop] present=True

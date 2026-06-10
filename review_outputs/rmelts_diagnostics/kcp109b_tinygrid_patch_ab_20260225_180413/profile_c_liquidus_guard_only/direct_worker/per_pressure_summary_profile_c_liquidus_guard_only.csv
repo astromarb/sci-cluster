@@ -1,0 +1,4 @@
+error,first_T_C,last_T_C,num_steps,pressure_mpa,profile,solidus_reached,stdout_error_lines,success,total_calc_s,wall_s
+,,,0,400.0,profile_c_liquidus_guard_only,False,0,True,0.0,0.26343417167663574
+,,,0,300.0,profile_c_liquidus_guard_only,False,0,True,0.0,0.25387072563171387
+,,,0,200.0,profile_c_liquidus_guard_only,False,0,True,0.0,0.23267388343811035

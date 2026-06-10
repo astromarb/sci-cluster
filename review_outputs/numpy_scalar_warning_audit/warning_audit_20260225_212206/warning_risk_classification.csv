@@ -1,0 +1,2 @@
+warning_site,classification,related_to_matmul_22_vs_25,notes
+thermoengine/equilibrate.py:2166,possible_shape_logic_issue,uncertain_requires_more_analysis,Observed result_shape_counts={}; result_ndim_counts={}. The hard matmul failure was independently traced to _compute_a_and_qr (A @ P_nz).

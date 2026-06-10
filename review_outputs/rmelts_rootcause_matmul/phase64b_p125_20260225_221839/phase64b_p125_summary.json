@@ -1,0 +1,15 @@
+{
+  "elapsed_s": 12.750829935073853,
+  "success": true,
+  "pressure": 125.0,
+  "num_steps": 81,
+  "error": null,
+  "solidus_reached": true,
+  "total_calc_time": 11.777055025100708,
+  "helper_log_exists": false,
+  "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64b_p125_20260225_221839/probe/melts_calculations.log",
+  "helper_log_size": null,
+  "max_reported_temp_C": null,
+  "out_of_range_log_count": 0,
+  "out_of_range_examples": []
+}

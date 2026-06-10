@@ -1,0 +1,45 @@
+{
+  "status": "success",
+  "helper_patch_profile": "profile_i_prototype_mainloop_bounded_reset",
+  "generated_workbook_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_224621/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_11cores.xlsx",
+  "manifest_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_224621/run_manifest.csv",
+  "run_metadata_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_224621/run_metadata.json",
+  "parity_report_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/parity_comparison_report.json",
+  "num_pressure_steps": 15,
+  "num_data_points": 881,
+  "P2_generated_MPa": 352.8225806452008,
+  "P2_liam_MPa": 249.3518518518341,
+  "delta_P2_vs_liam_MPa": 103.47072879336667,
+  "R2_generated_C": 2.743202765033232,
+  "R2_liam_C": 1.941560846560947,
+  "delta_R2_vs_liam_C": 0.8016419184722849,
+  "phase_row_counts": {
+    "system": 881,
+    "quartz": 372,
+    "feldspar": 755,
+    "feldspar_1": 100,
+    "liquid": 881
+  },
+  "pressure_match_within_2mpa": false,
+  "cleanup_summary": {
+    "cleanup_attempted": true,
+    "cleanup_parent_pid": 98934,
+    "cleanup_psutil_available": true,
+    "cleanup_descendants_before_count": 0,
+    "cleanup_descendants_after_count": 1,
+    "cleanup_descendants_found": 1,
+    "cleanup_target_pids": [
+      98947
+    ],
+    "cleanup_terminated_count": 0,
+    "cleanup_killed_count": 1,
+    "cleanup_remaining_count": 0,
+    "cleanup_duration_s": 2.009505033493042,
+    "cleanup_warnings": []
+  },
+  "timing": {
+    "conversion_s": 0.006953001022338867,
+    "run_s": 45.89846396446228,
+    "basis_s": 0.17720794677734375
+  }
+}

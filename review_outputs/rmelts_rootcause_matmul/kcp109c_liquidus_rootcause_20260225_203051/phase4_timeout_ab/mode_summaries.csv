@@ -1,0 +1,82 @@
+pressure_mpa,mode,exec_mode,outcome,liquidus_temp_c,elapsed_s,iterations_completed,exception_type,exception_message,traceback_text
+50.0,reuse_state,raw_execute_no_timeout_wrapper,exception,949.0,1.3803200721740723,1,ValueError,"matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 22 is different from 25)","Traceback (most recent call last):
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 496, in _find_wet_liquidus_state_reuse_diagnostic
+    state_probe = _diag_safe_exec(
+        helper,
+    ...<13 lines>...
+        stage=""probe"",
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 265, in _diag_safe_exec
+    state = equil.execute(
+        float(temp_c) + 273.15,
+        float(pressure_mpa) * 10.0,
+        **kwargs,
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 3537, in execute
+    A, df, Q1, Q2, R11 = self._compute_a_and_qr(t, p, state,
+                         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+                                                P_nz, debug)
+                                                ^^^^^^^^^^^^
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 2695, in _compute_a_and_qr
+    A = np.matmul(A, P_nz)
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 22 is different from 25)
+"
+75.0,reuse_state,raw_execute_no_timeout_wrapper,success,888.0,0.2913777828216553,2,,,
+100.0,reuse_state,raw_execute_no_timeout_wrapper,success,888.0,0.2948119640350342,2,,,
+50.0,reuse_state,thread_timeout_wrapper_current,success,949.0,1.4129328727722168,1,,Probe equilibrium calculation returned None,
+75.0,reuse_state,thread_timeout_wrapper_current,success,888.0,0.27593231201171875,2,,,
+100.0,reuse_state,thread_timeout_wrapper_current,success,888.0,0.2987101078033447,2,,,
+50.0,reuse_state,thread_timeout_wrapper_with_equil_reset_after_none,success,949.0,1.4941999912261963,1,,Probe equilibrium calculation returned None,
+75.0,reuse_state,thread_timeout_wrapper_with_equil_reset_after_none,success,888.0,0.3477511405944824,2,,,
+100.0,reuse_state,thread_timeout_wrapper_with_equil_reset_after_none,success,888.0,0.30702805519104004,2,,,
+50.0,fresh_state_probe_only,raw_execute_no_timeout_wrapper,exception,949.0,1.7673890590667725,1,ValueError,"matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 22 is different from 25)","Traceback (most recent call last):
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 448, in _find_wet_liquidus_state_reuse_diagnostic
+    state_main = _diag_safe_exec(
+        helper,
+    ...<13 lines>...
+        stage=""main"",
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 265, in _diag_safe_exec
+    state = equil.execute(
+        float(temp_c) + 273.15,
+        float(pressure_mpa) * 10.0,
+        **kwargs,
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 3537, in execute
+    A, df, Q1, Q2, R11 = self._compute_a_and_qr(t, p, state,
+                         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+                                                P_nz, debug)
+                                                ^^^^^^^^^^^^
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 2695, in _compute_a_and_qr
+    A = np.matmul(A, P_nz)
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 22 is different from 25)
+"
+75.0,fresh_state_probe_only,raw_execute_no_timeout_wrapper,success,888.0,0.31350088119506836,2,,,
+100.0,fresh_state_probe_only,raw_execute_no_timeout_wrapper,exception,949.0,0.32453489303588867,1,ValueError,"matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 16 is different from 19)","Traceback (most recent call last):
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 448, in _find_wet_liquidus_state_reuse_diagnostic
+    state_main = _diag_safe_exec(
+        helper,
+    ...<13 lines>...
+        stage=""main"",
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py"", line 265, in _diag_safe_exec
+    state = equil.execute(
+        float(temp_c) + 273.15,
+        float(pressure_mpa) * 10.0,
+        **kwargs,
+    )
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 3537, in execute
+    A, df, Q1, Q2, R11 = self._compute_a_and_qr(t, p, state,
+                         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+                                                P_nz, debug)
+                                                ^^^^^^^^^^^^
+  File ""/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"", line 2695, in _compute_a_and_qr
+    A = np.matmul(A, P_nz)
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 16 is different from 19)
+"
+50.0,fresh_state_probe_only,thread_timeout_wrapper_current,exception,949.0,1.7050669193267822,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,
+75.0,fresh_state_probe_only,thread_timeout_wrapper_current,success,888.0,0.3465399742126465,2,,,
+100.0,fresh_state_probe_only,thread_timeout_wrapper_current,exception,949.0,0.31671786308288574,6,RepeatedNoneStateError,main equilibrium returned None 5 times in a row at/near T=987C,
+50.0,fresh_state_probe_only,thread_timeout_wrapper_with_equil_reset_after_none,success,903.0,2.7818028926849365,9,,,
+75.0,fresh_state_probe_only,thread_timeout_wrapper_with_equil_reset_after_none,success,888.0,0.3802199363708496,2,,,
+100.0,fresh_state_probe_only,thread_timeout_wrapper_with_equil_reset_after_none,success,858.0,0.733403205871582,6,,,

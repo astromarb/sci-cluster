@@ -1,0 +1,258 @@
+{
+  "liam_baseline_workbook": "/Users/lopezama/Downloads/Parallel_MELTS_KCP-109C_dP25.0_02-25_8cores.xlsx",
+  "liam_baseline_pressure_analysis": {
+    "helper_sheet": {
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": null,
+      "P_2phase_qtz_fsp_MPa": 249.3518518518341,
+      "Rmin_2phase_qtz_fsp_C": 1.941560846560947,
+      "fit_a_2phase": 0.003085714285707031,
+      "fit_b_2phase": -1.538857142853415,
+      "fit_c_2phase": 193.7999999995218,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null,
+      "phase_sheet_quartz_present": null,
+      "phase_sheet_feldspar_present": null,
+      "phase_sheet_feldspar_1_present": null
+    },
+    "fallback": {
+      "pressure_calc_method": "pipeline_fallback",
+      "pressure_calc_error": null,
+      "P_2phase_qtz_fsp_MPa": 249.35185185185188,
+      "Rmin_2phase_qtz_fsp_C": 1.9415608465608045,
+      "fit_a_2phase": 0.0030857142857142624,
+      "fit_b_2phase": -1.5388571428571314,
+      "fit_c_2phase": 193.79999999999853,
+      "P_3phase_qtz_fsp_fsp1_MPa": 254.77272727272742,
+      "Rmin_3phase_qtz_fsp_fsp1_C": 10.799870129870015,
+      "fit_a_3phase": 0.0025142857142856933,
+      "fit_b_3phase": -1.2811428571428471,
+      "fit_c_3phase": 173.99999999999872,
+      "phase_sheet_quartz_present": true,
+      "phase_sheet_feldspar_present": true,
+      "phase_sheet_feldspar_1_present": true
+    }
+  },
+  "environment_provenance_current_json": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/environment_provenance_current.json",
+  "environment_provenance_current": {
+    "python_version": "3.12.12 | packaged by conda-forge | (main, Jan 27 2026, 00:01:15) [Clang 19.1.7 ]",
+    "python_executable": "/Users/lopezama/PycharmProjects/sci-cluster/.conda_py312_rmelts/bin/python",
+    "packages": {
+      "thermoengine": "1.2.0",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "pandas": "2.3.3",
+      "openpyxl": "3.1.5"
+    },
+    "files": {
+      "/Users/lopezama/Downloads/MeltsHelperFunctions.py": {
+        "sha256": "0c96f4b8e90b71bf7e519e2572bc72af5401056c79ca01391c127951799f23c0",
+        "bytes": 118909
+      },
+      "/Users/lopezama/PycharmProjects/sci-cluster/sci_helpers/rmelts_liam_clone_helper.py": {
+        "sha256": "0c96f4b8e90b71bf7e519e2572bc72af5401056c79ca01391c127951799f23c0",
+        "bytes": 118909
+      }
+    },
+    "thermoengine_module_file": "/Users/lopezama/PycharmProjects/sci-cluster/.conda_py312_rmelts/lib/python3.12/site-packages/thermoengine/__init__.py",
+    "thermoengine_equilibrate_file": "/Users/lopezama/PycharmProjects/sci-cluster/.conda_py312_rmelts/lib/python3.12/site-packages/thermoengine/equilibrate.py"
+  },
+  "tracks_requested": [
+    "liam_clone_guarded_main"
+  ],
+  "results": [
+    {
+      "track_name": "liam_clone_guarded_main",
+      "helper_implementation": "liam_clone_guarded_main",
+      "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/prep/kcp109c_liam_exact_prep/prepared/prepared_mc.csv",
+      "run_result": {
+        "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113",
+        "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113/run_manifest.csv",
+        "summary": {
+          "dataset_name": "kcp109c_dualtrack_liam_clone_guarded_main",
+          "num_samples": 1,
+          "num_success": 1,
+          "num_error": 0,
+          "elapsed_wall_time_s": 579.4012751579285,
+          "pressure_residual_threshold_C": 10.0,
+          "backend_requested": "import",
+          "backend_used": "import",
+          "backend_error": null,
+          "helper_implementation_requested": "liam_clone_guarded_main",
+          "helper_implementation_resolved": "liam_clone_guarded_main",
+          "helper_patch_profile": "profile_i_prototype_mainloop_bounded_reset",
+          "process_cleanup": {
+            "cleanup_attempted": true,
+            "cleanup_parent_pid": 56295,
+            "cleanup_psutil_available": true,
+            "cleanup_descendants_before_count": 0,
+            "cleanup_descendants_after_count": 1,
+            "cleanup_descendants_found": 1,
+            "cleanup_target_pids": [
+              56371
+            ],
+            "cleanup_terminated_count": 0,
+            "cleanup_killed_count": 1,
+            "cleanup_remaining_count": 0,
+            "cleanup_duration_s": 2.0098791122436523,
+            "cleanup_warnings": []
+          },
+          "deltaqfm_enrichment": {
+            "workbooks_seen": 1,
+            "workbooks_updated": 1,
+            "rows_updated": 3882,
+            "workbook_summaries": [
+              {
+                "deltaqfm_enriched": true,
+                "deltaqfm_rows_updated": 3882,
+                "deltaqfm_sheets_updated": 9,
+                "deltaqfm_error": null,
+                "deltaqfm_buffer": "NNO",
+                "deltaqfm_offset": 0.0,
+                "deltaqfm_skipped_reason": null,
+                "deltaqfm_sheet_details": [
+                  {
+                    "sheet": "system",
+                    "rows_updated": 857
+                  },
+                  {
+                    "sheet": "liquid",
+                    "rows_updated": 857
+                  },
+                  {
+                    "sheet": "water",
+                    "rows_updated": 857
+                  },
+                  {
+                    "sheet": "quartz",
+                    "rows_updated": 346
+                  },
+                  {
+                    "sheet": "feldspar",
+                    "rows_updated": 729
+                  },
+                  {
+                    "sheet": "feldspar_1",
+                    "rows_updated": 74
+                  },
+                  {
+                    "sheet": "spinel",
+                    "rows_updated": 84
+                  },
+                  {
+                    "sheet": "ilmenite ss",
+                    "rows_updated": 32
+                  },
+                  {
+                    "sheet": "orthopyroxene",
+                    "rows_updated": 46
+                  }
+                ],
+                "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx"
+              }
+            ],
+            "errors": []
+          },
+          "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113"
+        }
+      },
+      "manifest_row": {
+        "dataset_name": "kcp109c_dualtrack_liam_clone_guarded_main",
+        "sample_label": "KCP109C",
+        "status": "success",
+        "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx",
+        "helper_filename": "parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx",
+        "num_pressure_steps": 15,
+        "num_data_points": 857,
+        "P_QF": 352.82258064520084,
+        "P_Q2F": NaN,
+        "melts_calc_time_s": 2168.60374379158,
+        "pressure_calc_time_s": 0.941918134689331,
+        "workbook_build_time_s": 0.0,
+        "runtime_log_version": "rmp_runtime_v1",
+        "pressure_residual_threshold_C": 10.0,
+        "P_2phase_qtz_fsp_MPa": 352.8225806452008,
+        "Rmin_2phase_qtz_fsp_C": 2.743202765033232,
+        "fit_a_2phase": 0.0035428571428715,
+        "fit_b_2phase": -2.500000000010413,
+        "fit_c_2phase": 443.7714285733714,
+        "P_3phase_qtz_fsp_fsp1_MPa": NaN,
+        "Rmin_3phase_qtz_fsp_fsp1_C": NaN,
+        "fit_a_3phase": NaN,
+        "fit_b_3phase": NaN,
+        "fit_c_3phase": NaN,
+        "pressure_calc_method": "helper_pressure_analysis_sheet",
+        "pressure_calc_error": NaN,
+        "phase_sheet_quartz_present": true,
+        "phase_sheet_feldspar_present": true,
+        "phase_sheet_feldspar_1_present": true,
+        "total_time_s": 565.4205749034882,
+        "calc_time_s": 2168.60374379158,
+        "error": NaN,
+        "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113",
+        "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113/melts_input.csv"
+      },
+      "phase_counts": {
+        "system": 857,
+        "quartz": 346,
+        "feldspar": 729,
+        "feldspar_1": 74,
+        "liquid": 857
+      },
+      "workbook_pressure_analysis": {
+        "helper_sheet": {
+          "pressure_calc_method": "helper_pressure_analysis_sheet",
+          "pressure_calc_error": null,
+          "P_2phase_qtz_fsp_MPa": 352.8225806452008,
+          "Rmin_2phase_qtz_fsp_C": 2.743202765033232,
+          "fit_a_2phase": 0.003542857142871503,
+          "fit_b_2phase": -2.500000000010413,
+          "fit_c_2phase": 443.7714285733714,
+          "P_3phase_qtz_fsp_fsp1_MPa": null,
+          "Rmin_3phase_qtz_fsp_fsp1_C": null,
+          "fit_a_3phase": null,
+          "fit_b_3phase": null,
+          "fit_c_3phase": null,
+          "phase_sheet_quartz_present": null,
+          "phase_sheet_feldspar_present": null,
+          "phase_sheet_feldspar_1_present": null
+        },
+        "fallback": {
+          "pressure_calc_method": "pipeline_fallback",
+          "pressure_calc_error": null,
+          "P_2phase_qtz_fsp_MPa": 352.82258064516157,
+          "Rmin_2phase_qtz_fsp_C": 2.743202764976786,
+          "fit_a_2phase": 0.003542857142857106,
+          "fit_b_2phase": -2.499999999999976,
+          "fit_c_2phase": 443.7714285714245,
+          "P_3phase_qtz_fsp_fsp1_MPa": null,
+          "Rmin_3phase_qtz_fsp_fsp1_C": 21.991024844720414,
+          "fit_a_3phase": 0.002628571428571398,
+          "fit_b_3phase": -1.87599999999998,
+          "fit_c_3phase": 356.71428571428237,
+          "phase_sheet_quartz_present": true,
+          "phase_sheet_feldspar_present": true,
+          "phase_sheet_feldspar_1_present": true
+        }
+      }
+    }
+  ],
+  "summary_rows": [
+    {
+      "track_name": "liam_clone_guarded_main",
+      "helper_implementation": "liam_clone_guarded_main",
+      "status": "success",
+      "num_pressure_steps": 15,
+      "num_data_points": 857,
+      "P_2phase_qtz_fsp_MPa": 352.8225806452008,
+      "P_3phase_qtz_fsp_fsp1_MPa": NaN,
+      "delta_P2_vs_liam_MPa": 103.47072879336667,
+      "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113/run_manifest.csv",
+      "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/track_liam_clone_guarded_main/runs/kcp109c_dualtrack_liam_clone_guarded_main/runs/20260226_125113"
+    }
+  ],
+  "summary_csv": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_125105/dualtrack_parity_summary.csv"
+}

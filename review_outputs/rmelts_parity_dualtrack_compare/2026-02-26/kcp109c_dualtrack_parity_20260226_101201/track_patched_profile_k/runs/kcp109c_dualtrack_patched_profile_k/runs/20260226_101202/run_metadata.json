@@ -1,0 +1,237 @@
+{
+  "summary": {
+    "dataset_name": "kcp109c_dualtrack_patched_profile_k",
+    "num_samples": 1,
+    "num_success": 1,
+    "num_error": 0,
+    "elapsed_wall_time_s": 68.6216688156128,
+    "pressure_residual_threshold_C": 10.0,
+    "backend_requested": "import",
+    "backend_used": "import",
+    "backend_error": null,
+    "helper_implementation_requested": "patched_profile_k",
+    "helper_implementation_resolved": "patched_profile_k",
+    "helper_patch_profile": "profile_k_liquidus_fresh_branch_bounded_main",
+    "process_cleanup": {
+      "cleanup_attempted": true,
+      "cleanup_parent_pid": 98460,
+      "cleanup_psutil_available": true,
+      "cleanup_descendants_before_count": 0,
+      "cleanup_descendants_after_count": 1,
+      "cleanup_descendants_found": 1,
+      "cleanup_target_pids": [
+        98507
+      ],
+      "cleanup_terminated_count": 0,
+      "cleanup_killed_count": 1,
+      "cleanup_remaining_count": 0,
+      "cleanup_duration_s": 2.0069849491119385,
+      "cleanup_warnings": []
+    },
+    "deltaqfm_enrichment": {
+      "workbooks_seen": 1,
+      "workbooks_updated": 1,
+      "rows_updated": 3803,
+      "workbook_summaries": [
+        {
+          "deltaqfm_enriched": true,
+          "deltaqfm_rows_updated": 3803,
+          "deltaqfm_sheets_updated": 9,
+          "deltaqfm_error": null,
+          "deltaqfm_buffer": "NNO",
+          "deltaqfm_offset": 0.0,
+          "deltaqfm_skipped_reason": null,
+          "deltaqfm_sheet_details": [
+            {
+              "sheet": "system",
+              "rows_updated": 781
+            },
+            {
+              "sheet": "liquid",
+              "rows_updated": 781
+            },
+            {
+              "sheet": "water",
+              "rows_updated": 781
+            },
+            {
+              "sheet": "quartz",
+              "rows_updated": 372
+            },
+            {
+              "sheet": "feldspar",
+              "rows_updated": 755
+            },
+            {
+              "sheet": "feldspar_1",
+              "rows_updated": 100
+            },
+            {
+              "sheet": "spinel",
+              "rows_updated": 110
+            },
+            {
+              "sheet": "ilmenite ss",
+              "rows_updated": 51
+            },
+            {
+              "sheet": "orthopyroxene",
+              "rows_updated": 72
+            }
+          ],
+          "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx"
+        }
+      ],
+      "errors": []
+    },
+    "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202"
+  },
+  "run_params": {
+    "T1": 1100.0,
+    "T2": 700.0,
+    "dT": 1.0,
+    "P1": 400.0,
+    "P2": 50.0,
+    "dP": 25.0,
+    "fO2_constraint": "TRUE",
+    "fO2_buffer": "NNO",
+    "fO2_offset": 0.0,
+    "model": "rhyolite-MELTS_v1.0.x",
+    "calculation": "QF_P_Calc",
+    "T_unit": "C",
+    "P_unit": "MPa"
+  },
+  "paths": {
+    "prepared_mc_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/prep/kcp109c_liam_exact_prep/prepared/prepared_mc.csv",
+    "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/melts_input.csv",
+    "manifest_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/run_manifest.csv",
+    "helper_dir": "/Users/lopezama/Downloads",
+    "helper_implementation_source_path": null
+  },
+  "results": [
+    {
+      "label": "KCP109C",
+      "filename": "parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx",
+      "num_pressure_steps": 15,
+      "num_data_points": 781,
+      "P_QF": 352.82258064520084,
+      "P_Q2F": null,
+      "total_time": 60.82073497772217,
+      "calc_time": 381.7538118362427,
+      "runtime_log_version": "rmp_runtime_v1",
+      "melts_calc_time": 381.7538118362427,
+      "pressure_calc_time": 0.8845677375793457,
+      "workbook_build_time": 0.0
+    }
+  ],
+  "manifest_preview": [
+    {
+      "dataset_name": "kcp109c_dualtrack_patched_profile_k",
+      "sample_label": "KCP109C",
+      "status": "success",
+      "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx",
+      "helper_filename": "parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx",
+      "num_pressure_steps": 15,
+      "num_data_points": 781,
+      "P_QF": 352.82258064520084,
+      "P_Q2F": null,
+      "melts_calc_time_s": 381.7538118362427,
+      "pressure_calc_time_s": 0.8845677375793457,
+      "workbook_build_time_s": 0.0,
+      "runtime_log_version": "rmp_runtime_v1",
+      "pressure_residual_threshold_C": 10.0,
+      "P_2phase_qtz_fsp_MPa": 352.8225806452008,
+      "Rmin_2phase_qtz_fsp_C": 2.743202765033232,
+      "fit_a_2phase": 0.003542857142871503,
+      "fit_b_2phase": -2.500000000010413,
+      "fit_c_2phase": 443.7714285733714,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null,
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": null,
+      "phase_sheet_quartz_present": true,
+      "phase_sheet_feldspar_present": true,
+      "phase_sheet_feldspar_1_present": true,
+      "total_time_s": 60.82073497772217,
+      "calc_time_s": 381.7538118362427,
+      "error": "",
+      "run_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202",
+      "melts_input_csv_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/melts_input.csv"
+    }
+  ],
+  "cleanup": {
+    "cleanup_attempted": true,
+    "cleanup_parent_pid": 98460,
+    "cleanup_psutil_available": true,
+    "cleanup_descendants_before_count": 0,
+    "cleanup_descendants_after_count": 1,
+    "cleanup_descendants_found": 1,
+    "cleanup_target_pids": [
+      98507
+    ],
+    "cleanup_terminated_count": 0,
+    "cleanup_killed_count": 1,
+    "cleanup_remaining_count": 0,
+    "cleanup_duration_s": 2.0069849491119385,
+    "cleanup_warnings": []
+  },
+  "deltaqfm_enrichment": {
+    "workbooks_seen": 1,
+    "workbooks_updated": 1,
+    "rows_updated": 3803,
+    "workbook_summaries": [
+      {
+        "deltaqfm_enriched": true,
+        "deltaqfm_rows_updated": 3803,
+        "deltaqfm_sheets_updated": 9,
+        "deltaqfm_error": null,
+        "deltaqfm_buffer": "NNO",
+        "deltaqfm_offset": 0.0,
+        "deltaqfm_skipped_reason": null,
+        "deltaqfm_sheet_details": [
+          {
+            "sheet": "system",
+            "rows_updated": 781
+          },
+          {
+            "sheet": "liquid",
+            "rows_updated": 781
+          },
+          {
+            "sheet": "water",
+            "rows_updated": 781
+          },
+          {
+            "sheet": "quartz",
+            "rows_updated": 372
+          },
+          {
+            "sheet": "feldspar",
+            "rows_updated": 755
+          },
+          {
+            "sheet": "feldspar_1",
+            "rows_updated": 100
+          },
+          {
+            "sheet": "spinel",
+            "rows_updated": 110
+          },
+          {
+            "sheet": "ilmenite ss",
+            "rows_updated": 51
+          },
+          {
+            "sheet": "orthopyroxene",
+            "rows_updated": 72
+          }
+        ],
+        "excel_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_dualtrack_compare/2026-02-26/kcp109c_dualtrack_parity_20260226_101201/track_patched_profile_k/runs/kcp109c_dualtrack_patched_profile_k/runs/20260226_101202/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-26_11cores.xlsx"
+      }
+    ],
+    "errors": []
+  }
+}

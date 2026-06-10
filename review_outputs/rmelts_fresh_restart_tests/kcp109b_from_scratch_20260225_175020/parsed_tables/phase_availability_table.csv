@@ -1,0 +1,6 @@
+sample_label,requested_phase,sheet_name,present,row_count,status
+KCP109B,system,system,True,0,ok
+KCP109B,quartz,,False,0,missing
+KCP109B,feldspar,,False,0,missing
+KCP109B,feldspar_1,,False,0,missing
+KCP109B,liquid,liquid,True,0,ok

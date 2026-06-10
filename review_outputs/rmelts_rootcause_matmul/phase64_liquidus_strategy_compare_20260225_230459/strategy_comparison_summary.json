@@ -1,0 +1,225 @@
+{
+  "status": "ok",
+  "comparison_tag": "20260225_230459",
+  "liam_workbook": "/Users/lopezama/Downloads/Parallel_MELTS_KCP-109C_dP25.0_02-25_8cores.xlsx",
+  "expected_probe_liquidus_c": {
+    "50.0": 949.0,
+    "75.0": 888.0,
+    "100.0": 888.0
+  },
+  "profiles": {
+    "profile_i_prototype_mainloop_bounded_reset": {
+      "probe_validation": {
+        "results": [
+          {
+            "pressure_mpa": 50.0,
+            "outcome": "success",
+            "liquidus_temp_c": 903.0,
+            "elapsed_s": 1.7679710388183594,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 75.0,
+            "outcome": "success",
+            "liquidus_temp_c": 888.0,
+            "elapsed_s": 0.3312399387359619,
+            "matches_expected": true,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 100.0,
+            "outcome": "success",
+            "liquidus_temp_c": 888.0,
+            "elapsed_s": 0.33214306831359863,
+            "matches_expected": true,
+            "exception_type": null,
+            "exception_message": null
+          }
+        ],
+        "all_match_expected": false,
+        "bulk_comp_reset_error_present": false,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_i_prototype_mainloop_bounded_reset/probes/helper_trace.log",
+        "patch_markers": {
+          "fresh_iteration_marker": false,
+          "fresh_branch_marker": false,
+          "canonical_bulk_marker": true,
+          "bounded_main_failure_marker": true
+        },
+        "helper_runlocal_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_i_prototype_mainloop_bounded_reset/probes/helper_runlocal/MeltsHelperFunctions.py",
+        "trace_counts": {
+          "LIQUIDUS_RESET_BEGIN": 0,
+          "LIQUIDUS_RESET_RESEED_OK": 0,
+          "LIQUIDUS_RETRY_WITH_CANONICAL_BULK": 0,
+          "LIQUIDUS_FRESH_ITERATION_RESET": 0,
+          "LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK": 0,
+          "matmul_22_25": 0
+        }
+      },
+      "p125_stress": {
+        "elapsed_s": 12.802670955657959,
+        "success": true,
+        "num_steps": 81,
+        "solidus_reached": true,
+        "total_calc_time": 11.836213111877441,
+        "error": null,
+        "bulk_comp_reset_error_present": false,
+        "mainloop_matmul_34_43_seen": false,
+        "timeout_in_execute_seen": true,
+        "runaway_temp_seen": false,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_i_prototype_mainloop_bounded_reset/p125_stress/probe_trace.log"
+      }
+    },
+    "profile_j_liquidus_fresh_iteration_bounded_main": {
+      "probe_validation": {
+        "results": [
+          {
+            "pressure_mpa": 50.0,
+            "outcome": "success",
+            "liquidus_temp_c": 1200.0,
+            "elapsed_s": 0.22603106498718262,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 75.0,
+            "outcome": "success",
+            "liquidus_temp_c": 1200.0,
+            "elapsed_s": 0.2618861198425293,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 100.0,
+            "outcome": "success",
+            "liquidus_temp_c": 1200.0,
+            "elapsed_s": 0.26882314682006836,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          }
+        ],
+        "all_match_expected": false,
+        "bulk_comp_reset_error_present": true,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_j_liquidus_fresh_iteration_bounded_main/probes/helper_trace.log",
+        "patch_markers": {
+          "fresh_iteration_marker": true,
+          "fresh_branch_marker": false,
+          "canonical_bulk_marker": true,
+          "bounded_main_failure_marker": true
+        },
+        "helper_runlocal_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_j_liquidus_fresh_iteration_bounded_main/probes/helper_runlocal/MeltsHelperFunctions.py",
+        "trace_counts": {
+          "LIQUIDUS_RESET_BEGIN": 0,
+          "LIQUIDUS_RESET_RESEED_OK": 0,
+          "LIQUIDUS_RETRY_WITH_CANONICAL_BULK": 0,
+          "LIQUIDUS_FRESH_ITERATION_RESET": 0,
+          "LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK": 0,
+          "matmul_22_25": 0
+        }
+      },
+      "p125_stress": {
+        "elapsed_s": 23.589833974838257,
+        "success": true,
+        "num_steps": 330,
+        "solidus_reached": true,
+        "total_calc_time": 22.469130516052246,
+        "error": null,
+        "bulk_comp_reset_error_present": true,
+        "mainloop_matmul_34_43_seen": false,
+        "timeout_in_execute_seen": true,
+        "runaway_temp_seen": false,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_j_liquidus_fresh_iteration_bounded_main/p125_stress/probe_trace.log"
+      }
+    },
+    "profile_k_liquidus_fresh_branch_bounded_main": {
+      "probe_validation": {
+        "results": [
+          {
+            "pressure_mpa": 50.0,
+            "outcome": "success",
+            "liquidus_temp_c": 903.0,
+            "elapsed_s": 1.939605951309204,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 75.0,
+            "outcome": "success",
+            "liquidus_temp_c": 875.0,
+            "elapsed_s": 1.0554330348968506,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          },
+          {
+            "pressure_mpa": 100.0,
+            "outcome": "success",
+            "liquidus_temp_c": 855.0,
+            "elapsed_s": 1.0995092391967773,
+            "matches_expected": false,
+            "exception_type": null,
+            "exception_message": null
+          }
+        ],
+        "all_match_expected": false,
+        "bulk_comp_reset_error_present": false,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_k_liquidus_fresh_branch_bounded_main/probes/helper_trace.log",
+        "patch_markers": {
+          "fresh_iteration_marker": false,
+          "fresh_branch_marker": true,
+          "canonical_bulk_marker": true,
+          "bounded_main_failure_marker": true
+        },
+        "helper_runlocal_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_k_liquidus_fresh_branch_bounded_main/probes/helper_runlocal/MeltsHelperFunctions.py",
+        "trace_counts": {
+          "LIQUIDUS_RESET_BEGIN": 0,
+          "LIQUIDUS_RESET_RESEED_OK": 0,
+          "LIQUIDUS_RETRY_WITH_CANONICAL_BULK": 0,
+          "LIQUIDUS_FRESH_ITERATION_RESET": 0,
+          "LIQUIDUS_FRESH_BRANCH_CANONICAL_BULK": 0,
+          "matmul_22_25": 0
+        }
+      },
+      "p125_stress": {
+        "elapsed_s": 12.659653902053833,
+        "success": true,
+        "num_steps": 67,
+        "solidus_reached": true,
+        "total_calc_time": 10.991639375686646,
+        "error": null,
+        "bulk_comp_reset_error_present": false,
+        "mainloop_matmul_34_43_seen": false,
+        "timeout_in_execute_seen": true,
+        "runaway_temp_seen": false,
+        "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64_liquidus_strategy_compare_20260225_230459/profile_k_liquidus_fresh_branch_bounded_main/p125_stress/probe_trace.log"
+      }
+    }
+  },
+  "ranking": [
+    {
+      "profile": "profile_i_prototype_mainloop_bounded_reset",
+      "score": 1,
+      "probe_ok": false,
+      "stress_ok": true
+    },
+    {
+      "profile": "profile_j_liquidus_fresh_iteration_bounded_main",
+      "score": 1,
+      "probe_ok": false,
+      "stress_ok": true
+    },
+    {
+      "profile": "profile_k_liquidus_fresh_branch_bounded_main",
+      "score": 1,
+      "probe_ok": false,
+      "stress_ok": true
+    }
+  ],
+  "recommended_next_profile": "profile_i_prototype_mainloop_bounded_reset"
+}

@@ -1,0 +1,8 @@
+{
+  "phase": "temporary_local_patch_attempt",
+  "primary_site": "equilibrate.py:2166",
+  "summary": {
+    "before_minimal_dep_count": 5799,
+    "after_minimal_dep_count": 5799
+  }
+}

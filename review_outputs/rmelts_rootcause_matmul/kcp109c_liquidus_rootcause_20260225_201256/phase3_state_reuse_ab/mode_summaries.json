@@ -1,0 +1,134 @@
+[
+  {
+    "pressure_mpa": 50.0,
+    "mode": "reuse_state",
+    "outcome": "success",
+    "liquidus_temp_c": 949.0,
+    "elapsed_s": 1.4102027416229248,
+    "iterations_completed": 1,
+    "exception_type": null,
+    "exception_message": "Probe equilibrium calculation returned None",
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 75.0,
+    "mode": "reuse_state",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.27082109451293945,
+    "iterations_completed": 2,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 100.0,
+    "mode": "reuse_state",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.31383299827575684,
+    "iterations_completed": 2,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 50.0,
+    "mode": "fresh_state_each_iteration",
+    "outcome": "success",
+    "liquidus_temp_c": 903.0,
+    "elapsed_s": 1.8238179683685303,
+    "iterations_completed": 4,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 75.0,
+    "mode": "fresh_state_each_iteration",
+    "outcome": "success",
+    "liquidus_temp_c": 875.0,
+    "elapsed_s": 0.91646409034729,
+    "iterations_completed": 7,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 100.0,
+    "mode": "fresh_state_each_iteration",
+    "outcome": "success",
+    "liquidus_temp_c": 855.0,
+    "elapsed_s": 0.9942748546600342,
+    "iterations_completed": 7,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 50.0,
+    "mode": "fresh_state_after_exception",
+    "outcome": "success",
+    "liquidus_temp_c": 949.0,
+    "elapsed_s": 1.4254388809204102,
+    "iterations_completed": 1,
+    "exception_type": null,
+    "exception_message": "Probe equilibrium calculation returned None",
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 75.0,
+    "mode": "fresh_state_after_exception",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.283400297164917,
+    "iterations_completed": 2,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 100.0,
+    "mode": "fresh_state_after_exception",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.31653594970703125,
+    "iterations_completed": 2,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 50.0,
+    "mode": "fresh_state_probe_only",
+    "outcome": "exception",
+    "liquidus_temp_c": 949.0,
+    "elapsed_s": 1.8488597869873047,
+    "iterations_completed": 6,
+    "exception_type": "RepeatedNoneStateError",
+    "exception_message": "main equilibrium returned None 5 times in a row at/near T=987C",
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 75.0,
+    "mode": "fresh_state_probe_only",
+    "outcome": "success",
+    "liquidus_temp_c": 888.0,
+    "elapsed_s": 0.496535062789917,
+    "iterations_completed": 2,
+    "exception_type": null,
+    "exception_message": null,
+    "traceback_text": null
+  },
+  {
+    "pressure_mpa": 100.0,
+    "mode": "fresh_state_probe_only",
+    "outcome": "exception",
+    "liquidus_temp_c": 949.0,
+    "elapsed_s": 0.5189950466156006,
+    "iterations_completed": 6,
+    "exception_type": "RepeatedNoneStateError",
+    "exception_message": "main equilibrium returned None 5 times in a row at/near T=987C",
+    "traceback_text": null
+  }
+]

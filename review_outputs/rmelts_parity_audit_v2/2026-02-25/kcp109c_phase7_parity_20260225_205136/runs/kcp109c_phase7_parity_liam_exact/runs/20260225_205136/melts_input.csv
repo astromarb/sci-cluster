@@ -1,0 +1,33 @@
+,KCP109C_LIAM_EXACT
+SiO2,75.82
+TiO2,0.082
+Al2O3,12.95
+Fe2O3,0.18
+Cr2O3,0.0
+FeO,0.49
+MnO,0.031
+MgO,0.09
+NiO,0.0
+CoO,0.0
+CaO,0.7
+Na2O,4.37
+K2O,4.01
+P2O5,0.009
+H2O,13.0
+CO2,
+SO3,
+Cl2O-1,
+F2O-1,
+Model,rhyolite-MELTS_v1.0.x
+Calculation,QF_P_Calc
+T1,1100.0
+T2,700.0
+ΔT,1.0
+T unit,C
+P1,400.0
+P2,50.0
+ΔP,25.0
+P unit,MPa
+fO2 constraint,TRUE
+fO2 buffer,NNO
+fO2 offset,0.0

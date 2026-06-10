@@ -1,0 +1,2 @@
+site,class,rationale
+equilibrate.py:2166,likely_future_compatibility_scalar_coercion,Patched explicit scalar extraction removed/should reduce deprecation warnings without changing probe values if validation passes

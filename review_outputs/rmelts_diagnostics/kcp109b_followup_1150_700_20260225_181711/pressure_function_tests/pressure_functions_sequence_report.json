@@ -1,0 +1,205 @@
+{
+  "workbook": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_followup_1150_700_20260225_181711/pipeline_run/kcp109b_1150_700_dp100_dt1/runs/20260225_181855/parallel-results/Parallel_MELTS_KCP109B_dP100.0_02-25_11cores.xlsx",
+  "sheet_rows": {
+    "init_cond": 15,
+    "system": 1250,
+    "liquid": 1250,
+    "water": 1250,
+    "quartz": 81,
+    "feldspar": 67,
+    "feldspar_1": 31,
+    "ilmenite ss": 16,
+    "spinel": 20,
+    "orthopyroxene": 12,
+    "Pressure Analysis": 5
+  },
+  "existing_pressure_sheet_parse": {
+    "pressure_calc_method": "helper_pressure_analysis_sheet",
+    "pressure_calc_error": null,
+    "phase_sheet_quartz_present": null,
+    "phase_sheet_feldspar_present": null,
+    "phase_sheet_feldspar_1_present": null,
+    "P_2phase_qtz_fsp_MPa": null,
+    "Rmin_2phase_qtz_fsp_C": null,
+    "fit_a_2phase": null,
+    "fit_b_2phase": null,
+    "fit_c_2phase": null,
+    "P_3phase_qtz_fsp_fsp1_MPa": null,
+    "Rmin_3phase_qtz_fsp_fsp1_C": null,
+    "fit_a_3phase": null,
+    "fit_b_3phase": null,
+    "fit_c_3phase": null
+  },
+  "pressure_rows_debug": [
+    {
+      "P_MPa": 400.0,
+      "T_qz": 758.0,
+      "T_fsp": 732.0,
+      "T_fsp1": 730.0,
+      "res2_C": 26.0,
+      "res3_C": 28.0
+    },
+    {
+      "P_MPa": 300.0,
+      "T_qz": 756.0,
+      "T_fsp": 753.0,
+      "T_fsp1": 743.0,
+      "res2_C": 3.0,
+      "res3_C": 13.0
+    },
+    {
+      "P_MPa": 200.0,
+      "T_qz": 767.0,
+      "T_fsp": 782.0,
+      "T_fsp1": 758.0,
+      "res2_C": 15.0,
+      "res3_C": 24.0
+    }
+  ],
+  "pipeline_fallback_threshold_5": {
+    "pressure_calc_method": "pipeline_fallback",
+    "pressure_calc_error": null,
+    "phase_sheet_quartz_present": true,
+    "phase_sheet_feldspar_present": true,
+    "phase_sheet_feldspar_1_present": true,
+    "P_2phase_qtz_fsp_MPa": 284.28571428571564,
+    "Rmin_2phase_qtz_fsp_C": 2.5678571428572354,
+    "fit_a_2phase": 0.0017499999999999933,
+    "fit_b_2phase": -0.995000000000001,
+    "fit_c_2phase": 144.0000000000009,
+    "P_3phase_qtz_fsp_fsp1_MPa": null,
+    "Rmin_3phase_qtz_fsp_fsp1_C": 12.923076923076977,
+    "fit_a_3phase": 0.001299999999999995,
+    "fit_b_3phase": -0.7600000000000007,
+    "fit_c_3phase": 124.00000000000068
+  },
+  "pipeline_upsert_reread_threshold_5": {
+    "pressure_calc_method": "helper_pressure_analysis_sheet",
+    "pressure_calc_error": null,
+    "phase_sheet_quartz_present": null,
+    "phase_sheet_feldspar_present": null,
+    "phase_sheet_feldspar_1_present": null,
+    "P_2phase_qtz_fsp_MPa": 284.2857142857156,
+    "Rmin_2phase_qtz_fsp_C": 2.567857142857235,
+    "fit_a_2phase": 0.001749999999999993,
+    "fit_b_2phase": -0.995000000000001,
+    "fit_c_2phase": 144.0000000000009,
+    "P_3phase_qtz_fsp_fsp1_MPa": null,
+    "Rmin_3phase_qtz_fsp_fsp1_C": 12.92307692307698,
+    "fit_a_3phase": 0.001299999999999995,
+    "fit_b_3phase": -0.7600000000000007,
+    "fit_c_3phase": 124.0000000000007
+  },
+  "pipeline_fallback_threshold_10": {
+    "pressure_calc_method": "pipeline_fallback",
+    "pressure_calc_error": null,
+    "phase_sheet_quartz_present": true,
+    "phase_sheet_feldspar_present": true,
+    "phase_sheet_feldspar_1_present": true,
+    "P_2phase_qtz_fsp_MPa": 284.28571428571564,
+    "Rmin_2phase_qtz_fsp_C": 2.5678571428572354,
+    "fit_a_2phase": 0.0017499999999999933,
+    "fit_b_2phase": -0.995000000000001,
+    "fit_c_2phase": 144.0000000000009,
+    "P_3phase_qtz_fsp_fsp1_MPa": null,
+    "Rmin_3phase_qtz_fsp_fsp1_C": 12.923076923076977,
+    "fit_a_3phase": 0.001299999999999995,
+    "fit_b_3phase": -0.7600000000000007,
+    "fit_c_3phase": 124.00000000000068
+  },
+  "pipeline_upsert_reread_threshold_10": {
+    "pressure_calc_method": "helper_pressure_analysis_sheet",
+    "pressure_calc_error": null,
+    "phase_sheet_quartz_present": null,
+    "phase_sheet_feldspar_present": null,
+    "phase_sheet_feldspar_1_present": null,
+    "P_2phase_qtz_fsp_MPa": 284.2857142857156,
+    "Rmin_2phase_qtz_fsp_C": 2.567857142857235,
+    "fit_a_2phase": 0.001749999999999993,
+    "fit_b_2phase": -0.995000000000001,
+    "fit_c_2phase": 144.0000000000009,
+    "P_3phase_qtz_fsp_fsp1_MPa": null,
+    "Rmin_3phase_qtz_fsp_fsp1_C": 12.92307692307698,
+    "fit_a_3phase": 0.001299999999999995,
+    "fit_b_3phase": -0.7600000000000007,
+    "fit_c_3phase": 124.0000000000007
+  },
+  "helper_pressure_calc_threshold_5": {
+    "P2_tuple": [
+      284.28571428571433,
+      2.56785714285715,
+      [
+        0.001750000000000002,
+        -0.9950000000000012,
+        144.00000000000017
+      ]
+    ],
+    "P3_tuple": [
+      null,
+      null,
+      [
+        NaN,
+        NaN,
+        NaN
+      ]
+    ],
+    "sheet_parse": {
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": null,
+      "phase_sheet_quartz_present": null,
+      "phase_sheet_feldspar_present": null,
+      "phase_sheet_feldspar_1_present": null,
+      "P_2phase_qtz_fsp_MPa": 284.28571428571433,
+      "Rmin_2phase_qtz_fsp_C": 2.56785714285715,
+      "fit_a_2phase": 0.001750000000000002,
+      "fit_b_2phase": -0.9950000000000012,
+      "fit_c_2phase": 144.00000000000017,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null
+    },
+    "stdout": "Residual at minimum too high for 3-phase: 13.00 \u00b0C\n",
+    "stderr": "/Users/lopezama/Downloads/MeltsHelperFunctions.py:198: OptimizeWarning: Covariance of the parameters could not be estimated\n  popt, _ = curve_fit(parabola, P_fit, R_fit)\n"
+  },
+  "helper_pressure_calc_threshold_10": {
+    "P2_tuple": [
+      284.28571428571433,
+      2.56785714285715,
+      [
+        0.001750000000000002,
+        -0.9950000000000012,
+        144.00000000000017
+      ]
+    ],
+    "P3_tuple": [
+      null,
+      null,
+      [
+        NaN,
+        NaN,
+        NaN
+      ]
+    ],
+    "sheet_parse": {
+      "pressure_calc_method": "helper_pressure_analysis_sheet",
+      "pressure_calc_error": null,
+      "phase_sheet_quartz_present": null,
+      "phase_sheet_feldspar_present": null,
+      "phase_sheet_feldspar_1_present": null,
+      "P_2phase_qtz_fsp_MPa": 284.28571428571433,
+      "Rmin_2phase_qtz_fsp_C": 2.56785714285715,
+      "fit_a_2phase": 0.001750000000000002,
+      "fit_b_2phase": -0.9950000000000012,
+      "fit_c_2phase": 144.00000000000017,
+      "P_3phase_qtz_fsp_fsp1_MPa": null,
+      "Rmin_3phase_qtz_fsp_fsp1_C": null,
+      "fit_a_3phase": null,
+      "fit_b_3phase": null,
+      "fit_c_3phase": null
+    },
+    "stdout": "Residual at minimum too high for 3-phase: 13.00 \u00b0C\n",
+    "stderr": "/Users/lopezama/Downloads/MeltsHelperFunctions.py:198: OptimizeWarning: Covariance of the parameters could not be estimated\n  popt, _ = curve_fit(parabola, P_fit, R_fit)\n"
+  }
+}

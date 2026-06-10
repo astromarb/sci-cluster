@@ -1,0 +1,5 @@
+[_rmelts_liquidus_bulk_comp = composition] present=True
+[LIQUIDUS_RESET_BEGIN] present=True
+[LIQUIDUS_RESET_RESEED_OK] present=True
+[LIQUIDUS_RETRY_WITH_CANONICAL_BULK] present=True
+[bulk_comp=_rmelts_retry_bulk_comp] present=True

@@ -1,0 +1,23 @@
+{
+  "python_version": "3.14.0 (v3.14.0:ebf955df7a8, Oct  7 2025, 08:20:14) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "python_executable": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/bin/python",
+  "packages": {
+    "thermoengine": "1.2.0",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "2.3.3",
+    "openpyxl": "3.1.5"
+  },
+  "files": {
+    "/Users/lopezama/Downloads/MeltsHelperFunctions.py": {
+      "sha256": "0c96f4b8e90b71bf7e519e2572bc72af5401056c79ca01391c127951799f23c0",
+      "bytes": 118909
+    },
+    "/Users/lopezama/PycharmProjects/sci-cluster/sci_helpers/rmelts_liam_clone_helper.py": {
+      "sha256": "0c96f4b8e90b71bf7e519e2572bc72af5401056c79ca01391c127951799f23c0",
+      "bytes": 118909
+    }
+  },
+  "thermoengine_module_file": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/__init__.py",
+  "thermoengine_equilibrate_file": "/Users/lopezama/PycharmProjects/sci-cluster/.venv/lib/python3.14/site-packages/thermoengine/equilibrate.py"
+}

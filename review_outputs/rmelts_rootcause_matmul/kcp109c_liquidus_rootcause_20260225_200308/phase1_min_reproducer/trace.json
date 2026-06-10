@@ -1,0 +1,35 @@
+[
+  {
+    "pressure_mpa": 50.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "exception",
+    "liquidus_temp_c": null,
+    "elapsed_s": 0.09236788749694824,
+    "exception_type": "TypeError",
+    "exception_message": "EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'",
+    "traceback_text": "Traceback (most recent call last):\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 191, in main\n    equil, blk_cmp = _build_blk_cmp_from_liam_composition(composition_dict, t1_c=1200.0, p_mpa=pressure, fo2_offset=fo2_offset)\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 115, in _build_blk_cmp_from_liam_composition\n    state.set_phase_comp(omni_phase, composition_dict, input_as_oxides=True)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'\n"
+  },
+  {
+    "pressure_mpa": 75.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "exception",
+    "liquidus_temp_c": null,
+    "elapsed_s": 0.0372161865234375,
+    "exception_type": "TypeError",
+    "exception_message": "EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'",
+    "traceback_text": "Traceback (most recent call last):\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 191, in main\n    equil, blk_cmp = _build_blk_cmp_from_liam_composition(composition_dict, t1_c=1200.0, p_mpa=pressure, fo2_offset=fo2_offset)\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 115, in _build_blk_cmp_from_liam_composition\n    state.set_phase_comp(omni_phase, composition_dict, input_as_oxides=True)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'\n"
+  },
+  {
+    "pressure_mpa": 100.0,
+    "temperature_range_c": "1200->700",
+    "mode": "liam_find_wet_liquidus_direct",
+    "outcome": "exception",
+    "liquidus_temp_c": null,
+    "elapsed_s": 0.03713726997375488,
+    "exception_type": "TypeError",
+    "exception_message": "EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'",
+    "traceback_text": "Traceback (most recent call last):\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 191, in main\n    equil, blk_cmp = _build_blk_cmp_from_liam_composition(composition_dict, t1_c=1200.0, p_mpa=pressure, fo2_offset=fo2_offset)\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lopezama/PycharmProjects/sci-cluster/examples/rmelts_kcp109c_liquidus_matmul_rootcause.py\", line 115, in _build_blk_cmp_from_liam_composition\n    state.set_phase_comp(omni_phase, composition_dict, input_as_oxides=True)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: EquilState.set_phase_comp() got an unexpected keyword argument 'input_as_oxides'\n"
+  }
+]

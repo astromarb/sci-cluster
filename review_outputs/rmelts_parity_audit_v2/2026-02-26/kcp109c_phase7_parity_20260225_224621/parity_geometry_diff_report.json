@@ -1,0 +1,96 @@
+{
+  "status": "ok",
+  "parity_run_folder": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621",
+  "liam_workbook_path": "/Users/lopezama/Downloads/Parallel_MELTS_KCP-109C_dP25.0_02-25_8cores.xlsx",
+  "generated_workbook_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_224621/parallel-results/Parallel_MELTS_KCP109C_dP25.0_02-25_11cores.xlsx",
+  "delta_P2_vs_liam_MPa": 103.47072879336667,
+  "helper_log_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_parity_audit_v2/2026-02-26/kcp109c_phase7_parity_20260225_224621/runs/kcp109c_phase7_parity_liam_exact/runs/20260225_224621/melts_calculations.log",
+  "helper_log_tag_counts": {
+    "LIQUIDUS_RESET_BEGIN": 1,
+    "LIQUIDUS_RESET_RESEED_OK": 1,
+    "LIQUIDUS_RESET_RESEED_FAIL": 0,
+    "LIQUIDUS_RETRY_WITH_CANONICAL_BULK": 1,
+    "LIQUIDUS_RETRY_WITH_CALL_BULK": 0,
+    "LIQUIDUS_RETRY_FAILED": 0,
+    "matmul_22_25": 1,
+    "matmul_34_43": 1,
+    "timeout_in_execute": 0
+  },
+  "residual_pressure_points_liam": [
+    400.0,
+    375.0,
+    350.0,
+    325.0,
+    300.0,
+    275.0,
+    250.0,
+    225.0,
+    200.0,
+    175.0,
+    150.0,
+    125.0,
+    100.0,
+    75.0,
+    50.0
+  ],
+  "residual_pressure_points_generated": [
+    400.0,
+    375.0,
+    350.0,
+    325.0,
+    300.0,
+    275.0,
+    250.0,
+    225.0,
+    200.0,
+    175.0,
+    150.0,
+    125.0,
+    100.0,
+    75.0,
+    50.0
+  ],
+  "geometry_delta_stats": {
+    "delta_R2_qz_fsp_C": {
+      "count": 15,
+      "min": -26.0,
+      "max": 24.0,
+      "mean": 9.066666666666666
+    },
+    "delta_R3_qz_fsp_fsp1_C": {
+      "count": 15,
+      "min": -8.0,
+      "max": 29.0,
+      "mean": 18.0
+    },
+    "delta_T_qz_C": {
+      "count": 15,
+      "min": 0.0,
+      "max": 12.0,
+      "mean": 7.0
+    },
+    "delta_T_fsp_C": {
+      "count": 15,
+      "min": 22.0,
+      "max": 33.0,
+      "mean": 29.533333333333335
+    },
+    "delta_T_fsp1_C": {
+      "count": 15,
+      "min": 3.0,
+      "max": 8.0,
+      "mean": 4.8
+    },
+    "delta_first_appearance_T_C": {
+      "count": 45,
+      "min": 0.0,
+      "max": 33.0,
+      "mean": 13.777777777777779
+    }
+  },
+  "notes": [
+    "Pressure mismatch persists after 6.4c; this report compares saturation geometry and residual arrays by pressure.",
+    "Generated run uses profile_i prototype bounded recovery with liquidus reset/reseed.",
+    "Helper log tag counts summarize recovery branch usage and error incidence."
+  ]
+}

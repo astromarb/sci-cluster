@@ -1,0 +1,15 @@
+{
+  "elapsed_s": 12.416075944900513,
+  "helper_patch_profile": "profile_i_prototype_mainloop_bounded_reset",
+  "success": true,
+  "pressure": 125.0,
+  "num_steps": 81,
+  "error": null,
+  "solidus_reached": true,
+  "total_calc_time": 11.47106385231018,
+  "helper_trace_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64c_p125_20260225_224452/probe/probe_trace.log",
+  "helper_patch_excerpt_path": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_rootcause_matmul/phase64c_p125_20260225_224452/probe/helper_patch_excerpt.txt",
+  "bulk_comp_reset_error_present": false,
+  "mainloop_matmul_34_43_seen": false,
+  "runaway_temp_seen": false
+}

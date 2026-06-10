@@ -1,0 +1,117 @@
+{
+  "run_root": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517",
+  "sample_label": "KCP109B",
+  "grid": {
+    "T1": 1000,
+    "T2": 900,
+    "dT": 1,
+    "P1": 400,
+    "P2": 200,
+    "dP": 100
+  },
+  "profiles_tested_direct": [
+    "profile_a_unpatched",
+    "profile_b_stable_import_only",
+    "profile_c_liquidus_guard_only",
+    "profile_d_safe_execute_only",
+    "profile_e_current_full_patch",
+    "profile_f_corrected_timeout_progression"
+  ],
+  "normal_functioning_profiles": [
+    "profile_e_current_full_patch",
+    "profile_f_corrected_timeout_progression"
+  ],
+  "zero_data_profiles": [
+    "profile_a_unpatched",
+    "profile_b_stable_import_only",
+    "profile_c_liquidus_guard_only",
+    "profile_d_safe_execute_only"
+  ],
+  "direct_worker_summary": [
+    {
+      "profile": "profile_a_unpatched",
+      "mode": "direct_worker",
+      "total_success_steps": 0,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 0,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": NaN,
+      "max_success_T_C": NaN,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_a_unpatched/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_a_unpatched/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 0.9452481269836426
+    },
+    {
+      "profile": "profile_b_stable_import_only",
+      "mode": "direct_worker",
+      "total_success_steps": 0,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 0,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": NaN,
+      "max_success_T_C": NaN,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_b_stable_import_only/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_b_stable_import_only/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 0.7313230037689209
+    },
+    {
+      "profile": "profile_c_liquidus_guard_only",
+      "mode": "direct_worker",
+      "total_success_steps": 0,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 0,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": NaN,
+      "max_success_T_C": NaN,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_c_liquidus_guard_only/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_c_liquidus_guard_only/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 0.8041467666625977
+    },
+    {
+      "profile": "profile_d_safe_execute_only",
+      "mode": "direct_worker",
+      "total_success_steps": 0,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 0,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": NaN,
+      "max_success_T_C": NaN,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_d_safe_execute_only/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_d_safe_execute_only/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 0.7660517692565918
+    },
+    {
+      "profile": "profile_e_current_full_patch",
+      "mode": "direct_worker",
+      "total_success_steps": 303,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 3,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": 900.0,
+      "max_success_T_C": 1000.0,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_e_current_full_patch/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_e_current_full_patch/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 12.971312999725342
+    },
+    {
+      "profile": "profile_f_corrected_timeout_progression",
+      "mode": "direct_worker",
+      "total_success_steps": 303,
+      "total_error_lines": 0,
+      "num_pressure_paths": 3,
+      "pressure_paths_with_data": 3,
+      "temperature_sequence_success_monotonic_desc": true,
+      "min_success_T_C": 900.0,
+      "max_success_T_C": 1000.0,
+      "profile_dir": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_f_corrected_timeout_progression/direct_worker",
+      "stdout_log": "/Users/lopezama/PycharmProjects/sci-cluster/review_outputs/rmelts_diagnostics/kcp109b_tinygrid_patch_ab_20260225_180517/profile_f_corrected_timeout_progression/direct_worker/stdout_stderr_capture.log",
+      "elapsed_s": 14.312420845031738
+    }
+  ],
+  "first_flip_profile": null
+}

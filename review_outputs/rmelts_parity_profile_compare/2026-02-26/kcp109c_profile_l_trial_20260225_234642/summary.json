@@ -1,0 +1,9 @@
+{
+  "profile": "profile_l_main_timeout_wrapper_reraise_non_timeout",
+  "stress_p125": {
+    "status": "no_result",
+    "elapsed_s": 0.0877389907836914,
+    "exitcode": 0
+  },
+  "parity_skipped_reason": "stress_timeout_or_no_result"
+}

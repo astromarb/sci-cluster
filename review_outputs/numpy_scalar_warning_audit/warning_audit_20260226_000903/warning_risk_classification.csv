@@ -1,0 +1,2 @@
+site,class,rationale
+equilibrate.py:2166|3669|3717,compatibility_scalar_coercion,Temporary patch test evaluates deprecation suppression and numerical invariance

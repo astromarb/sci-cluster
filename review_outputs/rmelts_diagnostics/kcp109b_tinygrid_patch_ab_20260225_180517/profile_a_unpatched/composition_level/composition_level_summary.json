@@ -1,0 +1,14 @@
+{
+  "profile": "profile_a_unpatched",
+  "mode": "composition_level",
+  "wall_s": 7.458893060684204,
+  "helper_result": {
+    "label": "KCP109B",
+    "error": "Worksheet named 'quartz' not found"
+  },
+  "workbook_path": null,
+  "sheet_row_counts": {},
+  "num_data_points": null,
+  "num_pressure_steps": null,
+  "elapsed_s": 7.459985017776489
+}
